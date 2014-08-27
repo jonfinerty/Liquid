@@ -1,0 +1,140 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textview_enter_money_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="32dp"
+        android:textSize="24dp"
+        android:text="Enter Expense Amount"/>
+
+    <TextView
+        android:id="@+id/textview_expense_total"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="48dp"
+        android:text="£0.00"
+        android:layout_marginTop="18dp"/>
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:columnCount="3"
+        android:orientation="horizontal"
+        android:layout_marginLeft="75dp"
+        android:layout_marginRight="75dp"
+        android:stretchColumns="0,1,2">
+
+        <TableRow>
+            <Button
+                android:id="@+id/button_input_9"
+                android:tag="9"
+                android:layout_height="64dp"
+                android:text="9"
+                android:layout_margin="2dp"/>
+
+            <Button
+                android:id="@+id/button_input_8"
+                android:tag="8"
+                android:layout_height="64dp"
+                android:text="8"
+                android:layout_margin="2dp"/>
+
+            <Button
+                android:id="@+id/button_input_7"
+                android:tag="7"
+                android:layout_height="64dp"
+                android:text="7"
+                android:layout_margin="2dp"/>
+        </TableRow>
+
+        <TableRow>
+            <Button
+                android:id="@+id/button_input_6"
+                android:tag="6"
+                android:layout_height="64dp"
+                android:text="6"
+                android:layout_margin="2dp"/>
+
+            <Button
+                android:id="@+id/button_input_5"
+                android:tag="5"
+                android:layout_height="64dp"
+                android:text="5"
+                android:layout_margin="2dp"/>
+
+            <Button
+                android:id="@+id/button_input_4"
+                android:tag="4"
+                android:layout_height="64dp"
+                android:text="4"
+                android:layout_margin="2dp"/>
+        </TableRow>
+
+        <TableRow>
+            <Button
+                android:id="@+id/button_input_3"
+                android:tag="3"
+                android:layout_height="64dp"
+                android:text="3"
+                android:layout_margin="2dp"/>
+
+            <Button
+                android:id="@+id/button_input_2"
+                android:tag="2"
+                android:layout_height="64dp"
+                android:text="2"
+                android:layout_margin="2dp"/>
+
+            <Button
+                android:id="@+id/button_input_1"
+                android:tag="1"
+                android:layout_height="64dp"
+                android:text="1"
+                android:layout_margin="2dp"/>
+        </TableRow>
+
+        <TableRow>
+            <Button
+                android:id="@+id/button_input_0"
+                android:tag="0"
+                android:layout_height="64dp"
+                android:text="0"
+                android:layout_margin="2dp"/>
+
+            <Button
+                android:id="@+id/button_input_00"
+                android:tag="00"
+                android:layout_height="64dp"
+                android:text="00"
+                android:layout_margin="2dp"/>
+
+            <Button
+                android:id="@+id/button_delete"
+                android:layout_height="64dp"
+                android:text="Del"
+                android:layout_margin="2dp"/>
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/button_enter_currency"
+        style="@style/Button.Primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="32dp"
+        android:text="Enter"
+        android:enabled="false" />
+
+</LinearLayout>
