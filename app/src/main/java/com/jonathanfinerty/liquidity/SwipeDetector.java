@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -13,6 +14,13 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 
 public class SwipeDetector implements View.OnTouchListener {
+
+    private enum Swipe_Direction {
+        HORIZONTAL,
+        VERTICAL,
+        NOT_SET
+    }
+
     // Cached ViewConfiguration and system-wide constant values
     private int scaledTouchSlop;
     private int minFlingVelocity;
@@ -24,7 +32,9 @@ public class SwipeDetector implements View.OnTouchListener {
     private DismissCallback dismissCallback;
 
     // Transient properties
+    private Swipe_Direction swipeDirection;
     private float startX;
+    private float startY;
     private boolean mSwiping;
     private VelocityTracker velocityTracker;
     private int swipedViewPosition;
@@ -74,7 +84,10 @@ public class SwipeDetector implements View.OnTouchListener {
                 swipedView = getListViewChildSwiped(motionEvent);
 
                 if (swipedView != null) {
+                    swipeDirection = Swipe_Direction.NOT_SET;
+
                     startX = motionEvent.getRawX();
+                    startY = motionEvent.getRawY();
                     swipedViewPosition = listView.getPositionForView(swipedView);
 
                     velocityTracker = VelocityTracker.obtain();
@@ -150,33 +163,37 @@ public class SwipeDetector implements View.OnTouchListener {
                 }
 
                 float deltaX = motionEvent.getRawX() - startX;
+                float deltaY = motionEvent.getRawY() - startY;
 
-                // only allow swipes to the left.
-                if (deltaX > 0 ){
+                if (swipeDirection == Swipe_Direction.NOT_SET) {
+                    if (Math.abs(deltaX) > scaledTouchSlop) {
+                        swipeDirection = Swipe_Direction.HORIZONTAL;
+
+                        listView.requestDisallowInterceptTouchEvent(true);
+
+                        // Cancel ListView's touch (un-highlighting the item)
+                        MotionEvent cancelEvent = MotionEvent.obtain(motionEvent);
+                        cancelEvent.setAction(MotionEvent.ACTION_CANCEL |
+                                (motionEvent.getActionIndex()
+                                        << MotionEvent.ACTION_POINTER_INDEX_SHIFT));
+                        listView.onTouchEvent(cancelEvent);
+                        cancelEvent.recycle();
+                    } else if (Math.abs(deltaY) > scaledTouchSlop) {
+                        swipeDirection = Swipe_Direction.VERTICAL;
+                    } else {
+                        break;
+                    }
+                }
+
+                if (swipeDirection == Swipe_Direction.VERTICAL) {
                     break;
                 }
 
                 velocityTracker.addMovement(motionEvent);
 
-                if ( Math.abs(deltaX) > scaledTouchSlop) {
-
-                    listView.requestDisallowInterceptTouchEvent(true);
-
-                    // Cancel ListView's touch (un-highlighting the item)
-                    MotionEvent cancelEvent = MotionEvent.obtain(motionEvent);
-                    cancelEvent.setAction(MotionEvent.ACTION_CANCEL |
-                            (motionEvent.getActionIndex()
-                                    << MotionEvent.ACTION_POINTER_INDEX_SHIFT));
-                    listView.onTouchEvent(cancelEvent);
-                    cancelEvent.recycle();
-                }
-
-                if (mSwiping) {
-                    swipedView.setTranslationX(deltaX );
-                    swipedView.setAlpha(Math.max(0f, Math.min(1f, 1f - 2f * Math.abs(deltaX) / listViewWidth)));
-                    return true;
-                }
-                break;
+                swipedView.setTranslationX(deltaX);
+                swipedView.setAlpha(Math.max(0f, Math.min(1f, 1f - 2f * Math.abs(deltaX) / listViewWidth)));
+                return true;
             }
         }
         return false;
