@@ -3,6 +3,7 @@ package com.jonathanfinerty.liquidity.ContentProvider;
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
@@ -16,6 +17,7 @@ public class ExpenseContentProvider extends ContentProvider {
     @Override
     public boolean onCreate() {
         expensesDatabaseHelper = new ExpensesDatabaseHelper(getContext());
+
         return true;
     }
 
@@ -84,7 +86,10 @@ public class ExpenseContentProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        return 0;
+        SQLiteDatabase db = expensesDatabaseHelper.getWritableDatabase();
+        return db.delete(LiquidityContract.Expense.TABLE_NAME,
+                LiquidityContract.Expense._ID + "=?",
+                new String[]{ uri.getLastPathSegment() });
     }
 
     @Override

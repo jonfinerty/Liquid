@@ -4,12 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ExpenseAdapter extends ArrayAdapter<Expense> {
+public class ExpenseAdapter extends ArrayAdapter<Expense> implements AdapterView.OnItemClickListener {
 
     public ExpenseAdapter(Context context, ArrayList<Expense> objects) {
         super(context, R.layout.listitem_expense, objects);
@@ -50,5 +51,12 @@ public class ExpenseAdapter extends ArrayAdapter<Expense> {
         expenseTimeTextView.setText(expense.getHumanReadableTime());
 
         return convertView;
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Expense expenseClicked = getItem(position);
+
     }
 }

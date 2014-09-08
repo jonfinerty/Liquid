@@ -166,7 +166,7 @@ public class SwipeDetector implements View.OnTouchListener {
                 float deltaY = motionEvent.getRawY() - startY;
 
                 if (swipeDirection == Swipe_Direction.NOT_SET) {
-                    if (Math.abs(deltaX) > scaledTouchSlop) {
+                    if (deltaX < -scaledTouchSlop) {
                         swipeDirection = Swipe_Direction.HORIZONTAL;
 
                         listView.requestDisallowInterceptTouchEvent(true);

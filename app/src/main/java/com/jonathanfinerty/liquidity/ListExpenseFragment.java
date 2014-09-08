@@ -1,5 +1,6 @@
 package com.jonathanfinerty.liquidity;
 
+import android.content.ContentUris;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -43,14 +45,18 @@ public class ListExpenseFragment extends Fragment {
                             public void onDismiss(ListView listView, int position) {
 
                                 Expense item = expenseAdapter.getItem(position);
+
                                 expenseAdapter.remove(item);
                                 expenseAdapter.notifyDataSetChanged();
 
+                                getActivity().getContentResolver().delete(item.getContentUri(), null, null);
                             }
                         });
 
         expenseList.setOnTouchListener(swipeDetector);
         expenseList.setOnScrollListener(swipeDetector.makeScrollListener());
+
+        expenseList.setOnItemClickListener(expenseAdapter);
 
         View loadMoreButtonView = inflater.inflate(R.layout.fragment_load_more_button, expenseList, false);
         Button button = (Button) loadMoreButtonView.findViewById(R.id.button_load_more);
@@ -64,9 +70,16 @@ public class ListExpenseFragment extends Fragment {
 
         expenseList.addFooterView(loadMoreButtonView);
 
-        LoadExpenses(currentPage);
+
 
         return listFragmentView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        currentPage = 0;
+        LoadExpenses(currentPage);
     }
 
     private void LoadExpenses(int page) {

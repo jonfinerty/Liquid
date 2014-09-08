@@ -1,6 +1,10 @@
 package com.jonathanfinerty.liquidity;
 
+import android.content.ContentUris;
+import android.net.Uri;
 import android.text.format.DateUtils;
+
+import com.jonathanfinerty.liquidity.ContentProvider.LiquidityContract;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -56,5 +60,9 @@ public class Expense {
     @Override
     public int hashCode() {
         return (int)(id ^ (id >>> 32));
+    }
+
+    public Uri getContentUri() {
+        return ContentUris.withAppendedId(LiquidityContract.Expense.CONTENT_URI, id);
     }
 }
