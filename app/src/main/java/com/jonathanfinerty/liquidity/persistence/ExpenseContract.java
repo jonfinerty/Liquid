@@ -1,6 +1,7 @@
 package com.jonathanfinerty.liquidity.persistence;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
@@ -16,7 +17,9 @@ public class ExpenseContract implements BaseColumns {
 
     public static final String SINGLE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.com.jonathanfinerty.liquidity.expense";
 
-
+    public static Uri getSingleUri(long expenseId) {
+        return ContentUris.withAppendedId(GROUP_URI, expenseId);
+    }
 
 
     /* Publicly known column names */

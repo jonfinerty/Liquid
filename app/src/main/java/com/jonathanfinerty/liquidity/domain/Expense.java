@@ -15,6 +15,10 @@ public class Expense {
         this.time = time;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public long getTime() {
         return time;
     }
