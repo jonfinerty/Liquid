@@ -4,9 +4,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
+import com.jonathanfinerty.liquidity.domain.Budget;
 import com.jonathanfinerty.liquidity.domain.Expense;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ExpenseRepository {
 
@@ -17,8 +19,6 @@ public class ExpenseRepository {
     }
 
     public ArrayList<Expense> getAll() {
-
-        ArrayList<Expense> expenses = new ArrayList<Expense>();
 
         Uri expensesUri = ExpenseContract.GROUP_URI;
 
@@ -33,6 +33,13 @@ public class ExpenseRepository {
             null,
             ExpenseContract.DEFAULT_SORT_ORDER
         );
+
+        return getExpensesFromCursor(expenseCursor);
+
+    }
+
+    private ArrayList<Expense> getExpensesFromCursor(Cursor expenseCursor) {
+        ArrayList<Expense> expenses = new ArrayList<Expense>();
 
         expenseCursor.moveToFirst();
 
@@ -56,5 +63,39 @@ public class ExpenseRepository {
         expenseCursor.close();
 
         return expenses;
+    }
+
+    public ArrayList<Expense> getForBudgetPeriod(Budget budget){
+
+        Calendar calendarToday = Calendar.getInstance();
+        int currentDay = calendarToday.get(Calendar.DAY_OF_MONTH);
+
+        Calendar budgetStartTime = Calendar.getInstance();
+
+        if (currentDay < budget.getDate()) {
+            // get last months budget day
+            budgetStartTime.add(Calendar.MONTH, -1);
+        }
+
+        budgetStartTime.set(Calendar.DAY_OF_MONTH, budget.getDate());
+        budgetStartTime.set(Calendar.HOUR_OF_DAY, 0);
+        budgetStartTime.set(Calendar.MINUTE, 0);
+        budgetStartTime.set(Calendar.SECOND, 0);
+        budgetStartTime.set(Calendar.MILLISECOND, 0);
+
+        Uri expensesUri = ExpenseContract.GROUP_URI;
+
+        Cursor expenseCursor = context.getContentResolver().query(
+                expensesUri,
+                new String[]{
+                        ExpenseContract._ID,
+                        ExpenseContract.COLUMN_NAME_VALUE,
+                        ExpenseContract.COLUMN_NAME_TIME
+                },
+                ExpenseContract.COLUMN_NAME_TIME + " > " + budgetStartTime.getTimeInMillis(),
+                null,
+                ExpenseContract.DEFAULT_SORT_ORDER);
+
+        return getExpensesFromCursor(expenseCursor);
     }
 }

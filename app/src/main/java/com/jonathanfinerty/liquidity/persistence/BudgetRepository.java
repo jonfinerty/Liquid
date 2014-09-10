@@ -2,6 +2,7 @@ package com.jonathanfinerty.liquidity.persistence;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.jonathanfinerty.liquidity.domain.Budget;
 

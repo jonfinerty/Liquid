@@ -2,9 +2,6 @@ package com.jonathanfinerty.liquidity.presentation.fragments;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,13 +14,15 @@ import android.view.animation.Transformation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jonathanfinerty.liquidity.persistence.BudgetRepository;
-import com.jonathanfinerty.liquidity.persistence.LiquidityContract;
 import com.jonathanfinerty.liquidity.R;
 import com.jonathanfinerty.liquidity.domain.Budget;
-import com.jonathanfinerty.liquidity.presentation.views.BudgetTankView;
+import com.jonathanfinerty.liquidity.domain.Expense;
+import com.jonathanfinerty.liquidity.persistence.BudgetRepository;
+import com.jonathanfinerty.liquidity.persistence.ExpenseRepository;
 import com.jonathanfinerty.liquidity.presentation.HeightAnimation;
+import com.jonathanfinerty.liquidity.presentation.views.BudgetTankView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class BudgetFragment extends Fragment {
@@ -32,6 +31,8 @@ public class BudgetFragment extends Fragment {
 
     private float datePercent = 0f;
     private float spentPercent = 0f;
+
+    private Budget budget;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,11 +50,11 @@ public class BudgetFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        BudgetRepository budgetRepository = new BudgetRepository(this.getActivity());
+        budget = budgetRepository.get();
+
         final float newDatePercent = getDatePercent();
         int spentAmount = getSpentAmount();
-
-        BudgetRepository budgetRepository = new BudgetRepository(this.getActivity());
-        Budget budget = budgetRepository.get();
 
         final float spentPercentWithoutLimit = (((float) spentAmount) / (float) budget.getAmount()) * 100f;
 
@@ -91,55 +92,22 @@ public class BudgetFragment extends Fragment {
 
     private int getSpentAmount() {
 
-        SharedPreferences settings = getActivity().getSharedPreferences(Budget.PREFERENCES, 0);
-        int budgetDay = settings.getInt(Budget.DATE_PREFERENCE, 1);
+        ExpenseRepository expenseRepository = new ExpenseRepository(this.getActivity());
 
-        Calendar calendarToday = Calendar.getInstance();
-        int currentDay = calendarToday.get(Calendar.DAY_OF_MONTH);
-
-        Calendar budgetStartTime = Calendar.getInstance();
-
-        if (currentDay < budgetDay) {
-            // get last months budget day
-            budgetStartTime.add(Calendar.MONTH, -1);
-        }
-
-        budgetStartTime.set(Calendar.DAY_OF_MONTH, budgetDay);
-        budgetStartTime.set(Calendar.HOUR_OF_DAY, 0);
-        budgetStartTime.set(Calendar.MINUTE, 0);
-        budgetStartTime.set(Calendar.SECOND, 0);
-        budgetStartTime.set(Calendar.MILLISECOND, 0);
-
-        Uri expensesUri = LiquidityContract.Expense.CONTENT_URI;
-
-        Cursor expenseCursor = getActivity().getContentResolver().query(
-                expensesUri,
-                new String[]{ LiquidityContract.Expense.COLUMN_NAME_VALUE, LiquidityContract.Expense.COLUMN_NAME_TIME},
-                LiquidityContract.Expense.COLUMN_NAME_TIME + " > " + budgetStartTime.getTimeInMillis(),
-                null,
-                LiquidityContract.Expense.SORT_ORDER_DEFAULT);
-
-        expenseCursor.moveToFirst();
-
-        int valueColumnIndex = expenseCursor.getColumnIndex(LiquidityContract.Expense.COLUMN_NAME_VALUE);
+        ArrayList<Expense> expenses = expenseRepository.getForBudgetPeriod(budget);
 
         int totalSpent = 0;
 
-        while (!expenseCursor.isAfterLast()) {
-
-            totalSpent += expenseCursor.getInt(valueColumnIndex);
-
-            expenseCursor.moveToNext();
+        for (Expense expense : expenses) {
+            totalSpent += expense.getValue();
         }
-
-        expenseCursor.close();
 
         return totalSpent;
     }
 
     private float getDatePercent() {
-        SharedPreferences settings = getActivity().getSharedPreferences(Budget.PREFERENCES, 0);
-        int budgetDay = settings.getInt(Budget.DATE_PREFERENCE, 1);
+
+        int budgetDay = budget.getDate();
 
         Calendar calendarToday = Calendar.getInstance();
         int currentDay = calendarToday.get(Calendar.DAY_OF_MONTH);

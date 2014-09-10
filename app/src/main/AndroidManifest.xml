@@ -37,10 +37,10 @@
 
         <provider
             android:name=".persistence.LiquidityContentProvider"
-            android:authorities="com.jonathanfinerty.liquidity.provider"
+            android:authorities="com.jonathanfinerty.liquidity.persistence.LiquidityContentProvider"
             android:exported="false"
             android:label="Liquidity Content Provider"
-            android:permission="com.jonathanfinerty.liquidity.provider.permission.READ_WRITE" />
+            android:permission="com.jonathanfinerty.liquidity.persistence.LiquidityContentProvider.permission.READ_WRITE" />
 
         <receiver android:name=".presentation.AddExpenseWidget" >
             <intent-filter>
@@ -56,6 +56,13 @@
             android:name=".operations.CreateExpenseOperation"
             android:exported="false" />
 
+        <service
+            android:name=".operations.DeleteExpenseOperation"
+            android:exported="false" />
+
+        <service
+            android:name=".operations.SetBudgetOperation"
+            android:exported="false" />
 
     </application>
 
