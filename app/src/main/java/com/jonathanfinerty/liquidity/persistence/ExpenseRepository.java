@@ -9,6 +9,7 @@ import com.jonathanfinerty.liquidity.domain.Expense;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class ExpenseRepository {
 
@@ -53,7 +54,10 @@ public class ExpenseRepository {
             int value = expenseCursor.getInt(valueColumnIndex);
             long time = expenseCursor.getLong(timeColumnIndex);
 
-            Expense expense = new Expense(id, value, time);
+            Calendar calendar = GregorianCalendar.getInstance();
+            calendar.setTimeInMillis(time);
+
+            Expense expense = new Expense(id, value, calendar);
 
             expenses.add(expense);
 

@@ -9,9 +9,13 @@ public class ExpenseContract implements BaseColumns {
 
     private ExpenseContract() {}
 
-    public static final Uri GROUP_URI = Uri.withAppendedPath(ContractBase.BASE_URI, "expenses");
+    static final String GROUP_PATH = "expenses";
 
-    public static final Uri SINGLE_URI = Uri.withAppendedPath(GROUP_URI, "#");
+    public static final Uri GROUP_URI = Uri.withAppendedPath(ContractBase.BASE_URI, GROUP_PATH);
+
+    static final String SINGLE_PATH = GROUP_PATH + "/#";
+
+    public static final Uri SINGLE_URI = Uri.withAppendedPath(ContractBase.BASE_URI, SINGLE_PATH);
 
     public static final String GROUP_TYPE  = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.com.jonathanfinerty.liquidity.expense";
 

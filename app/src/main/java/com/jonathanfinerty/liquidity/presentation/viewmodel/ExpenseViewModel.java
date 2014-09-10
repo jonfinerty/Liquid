@@ -12,8 +12,7 @@ public class ExpenseViewModel implements Comparable<ExpenseViewModel> {
 
     private int value;
 
-    // todo: this shouldn't be a long that again is a concern of the persistence layer
-    private long time;
+    private Calendar time;
 
     public ExpenseViewModel(Expense expense) {
         id = expense.getId();
@@ -27,13 +26,18 @@ public class ExpenseViewModel implements Comparable<ExpenseViewModel> {
     }
 
     public CharSequence getHumanReadableTime() {
-        return DateUtils.getRelativeTimeSpanString(time, Calendar.getInstance().getTimeInMillis(), DateUtils.SECOND_IN_MILLIS, 0);
+        return DateUtils.getRelativeTimeSpanString(
+                time.getTimeInMillis(),
+                Calendar.getInstance().getTimeInMillis(),
+                DateUtils.SECOND_IN_MILLIS,
+                0
+        );
     }
 
     @Override
     public int compareTo(ExpenseViewModel expenseViewModel) {
 
-        long difference = time - expenseViewModel.time;
+        long difference = time.getTimeInMillis() - expenseViewModel.time.getTimeInMillis();
 
         if (difference < 0) {
             return -1;

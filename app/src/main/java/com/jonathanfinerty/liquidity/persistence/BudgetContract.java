@@ -6,7 +6,9 @@ import android.provider.BaseColumns;
 
 public class BudgetContract implements BaseColumns {
 
-    public static final Uri URI = Uri.withAppendedPath(ContractBase.BASE_URI, "budget");
+    static final String PATH = "budget";
+
+    public static final Uri URI = Uri.withAppendedPath(ContractBase.BASE_URI, PATH);
 
     public static final String TYPE  = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.com.jonathanfinerty.liquidity.budget";
 
@@ -24,7 +26,6 @@ public class BudgetContract implements BaseColumns {
                 BudgetContract.COLUMN_NAME_AMOUNT + " REAL," +
                 BudgetContract.COLUMN_NAME_DATE + " LONG" +
             " )";
-
 
     /*public static String PREFERENCES = "budget preferences";
 
