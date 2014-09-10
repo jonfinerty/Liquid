@@ -29,7 +29,7 @@ public class LiquidityContentProvider extends ContentProvider {
     {
         uriMatcher.addURI(ContractBase.AUTHORITY, ExpenseContract.GROUP_PATH, EXPENSES);
         uriMatcher.addURI(ContractBase.AUTHORITY, ExpenseContract.SINGLE_PATH, EXPENSE);
-        uriMatcher.addURI(ContractBase.AUTHORITY, BudgetContract.PATH, EXPENSES);
+        uriMatcher.addURI(ContractBase.AUTHORITY, BudgetContract.PATH, BUDGET);
     }
 
     @Override

@@ -26,11 +26,4 @@ public class BudgetContract implements BaseColumns {
                 BudgetContract.COLUMN_NAME_AMOUNT + " REAL," +
                 BudgetContract.COLUMN_NAME_DATE + " LONG" +
             " )";
-
-    /*public static String PREFERENCES = "budget preferences";
-
-    public static String DATE_PREFERENCE = "budget date";
-
-    public static String AMOUNT_PREFERENCE = "budget amount";*/
-
 }
