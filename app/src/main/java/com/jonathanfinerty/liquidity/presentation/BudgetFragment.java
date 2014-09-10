@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity;
+package com.jonathanfinerty.liquidity.presentation;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -17,7 +17,8 @@ import android.view.animation.Transformation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jonathanfinerty.liquidity.ContentProvider.LiquidityContract;
+import com.jonathanfinerty.liquidity.persistence.LiquidityContract;
+import com.jonathanfinerty.liquidity.R;
 
 import java.util.Calendar;
 

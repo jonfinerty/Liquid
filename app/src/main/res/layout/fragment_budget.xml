@@ -18,7 +18,7 @@
         android:paddingRight="8dp"
         />
 
-    <com.jonathanfinerty.liquidity.BudgetTankView
+    <com.jonathanfinerty.liquidity.presentation.BudgetTankView
         android:id="@+id/budget_tank"
         android:layout_width="0dp"
         android:layout_height="fill_parent"

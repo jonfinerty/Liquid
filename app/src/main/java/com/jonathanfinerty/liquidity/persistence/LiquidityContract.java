@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity.ContentProvider;
+package com.jonathanfinerty.liquidity.persistence;
 
 import android.content.ContentResolver;
 import android.net.Uri;

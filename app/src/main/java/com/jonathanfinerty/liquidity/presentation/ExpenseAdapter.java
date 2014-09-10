@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity;
+package com.jonathanfinerty.liquidity.presentation;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.jonathanfinerty.liquidity.R;
 
 import java.util.ArrayList;
 

@@ -1,16 +1,12 @@
-package com.jonathanfinerty.liquidity;
+package com.jonathanfinerty.liquidity.presentation;
 
 import android.content.ContentUris;
 import android.net.Uri;
 import android.text.format.DateUtils;
 
-import com.jonathanfinerty.liquidity.ContentProvider.LiquidityContract;
+import com.jonathanfinerty.liquidity.persistence.LiquidityContract;
 
-import java.text.DateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 
 public class Expense {
 

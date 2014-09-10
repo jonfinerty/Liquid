@@ -1,9 +1,11 @@
-package com.jonathanfinerty.liquidity;
+package com.jonathanfinerty.liquidity.presentation;
 
 import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+
+import com.jonathanfinerty.liquidity.R;
 
 public class SetBudgetActivity extends FragmentActivity
                                implements EnterDateFragment.DateEnteredListener,
