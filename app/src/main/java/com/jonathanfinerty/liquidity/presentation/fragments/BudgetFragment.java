@@ -17,6 +17,7 @@ import android.view.animation.Transformation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jonathanfinerty.liquidity.persistence.BudgetRepository;
 import com.jonathanfinerty.liquidity.persistence.LiquidityContract;
 import com.jonathanfinerty.liquidity.R;
 import com.jonathanfinerty.liquidity.domain.Budget;
@@ -51,10 +52,10 @@ public class BudgetFragment extends Fragment {
         final float newDatePercent = getDatePercent();
         int spentAmount = getSpentAmount();
 
-        SharedPreferences settings = getActivity().getSharedPreferences(Budget.PREFERENCES, 0);
-        int budgetAmount = settings.getInt(Budget.AMOUNT_PREFERENCE, 1000);
+        BudgetRepository budgetRepository = new BudgetRepository(this.getActivity());
+        Budget budget = budgetRepository.get();
 
-        final float spentPercentWithoutLimit = (((float) spentAmount) / (float) budgetAmount) * 100f;
+        final float spentPercentWithoutLimit = (((float) spentAmount) / (float) budget.getAmount()) * 100f;
 
         final float newSpentPercent = Math.min(spentPercentWithoutLimit, 100f);
 
@@ -63,7 +64,7 @@ public class BudgetFragment extends Fragment {
         TextView leftTextView = (TextView) getView().findViewById(R.id.textview_left);
 
         String spentText = String.format("£%d Spent", Math.round(spentAmount / 100f));
-        String leftText = String.format("£%d Left", Math.round((budgetAmount - spentAmount) / 100f));
+        String leftText = String.format("£%d Left", Math.round((budget.getAmount() - spentAmount) / 100f));
 
         spentTextView.setText(spentText);
         leftTextView.setText(leftText);
