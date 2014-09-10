@@ -52,6 +52,11 @@
                 android:resource="@xml/add_expense_widget_info" />
         </receiver>
 
+        <service
+            android:name=".operations.CreateExpenseOperation"
+            android:exported="false" />
+
+
     </application>
 
 </manifest>

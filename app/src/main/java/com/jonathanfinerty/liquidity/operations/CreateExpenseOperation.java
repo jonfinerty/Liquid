@@ -1,30 +1,53 @@
 package com.jonathanfinerty.liquidity.operations;
 
 import android.content.ContentValues;
-import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 
 import com.jonathanfinerty.liquidity.persistence.ExpenseContract;
 
-public class CreateExpenseOperation implements Operation {
+public class CreateExpenseOperation extends BaseOperation {
 
-    private final int amount;
-    private final long time;
+    public static String VALUE_EXTRA = "value";
+    public static String TIME_EXTRA = "time";
 
-    public CreateExpenseOperation(int amount, long time) {
-        this.amount = amount;
-        this.time = time;
+    private int value;
+    private long time;
+
+    public CreateExpenseOperation() {
+        super("Create Expense Operation");
     }
 
     @Override
-    public void Execute(Context context) {
+    protected boolean ValidateIntentExtras(Intent intent) {
+        int defaultValue = -1;
+        value = intent.getIntExtra(VALUE_EXTRA, defaultValue);
 
+        if (value == defaultValue) {
+            Log.e("CreateExpenseOperation", "Value int extra: " + value + " not valid");
+            return false;
+        }
+
+        long defaultTime = -1;
+        time = intent.getLongExtra(TIME_EXTRA, defaultTime);
+
+        if (time == defaultTime) {
+            Log.e("CreateExpenseOperation", "Time long extra: " + value + " not valid");
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    protected void ExecuteOperation() {
         Uri expenseUri = ExpenseContract.GROUP_URI;
 
         ContentValues expenseValues = new ContentValues();
-        expenseValues.put(ExpenseContract.COLUMN_NAME_VALUE, amount);
+        expenseValues.put(ExpenseContract.COLUMN_NAME_VALUE, value);
         expenseValues.put(ExpenseContract.COLUMN_NAME_TIME, time);
 
-        context.getContentResolver().insert(expenseUri, expenseValues);
+        this.getContentResolver().insert(expenseUri, expenseValues);
     }
 }
