@@ -1,14 +1,13 @@
-package com.jonathanfinerty.liquidity;
+package com.jonathanfinerty.liquidity.presentation.activities;
 
 import android.app.FragmentTransaction;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 
-import com.jonathanfinerty.liquidity.ContentProvider.LiquidityContract;
+import com.jonathanfinerty.liquidity.R;
+import com.jonathanfinerty.liquidity.operations.CreateExpenseOperation;
+import com.jonathanfinerty.liquidity.presentation.fragments.EnterMoneyFragment;
 
 import java.util.Date;
 
@@ -37,12 +36,13 @@ public class AddExpenseActivity extends FragmentActivity
 
     @Override
     public void onCurrencyEntered(int amount) {
-        Uri expenseUri = LiquidityContract.Expense.CONTENT_URI;
-        ContentValues expenseValues = new ContentValues();
-        expenseValues.put(LiquidityContract.Expense.COLUMN_NAME_VALUE, amount);
-        expenseValues.put(LiquidityContract.Expense.COLUMN_NAME_TIME, new Date().getTime());
 
-        getContentResolver().insert(expenseUri, expenseValues);
+        Intent createExpense = new Intent(this, CreateExpenseOperation.class);
+
+        createExpense.putExtra(CreateExpenseOperation.VALUE_EXTRA, amount);
+        createExpense.putExtra(CreateExpenseOperation.TIME_EXTRA, new Date().getTime());
+
+        this.startService(createExpense);
 
         if (returnToHomeScreen) {
             Intent startHomeScreen = new Intent(Intent.ACTION_MAIN);

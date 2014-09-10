@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity;
+package com.jonathanfinerty.liquidity.presentation.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.NumberPicker;
+
+import com.jonathanfinerty.liquidity.R;
 
 public class EnterDateFragment extends Fragment {
 

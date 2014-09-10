@@ -1,12 +1,14 @@
-package com.jonathanfinerty.liquidity;
+package com.jonathanfinerty.liquidity.presentation;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.RemoteViews;
+
+import com.jonathanfinerty.liquidity.R;
+import com.jonathanfinerty.liquidity.presentation.activities.AddExpenseActivity;
 
 public class AddExpenseWidget extends AppWidgetProvider {
 
