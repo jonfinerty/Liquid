@@ -1,8 +1,11 @@
 package com.jonathanfinerty.liquidity.persistence;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.jonathanfinerty.liquidity.domain.Budget;
 
 public class LiquidityDatabaseHelper extends SQLiteOpenHelper {
 
@@ -15,8 +18,18 @@ public class LiquidityDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         db.execSQL(ExpenseContract.CREATE_SQL);
+        db.execSQL(BudgetContract.CREATE_SQL);
+
+        InsertDefaultData(db);
+    }
+
+    private void InsertDefaultData(SQLiteDatabase db) {
+        ContentValues defaultBudgetValues = new ContentValues();
+        defaultBudgetValues.put(BudgetContract.COLUMN_NAME_AMOUNT, 1000);
+        defaultBudgetValues.put(BudgetContract.COLUMN_NAME_DATE, 1);
+
+        db.insert(BudgetContract.TABLE_NAME, null, defaultBudgetValues);
     }
 
     @Override

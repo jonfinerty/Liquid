@@ -3,12 +3,14 @@ package com.jonathanfinerty.liquidity.persistence;
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import com.jonathanfinerty.liquidity.domain.Budget;
 import com.jonathanfinerty.liquidity.domain.Expense;
 
 public class LiquidityContentProvider extends ContentProvider {
@@ -45,7 +47,7 @@ public class LiquidityContentProvider extends ContentProvider {
 
         } else if (uri.equals(BudgetContract.URI)) {
 
-
+            builder.setTables(BudgetContract.TABLE_NAME);
 
         } else {
             throw new IllegalArgumentException("Unsupported URI: " + uri);
@@ -96,13 +98,27 @@ public class LiquidityContentProvider extends ContentProvider {
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         SQLiteDatabase db = expensesDatabaseHelper.getWritableDatabase();
 
-        return db.delete(ExpenseContract.TABLE_NAME,
-                ExpenseContract._ID + "=?",
-                new String[]{ uri.getLastPathSegment() });
+        return db.delete(
+            ExpenseContract.TABLE_NAME,
+            ExpenseContract._ID + "=?",
+            new String[]{
+                    uri.getLastPathSegment()
+            }
+        );
     }
 
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        return 0;
+
+        if (uri.equals(BudgetContract.URI)) {
+
+            SQLiteDatabase db = expensesDatabaseHelper.getWritableDatabase();
+
+            return db.update(BudgetContract.TABLE_NAME, values, null, null);
+
+        } else {
+            throw new IllegalArgumentException("Unsupported URI: " + uri);
+        }
+
     }
 }

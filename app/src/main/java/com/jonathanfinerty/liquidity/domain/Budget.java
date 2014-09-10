@@ -15,7 +15,7 @@ public class Budget {
         return amount;
     }
 
-    public int getStart_day_of_month() {
+    public int getDate() {
         return start_day_of_month;
     }
 }
