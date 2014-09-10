@@ -2,9 +2,20 @@ package com.jonathanfinerty.liquidity.domain;
 
 public class Budget {
 
-    public static String PREFERENCES = "budget preferences";
+    private int amount;
 
-    public static String DATE_PREFERENCE = "budget date";
+    private int start_day_of_month;
 
-    public static String AMOUNT_PREFERENCE = "budget amount";
+    public Budget(int amount, int start_day_of_month) {
+        this.amount = amount;
+        this.start_day_of_month = start_day_of_month;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public int getStart_day_of_month() {
+        return start_day_of_month;
+    }
 }

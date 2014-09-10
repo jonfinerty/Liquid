@@ -6,9 +6,11 @@ import com.jonathanfinerty.liquidity.domain.Expense;
 
 import java.util.Calendar;
 
-public class ExpenseViewModel {
+public class ExpenseViewModel implements Comparable<ExpenseViewModel> {
 
     private int value;
+
+    // todo: this shouldn't be a long that again is a concern of the persistence layer
     private long time;
 
     public ExpenseViewModel(Expense expense) {
@@ -23,5 +25,10 @@ public class ExpenseViewModel {
 
     public CharSequence getHumanReadableTime() {
         return DateUtils.getRelativeTimeSpanString(time, Calendar.getInstance().getTimeInMillis(), DateUtils.SECOND_IN_MILLIS, 0);
+    }
+
+    @Override
+    public int compareTo(ExpenseViewModel expenseViewModel) {
+        return Long.compare(time, expenseViewModel.time);
     }
 }

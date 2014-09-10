@@ -8,7 +8,7 @@ public class ExpenseContract implements BaseColumns {
 
     private ExpenseContract() {}
 
-    public static final Uri GROUP_URI = Uri.withAppendedPath(LiquidityContractBase.BASE_URI, "expenses");
+    public static final Uri GROUP_URI = Uri.withAppendedPath(ContractBase.BASE_URI, "expenses");
 
     public static final Uri SINGLE_URI = Uri.withAppendedPath(GROUP_URI, "#");
 

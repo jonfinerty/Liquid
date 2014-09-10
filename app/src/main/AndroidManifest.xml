@@ -36,7 +36,7 @@
         </activity>
 
         <provider
-            android:name=".persistence.ExpenseContentProvider"
+            android:name=".persistence.LiquidityContentProvider"
             android:authorities="com.jonathanfinerty.liquidity.provider"
             android:exported="false"
             android:label="Liquidity Content Provider"

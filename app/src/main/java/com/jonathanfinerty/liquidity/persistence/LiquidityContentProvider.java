@@ -9,17 +9,20 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 
-public class ExpenseContentProvider extends ContentProvider {
+import com.jonathanfinerty.liquidity.domain.Expense;
 
-    private ExpensesDatabaseHelper expensesDatabaseHelper;
+public class LiquidityContentProvider extends ContentProvider {
+
+    private LiquidityDatabaseHelper expensesDatabaseHelper;
 
     @Override
     public boolean onCreate() {
-        expensesDatabaseHelper = new ExpensesDatabaseHelper(getContext());
+        expensesDatabaseHelper = new LiquidityDatabaseHelper(getContext());
 
         return true;
     }
 
+    // todo: this needs to be better, ugly if else if
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 
@@ -39,6 +42,10 @@ public class ExpenseContentProvider extends ContentProvider {
             builder.setTables(ExpenseContract.TABLE_NAME);
 
             builder.appendWhere(ExpenseContract._ID + " = " + uri.getLastPathSegment());
+
+        } else if (uri.equals(BudgetContract.URI)) {
+
+
 
         } else {
             throw new IllegalArgumentException("Unsupported URI: " + uri);

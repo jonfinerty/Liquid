@@ -1,12 +1,10 @@
 package com.jonathanfinerty.liquidity.persistence;
 
-import android.content.ContentResolver;
 import android.net.Uri;
-import android.provider.BaseColumns;
 
-class LiquidityContractBase {
+class ContractBase {
 
-    private LiquidityContractBase(){}
+    private ContractBase(){}
 
     private static final String AUTHORITY = "com.jonathanfinerty.liquidity.persistence";
 

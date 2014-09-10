@@ -1,7 +1,5 @@
 package com.jonathanfinerty.liquidity.presentation.fragments;
 
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.jonathanfinerty.liquidity.persistence.ExpenseRepository;
 import com.jonathanfinerty.liquidity.persistence.LiquidityContract;
 import com.jonathanfinerty.liquidity.R;
 import com.jonathanfinerty.liquidity.domain.Expense;
@@ -84,35 +83,12 @@ public class ListExpenseFragment extends Fragment {
     }
 
     private void LoadExpenses(int page) {
-        Uri expensesUri = LiquidityContract.Expense.CONTENT_URI;
 
-        Cursor expenseCursor = getActivity().getContentResolver().query(
-                expensesUri,
-                new String[]{LiquidityContract.Expense._ID, LiquidityContract.Expense.COLUMN_NAME_VALUE, LiquidityContract.Expense.COLUMN_NAME_TIME},
-                null,
-                null,
-                LiquidityContract.Expense.SORT_ORDER_DEFAULT + " LIMIT " + PAGE_SIZE + " OFFSET " + (PAGE_SIZE*page));
+        ExpenseRepository expenseRepository = new ExpenseRepository(this.getActivity());
 
-        expenseCursor.moveToFirst();
+        ArrayList<Expense> expenses = expenseRepository.getAll();
 
-        int idColumnIndex = expenseCursor.getColumnIndex(LiquidityContract.Expense._ID);
-        int valueColumnIndex = expenseCursor.getColumnIndex(LiquidityContract.Expense.COLUMN_NAME_VALUE);
-        int timeColumnIndex = expenseCursor.getColumnIndex(LiquidityContract.Expense.COLUMN_NAME_TIME);
 
-        while (!expenseCursor.isAfterLast()) {
-
-            long id = expenseCursor.getLong(idColumnIndex);
-            int value = expenseCursor.getInt(valueColumnIndex);
-            long time = expenseCursor.getLong(timeColumnIndex);
-
-            Expense expense = new Expense(id, value, time);
-
-            expenseAdapter.add(expense);
-
-            expenseCursor.moveToNext();
-        }
-
-        expenseCursor.close();
 
         expenseAdapter.notifyDataSetChanged();
     }
