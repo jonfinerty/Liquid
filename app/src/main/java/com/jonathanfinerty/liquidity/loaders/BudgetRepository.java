@@ -1,10 +1,10 @@
-package com.jonathanfinerty.liquidity.persistence;
+package com.jonathanfinerty.liquidity.loaders;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 import com.jonathanfinerty.liquidity.domain.Budget;
+import com.jonathanfinerty.liquidity.persistence.BudgetContract;
 
 public class BudgetRepository {
     private Context context;

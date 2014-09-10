@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity.persistence;
+package com.jonathanfinerty.liquidity.loaders;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -6,6 +6,7 @@ import android.net.Uri;
 
 import com.jonathanfinerty.liquidity.domain.Budget;
 import com.jonathanfinerty.liquidity.domain.Expense;
+import com.jonathanfinerty.liquidity.persistence.ExpenseContract;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,7 +33,7 @@ public class ExpenseRepository {
             },
             null,
             null,
-            ExpenseContract.DEFAULT_SORT_ORDER
+            null
         );
 
         return getExpensesFromCursor(expenseCursor);
@@ -98,7 +99,7 @@ public class ExpenseRepository {
                 },
                 ExpenseContract.COLUMN_NAME_TIME + " > " + budgetStartTime.getTimeInMillis(),
                 null,
-                ExpenseContract.DEFAULT_SORT_ORDER);
+                null);
 
         return getExpensesFromCursor(expenseCursor);
     }

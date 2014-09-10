@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity.operations;
+package com.jonathanfinerty.liquidity.services;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.jonathanfinerty.liquidity.persistence.ExpenseContract;
 
-public class CreateExpenseOperation extends BaseOperation {
+public class CreateExpenseService extends BaseService {
 
     public static String VALUE_EXTRA = "value";
     public static String TIME_EXTRA = "time";
@@ -15,7 +15,7 @@ public class CreateExpenseOperation extends BaseOperation {
     private int value;
     private long time;
 
-    public CreateExpenseOperation() {
+    public CreateExpenseService() {
         super("Create Expense Operation");
     }
 

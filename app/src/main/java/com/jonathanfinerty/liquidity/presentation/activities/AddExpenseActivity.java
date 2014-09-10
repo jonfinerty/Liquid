@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import com.jonathanfinerty.liquidity.R;
-import com.jonathanfinerty.liquidity.operations.CreateExpenseOperation;
+import com.jonathanfinerty.liquidity.services.CreateExpenseService;
 import com.jonathanfinerty.liquidity.presentation.fragments.EnterMoneyFragment;
 
 import java.util.Date;
@@ -37,10 +37,10 @@ public class AddExpenseActivity extends FragmentActivity
     @Override
     public void onCurrencyEntered(int amount) {
 
-        Intent createExpense = new Intent(this, CreateExpenseOperation.class);
+        Intent createExpense = new Intent(this, CreateExpenseService.class);
 
-        createExpense.putExtra(CreateExpenseOperation.VALUE_EXTRA, amount);
-        createExpense.putExtra(CreateExpenseOperation.TIME_EXTRA, new Date().getTime());
+        createExpense.putExtra(CreateExpenseService.VALUE_EXTRA, amount);
+        createExpense.putExtra(CreateExpenseService.TIME_EXTRA, new Date().getTime());
 
         this.startService(createExpense);
 

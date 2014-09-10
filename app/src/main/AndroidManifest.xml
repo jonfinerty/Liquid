@@ -53,15 +53,15 @@
         </receiver>
 
         <service
-            android:name=".operations.CreateExpenseOperation"
+            android:name=".services.CreateExpenseService"
             android:exported="false" />
 
         <service
-            android:name=".operations.DeleteExpenseOperation"
+            android:name=".services.DeleteExpenseService"
             android:exported="false" />
 
         <service
-            android:name=".operations.SetBudgetOperation"
+            android:name=".services.SetBudgetService"
             android:exported="false" />
 
     </application>

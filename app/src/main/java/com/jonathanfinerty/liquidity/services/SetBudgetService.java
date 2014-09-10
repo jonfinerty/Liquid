@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity.operations;
+package com.jonathanfinerty.liquidity.services;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -7,14 +7,14 @@ import android.util.Log;
 
 import com.jonathanfinerty.liquidity.persistence.BudgetContract;
 
-public class SetBudgetOperation extends BaseOperation {
+public class SetBudgetService extends BaseService {
     public static final String BUDGET_AMOUNT_EXTRA = "budget amount";
     public static final String DATE_EXTRA = "budget date";
 
     private int budgetAmount;
     private int budgetDate;
 
-    public SetBudgetOperation() {
+    public SetBudgetService() {
         super("Set Budget Operation");
     }
 

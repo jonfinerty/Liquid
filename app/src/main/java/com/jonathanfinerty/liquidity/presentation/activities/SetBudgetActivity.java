@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentActivity;
 
 import com.jonathanfinerty.liquidity.R;
 import com.jonathanfinerty.liquidity.domain.Budget;
-import com.jonathanfinerty.liquidity.operations.SetBudgetOperation;
-import com.jonathanfinerty.liquidity.persistence.BudgetRepository;
+import com.jonathanfinerty.liquidity.services.SetBudgetService;
+import com.jonathanfinerty.liquidity.loaders.BudgetRepository;
 import com.jonathanfinerty.liquidity.presentation.fragments.EnterDateFragment;
 import com.jonathanfinerty.liquidity.presentation.fragments.EnterMoneyFragment;
 
@@ -39,8 +39,8 @@ public class SetBudgetActivity extends FragmentActivity
     @Override
     public void onDateEntered(int date) {
 
-        Intent setBudget = new Intent(this, SetBudgetOperation.class);
-        setBudget.putExtra(SetBudgetOperation.DATE_EXTRA, date);
+        Intent setBudget = new Intent(this, SetBudgetService.class);
+        setBudget.putExtra(SetBudgetService.DATE_EXTRA, date);
         this.startService(setBudget);
 
         BudgetRepository budgetRepository = new BudgetRepository(this);
@@ -62,8 +62,8 @@ public class SetBudgetActivity extends FragmentActivity
     @Override
     public void onCurrencyEntered(int amount) {
 
-        Intent setBudget = new Intent(this, SetBudgetOperation.class);
-        setBudget.putExtra(SetBudgetOperation.BUDGET_AMOUNT_EXTRA, amount);
+        Intent setBudget = new Intent(this, SetBudgetService.class);
+        setBudget.putExtra(SetBudgetService.BUDGET_AMOUNT_EXTRA, amount);
         this.startService(setBudget);
 
         finish();

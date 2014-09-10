@@ -10,8 +10,8 @@ import android.widget.ListView;
 
 import com.jonathanfinerty.liquidity.R;
 import com.jonathanfinerty.liquidity.domain.Expense; //todo: this should probably not be imported
-import com.jonathanfinerty.liquidity.operations.DeleteExpenseOperation;
-import com.jonathanfinerty.liquidity.persistence.ExpenseRepository;
+import com.jonathanfinerty.liquidity.services.DeleteExpenseService;
+import com.jonathanfinerty.liquidity.loaders.ExpenseRepository;
 import com.jonathanfinerty.liquidity.presentation.ExpenseAdapter;
 import com.jonathanfinerty.liquidity.presentation.SwipeDetector;
 import com.jonathanfinerty.liquidity.presentation.viewmodel.ExpenseViewModel;
@@ -51,8 +51,8 @@ public class ListExpenseFragment extends Fragment {
                                 expenseAdapter.remove(expenseViewModel);
                                 expenseAdapter.notifyDataSetChanged();
 
-                                Intent deleteExpense = new Intent(getActivity(), DeleteExpenseOperation.class);
-                                deleteExpense.putExtra(DeleteExpenseOperation.EXPENSE_ID_EXTRA, expenseViewModel.getId());
+                                Intent deleteExpense = new Intent(getActivity(), DeleteExpenseService.class);
+                                deleteExpense.putExtra(DeleteExpenseService.EXPENSE_ID_EXTRA, expenseViewModel.getId());
 
                                 getActivity().startService(deleteExpense);
                             }

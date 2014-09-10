@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity.operations;
+package com.jonathanfinerty.liquidity.services;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -6,13 +6,13 @@ import android.util.Log;
 
 import com.jonathanfinerty.liquidity.persistence.ExpenseContract;
 
-public class DeleteExpenseOperation extends BaseOperation {
+public class DeleteExpenseService extends BaseService {
 
     public final static String EXPENSE_ID_EXTRA = "expense id";
 
     private long expenseId;
 
-    public DeleteExpenseOperation() {
+    public DeleteExpenseService() {
         super("Delete Expense Operation");
     }
 

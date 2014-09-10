@@ -17,8 +17,8 @@ import android.widget.TextView;
 import com.jonathanfinerty.liquidity.R;
 import com.jonathanfinerty.liquidity.domain.Budget;
 import com.jonathanfinerty.liquidity.domain.Expense;
-import com.jonathanfinerty.liquidity.persistence.BudgetRepository;
-import com.jonathanfinerty.liquidity.persistence.ExpenseRepository;
+import com.jonathanfinerty.liquidity.loaders.BudgetRepository;
+import com.jonathanfinerty.liquidity.loaders.ExpenseRepository;
 import com.jonathanfinerty.liquidity.presentation.HeightAnimation;
 import com.jonathanfinerty.liquidity.presentation.views.BudgetTankView;
 

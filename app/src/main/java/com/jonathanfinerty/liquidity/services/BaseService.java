@@ -1,11 +1,11 @@
-package com.jonathanfinerty.liquidity.operations;
+package com.jonathanfinerty.liquidity.services;
 
 import android.app.IntentService;
 import android.content.Intent;
 
-public abstract class BaseOperation extends IntentService {
+abstract class BaseService extends IntentService {
 
-    public BaseOperation(String name) {
+    public BaseService(String name) {
         super(name);
     }
 
