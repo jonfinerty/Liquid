@@ -1,19 +1,12 @@
 package com.jonathanfinerty.liquidity.domain;
 
-import android.content.ContentUris;
-import android.net.Uri;
-import android.text.format.DateUtils;
-
-import com.jonathanfinerty.liquidity.persistence.LiquidityContract;
-
-import java.util.Calendar;
-
 public class Expense {
 
     private long id;
 
     private int value;
 
+    // ToDo: This should be a date time, the fact that it serialises into the db as a long is not a concern of the domain.
     private long time;
 
     public Expense(long id, int value, long time){
@@ -26,13 +19,8 @@ public class Expense {
         return time;
     }
 
-    public String getHumanReadableValue() {
-        float decimalisedTotal = ((float) value) / 100f;
-        return "£" + String.format("%.2f", decimalisedTotal);
-    }
-
-    public CharSequence getHumanReadableTime() {
-        return DateUtils.getRelativeTimeSpanString(time, Calendar.getInstance().getTimeInMillis(), DateUtils.SECOND_IN_MILLIS, 0 );
+    public int getValue() {
+        return value;
     }
 
     @Override
@@ -56,9 +44,5 @@ public class Expense {
     @Override
     public int hashCode() {
         return (int)(id ^ (id >>> 32));
-    }
-
-    public Uri getContentUri() {
-        return ContentUris.withAppendedId(LiquidityContract.Expense.CONTENT_URI, id);
     }
 }
