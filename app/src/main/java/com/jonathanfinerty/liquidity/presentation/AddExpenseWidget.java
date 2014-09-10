@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.jonathanfinerty.liquidity.R;
+import com.jonathanfinerty.liquidity.presentation.activities.AddExpenseActivity;
 
 public class AddExpenseWidget extends AppWidgetProvider {
 

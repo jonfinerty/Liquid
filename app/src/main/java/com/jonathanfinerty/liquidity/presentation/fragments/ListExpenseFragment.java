@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity.presentation;
+package com.jonathanfinerty.liquidity.presentation.fragments;
 
 import android.database.Cursor;
 import android.net.Uri;
@@ -12,6 +12,9 @@ import android.widget.ListView;
 
 import com.jonathanfinerty.liquidity.persistence.LiquidityContract;
 import com.jonathanfinerty.liquidity.R;
+import com.jonathanfinerty.liquidity.domain.Expense;
+import com.jonathanfinerty.liquidity.presentation.ExpenseAdapter;
+import com.jonathanfinerty.liquidity.presentation.SwipeDetector;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity.presentation;
+package com.jonathanfinerty.liquidity.presentation.activities;
 
 import android.app.FragmentTransaction;
 import android.content.ContentValues;
@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.jonathanfinerty.liquidity.persistence.LiquidityContract;
 import com.jonathanfinerty.liquidity.R;
+import com.jonathanfinerty.liquidity.presentation.fragments.EnterMoneyFragment;
 
 import java.util.Date;
 

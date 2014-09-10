@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity.presentation;
+package com.jonathanfinerty.liquidity.domain;
 
 import android.content.ContentUris;
 import android.net.Uri;

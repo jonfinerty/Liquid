@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity.presentation;
+package com.jonathanfinerty.liquidity.presentation.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.jonathanfinerty.liquidity.R;
+import com.jonathanfinerty.liquidity.presentation.fragments.BudgetFragment;
+import com.jonathanfinerty.liquidity.presentation.fragments.ListExpenseFragment;
 
 public class OverviewActivity extends FragmentActivity {
 

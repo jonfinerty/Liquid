@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity.presentation;
+package com.jonathanfinerty.liquidity.domain;
 
 public class Budget {
 

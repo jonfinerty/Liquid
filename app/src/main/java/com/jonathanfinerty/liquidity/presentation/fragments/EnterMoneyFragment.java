@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity.presentation;
+package com.jonathanfinerty.liquidity.presentation.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;

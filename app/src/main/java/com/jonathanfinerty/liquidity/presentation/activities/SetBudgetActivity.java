@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity.presentation;
+package com.jonathanfinerty.liquidity.presentation.activities;
 
 import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
@@ -6,10 +6,13 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import com.jonathanfinerty.liquidity.R;
+import com.jonathanfinerty.liquidity.domain.Budget;
+import com.jonathanfinerty.liquidity.presentation.fragments.EnterDateFragment;
+import com.jonathanfinerty.liquidity.presentation.fragments.EnterMoneyFragment;
 
 public class SetBudgetActivity extends FragmentActivity
                                implements EnterDateFragment.DateEnteredListener,
-                                          EnterMoneyFragment.CurrencyEnteredListener
+        EnterMoneyFragment.CurrencyEnteredListener
 
 {
     private final static int NOT_SET = -1;

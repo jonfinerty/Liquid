@@ -22,22 +22,23 @@ public class ExpenseContentProvider extends ContentProvider {
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+
         SQLiteDatabase db = expensesDatabaseHelper.getReadableDatabase();
         SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
 
-        if (uri.equals(LiquidityContract.Expense.CONTENT_URI)){
+        if (uri.equals(ExpenseContract.GROUP_URI)){
 
-            builder.setTables(LiquidityContract.Expense.TABLE_NAME);
+            builder.setTables(ExpenseContract.TABLE_NAME);
 
             if (TextUtils.isEmpty(sortOrder)) {
-                sortOrder = LiquidityContract.Expense.SORT_ORDER_DEFAULT;
+                sortOrder = ExpenseContract.DEFAULT_SORT_ORDER;
             }
 
-        } else if (uri.equals(LiquidityContract.Expense.CONTENT_ITEM_URI)) {
+        } else if (uri.equals(ExpenseContract.SINGLE_URI)) {
 
-            builder.setTables(LiquidityContract.Expense.TABLE_NAME);
+            builder.setTables(ExpenseContract.TABLE_NAME);
 
-            builder.appendWhere(LiquidityContract.Expense._ID + " = " + uri.getLastPathSegment());
+            builder.appendWhere(ExpenseContract._ID + " = " + uri.getLastPathSegment());
 
         } else {
             throw new IllegalArgumentException("Unsupported URI: " + uri);
@@ -52,13 +53,13 @@ public class ExpenseContentProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-        if (LiquidityContract.Expense.CONTENT_URI.equals(uri)) {
+        if (ExpenseContract.GROUP_URI.equals(uri)) {
 
-            return LiquidityContract.Expense.CONTENT_TYPE;
+            return ExpenseContract.GROUP_TYPE;
 
-        } else if (LiquidityContract.Expense.CONTENT_ITEM_URI.equals(uri)) {
+        } else if (ExpenseContract.SINGLE_URI.equals(uri)) {
 
-            return LiquidityContract.Expense.CONTENT_ITEM_TYPE;
+            return ExpenseContract.SINGLE_TYPE;
 
         }
 
@@ -67,12 +68,13 @@ public class ExpenseContentProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        if (uri.equals(LiquidityContract.Expense.CONTENT_URI) == false) {
+
+        if (uri.equals(ExpenseContract.GROUP_URI) == false) {
             throw new IllegalArgumentException("Unsupported URI for insertion: " + uri);
         }
 
         SQLiteDatabase db = expensesDatabaseHelper.getWritableDatabase();
-        long expenseId = db.insert(LiquidityContract.Expense.TABLE_NAME, null, values);
+        long expenseId = db.insert(ExpenseContract.TABLE_NAME, null, values);
 
         return getUriForId(uri, expenseId);
     }
@@ -86,8 +88,9 @@ public class ExpenseContentProvider extends ContentProvider {
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         SQLiteDatabase db = expensesDatabaseHelper.getWritableDatabase();
-        return db.delete(LiquidityContract.Expense.TABLE_NAME,
-                LiquidityContract.Expense._ID + "=?",
+
+        return db.delete(ExpenseContract.TABLE_NAME,
+                ExpenseContract._ID + "=?",
                 new String[]{ uri.getLastPathSegment() });
     }
 

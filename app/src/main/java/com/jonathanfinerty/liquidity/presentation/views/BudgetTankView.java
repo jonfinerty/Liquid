@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity.presentation;
+package com.jonathanfinerty.liquidity.presentation.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;

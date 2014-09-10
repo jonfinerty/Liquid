@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.jonathanfinerty.liquidity.R;
+import com.jonathanfinerty.liquidity.domain.Expense;
 
 import java.util.ArrayList;
 
