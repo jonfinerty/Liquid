@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity.loaders;
+package com.jonathanfinerty.liquidity.persistence;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -40,36 +40,6 @@ public class ExpenseRepository {
 
     }
 
-    private ArrayList<Expense> getExpensesFromCursor(Cursor expenseCursor) {
-        ArrayList<Expense> expenses = new ArrayList<Expense>();
-
-        expenseCursor.moveToFirst();
-
-        int idColumnIndex = expenseCursor.getColumnIndex(ExpenseContract._ID);
-        int valueColumnIndex = expenseCursor.getColumnIndex(ExpenseContract.COLUMN_NAME_VALUE);
-        int timeColumnIndex = expenseCursor.getColumnIndex(ExpenseContract.COLUMN_NAME_TIME);
-
-        while (!expenseCursor.isAfterLast()) {
-
-            long id = expenseCursor.getLong(idColumnIndex);
-            int value = expenseCursor.getInt(valueColumnIndex);
-            long time = expenseCursor.getLong(timeColumnIndex);
-
-            Calendar calendar = GregorianCalendar.getInstance();
-            calendar.setTimeInMillis(time);
-
-            Expense expense = new Expense(id, value, calendar);
-
-            expenses.add(expense);
-
-            expenseCursor.moveToNext();
-        }
-
-        expenseCursor.close();
-
-        return expenses;
-    }
-
     public ArrayList<Expense> getForBudgetPeriod(Budget budget){
 
         Calendar calendarToday = Calendar.getInstance();
@@ -103,4 +73,35 @@ public class ExpenseRepository {
 
         return getExpensesFromCursor(expenseCursor);
     }
+
+    private ArrayList<Expense> getExpensesFromCursor(Cursor expenseCursor) {
+        ArrayList<Expense> expenses = new ArrayList<Expense>();
+
+        expenseCursor.moveToFirst();
+
+        int idColumnIndex = expenseCursor.getColumnIndex(ExpenseContract._ID);
+        int valueColumnIndex = expenseCursor.getColumnIndex(ExpenseContract.COLUMN_NAME_VALUE);
+        int timeColumnIndex = expenseCursor.getColumnIndex(ExpenseContract.COLUMN_NAME_TIME);
+
+        while (!expenseCursor.isAfterLast()) {
+
+            long id = expenseCursor.getLong(idColumnIndex);
+            int value = expenseCursor.getInt(valueColumnIndex);
+            long time = expenseCursor.getLong(timeColumnIndex);
+
+            Calendar calendar = GregorianCalendar.getInstance();
+            calendar.setTimeInMillis(time);
+
+            Expense expense = new Expense(id, value, calendar);
+
+            expenses.add(expense);
+
+            expenseCursor.moveToNext();
+        }
+
+        expenseCursor.close();
+
+        return expenses;
+    }
+
 }

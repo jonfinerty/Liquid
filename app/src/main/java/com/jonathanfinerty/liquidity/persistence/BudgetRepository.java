@@ -1,4 +1,4 @@
-package com.jonathanfinerty.liquidity.loaders;
+package com.jonathanfinerty.liquidity.persistence;
 
 import android.content.Context;
 import android.database.Cursor;

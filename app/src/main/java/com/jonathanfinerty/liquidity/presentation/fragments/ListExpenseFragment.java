@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.jonathanfinerty.liquidity.R;
-import com.jonathanfinerty.liquidity.loaders.ExpensesLoader;
+import com.jonathanfinerty.liquidity.loaders.ExpensesViewModelLoader;
 import com.jonathanfinerty.liquidity.presentation.ExpenseAdapter;
 import com.jonathanfinerty.liquidity.presentation.SwipeDetector;
 import com.jonathanfinerty.liquidity.presentation.viewmodel.ExpenseViewModel;
@@ -84,7 +84,7 @@ public class ListExpenseFragment extends Fragment
     @Override
     public Loader<ArrayList<ExpenseViewModel>> onCreateLoader(int id, Bundle args) {
         Log.d(TAG, "ExpenseViewModel Loader Created");
-        return new ExpensesLoader(getActivity());
+        return new ExpensesViewModelLoader(getActivity());
     }
 
     @Override

@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import com.jonathanfinerty.liquidity.R;
 import com.jonathanfinerty.liquidity.domain.Budget;
 import com.jonathanfinerty.liquidity.services.SetBudgetService;
-import com.jonathanfinerty.liquidity.loaders.BudgetRepository;
+import com.jonathanfinerty.liquidity.persistence.BudgetRepository;
 import com.jonathanfinerty.liquidity.presentation.fragments.EnterDateFragment;
 import com.jonathanfinerty.liquidity.presentation.fragments.EnterMoneyFragment;
 

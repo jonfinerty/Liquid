@@ -3,8 +3,11 @@ package com.jonathanfinerty.liquidity.presentation.fragments;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Fragment;
+import android.app.LoaderManager;
+import android.content.Loader;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,131 +18,30 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jonathanfinerty.liquidity.R;
-import com.jonathanfinerty.liquidity.domain.Budget;
-import com.jonathanfinerty.liquidity.domain.Expense;
-import com.jonathanfinerty.liquidity.loaders.BudgetRepository;
-import com.jonathanfinerty.liquidity.loaders.ExpenseRepository;
+import com.jonathanfinerty.liquidity.loaders.BudgetTankViewModelLoader;
 import com.jonathanfinerty.liquidity.presentation.HeightAnimation;
+import com.jonathanfinerty.liquidity.presentation.viewmodel.BudgetTankViewModel;
 import com.jonathanfinerty.liquidity.presentation.views.BudgetTankView;
 
-import java.util.ArrayList;
-import java.util.Calendar;
+public class BudgetFragment extends Fragment
+                            implements LoaderManager.LoaderCallbacks<BudgetTankViewModel>{
 
-public class BudgetFragment extends Fragment {
-
+    private static final String TAG = "Budget Fragment";
     private final int ANIMATION_DURATION = 2000;
 
     private float datePercent = 0f;
     private float spentPercent = 0f;
 
-    private Budget budget;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_budget, container, false);
-
         return layout;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
-        BudgetRepository budgetRepository = new BudgetRepository(this.getActivity());
-        budget = budgetRepository.get();
-
-        final float newDatePercent = getDatePercent();
-        int spentAmount = getSpentAmount();
-
-        final float spentPercentWithoutLimit = (((float) spentAmount) / (float) budget.getAmount()) * 100f;
-
-        final float newSpentPercent = Math.min(spentPercentWithoutLimit, 100f);
-
-
-        TextView spentTextView = (TextView) getView().findViewById(R.id.textview_spent);
-        TextView leftTextView = (TextView) getView().findViewById(R.id.textview_left);
-
-        String spentText = String.format("£%d Spent", Math.round(spentAmount / 100f));
-        String leftText = String.format("£%d Left", Math.round((budget.getAmount() - spentAmount) / 100f));
-
-        spentTextView.setText(spentText);
-        leftTextView.setText(leftText);
-
-        final ViewTreeObserver viewTreeObserver = getView().getViewTreeObserver();
-
-        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                    getView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                } else {
-                    getView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                }
-
-                animateTank(newDatePercent, newSpentPercent);
-                animateLabels(newDatePercent, newSpentPercent);
-            }
-        });
-
-        getView().requestLayout();
-
-    }
-
-    private int getSpentAmount() {
-
-        ExpenseRepository expenseRepository = new ExpenseRepository(this.getActivity());
-
-        ArrayList<Expense> expenses = expenseRepository.getForBudgetPeriod(budget);
-
-        int totalSpent = 0;
-
-        for (Expense expense : expenses) {
-            totalSpent += expense.getValue();
-        }
-
-        return totalSpent;
-    }
-
-    private float getDatePercent() {
-
-        int budgetDay = budget.getDate();
-
-        Calendar calendarToday = Calendar.getInstance();
-        int currentDay = calendarToday.get(Calendar.DAY_OF_MONTH);
-
-        int totalDaysGoneInBudget;
-        int totalDaysInBudget;
-
-        if (currentDay < budgetDay) {
-            Calendar calendarForLastMonth = Calendar.getInstance();
-            calendarForLastMonth.add(Calendar.MONTH, -1);
-            int numDaysLastMonth = calendarForLastMonth.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-            int daysPassedLastMonth = Math.max(numDaysLastMonth - budgetDay, 0);
-
-            totalDaysGoneInBudget = daysPassedLastMonth + currentDay;
-            totalDaysInBudget = daysPassedLastMonth + budgetDay;
-        } else {
-            Calendar calendarForThisMonth = Calendar.getInstance();
-            int numDaysThisMonth = calendarForThisMonth.getActualMaximum(Calendar.DAY_OF_MONTH);
-            int daysAfterBudgetDayThisMonth = numDaysThisMonth - budgetDay;
-
-            Calendar calendarForNextMonth = Calendar.getInstance();
-            calendarForNextMonth.add(Calendar.MONTH, 1);
-            int numDaysNextMonth = calendarForNextMonth.getActualMaximum(Calendar.DAY_OF_MONTH);
-            int daysInNextMonthBeforeBudgetDay = Math.min(budgetDay, numDaysNextMonth);
-
-            totalDaysGoneInBudget = currentDay - budgetDay;
-            totalDaysInBudget = daysAfterBudgetDayThisMonth + daysInNextMonthBeforeBudgetDay;
-        }
-
-        totalDaysGoneInBudget += 1;
-        return ((float) totalDaysGoneInBudget / (float) totalDaysInBudget) * 100f;
+        getLoaderManager().initLoader(0, null, this);
     }
 
     private void animateLabels(float newDatePercent, float newSpentPercent) {
@@ -209,5 +111,60 @@ public class BudgetFragment extends Fragment {
 
         datePercent = newDatePercent;
         spentPercent = newSpentPercent;
+    }
+
+    private void updateTank(BudgetTankViewModel budgetTankViewModel) {
+
+        // todo: a bunch of this text formatting can be pushed up to the VM
+        final float newDatePercent = budgetTankViewModel.getDatePercent();
+
+        final float spentPercentWithoutLimit = (((float) budgetTankViewModel.getSpent()) / (float) budgetTankViewModel.getAmount()) * 100f;
+
+        final float newSpentPercent = Math.min(spentPercentWithoutLimit, 100f);
+
+
+        TextView spentTextView = (TextView) getView().findViewById(R.id.textview_spent);
+        TextView leftTextView = (TextView) getView().findViewById(R.id.textview_left);
+
+        String spentText = String.format("£%d Spent", Math.round(budgetTankViewModel.getSpent() / 100f));
+        String leftText = String.format("£%d Left", Math.round((budgetTankViewModel.getAmount() - budgetTankViewModel.getSpent()) / 100f));
+
+        spentTextView.setText(spentText);
+        leftTextView.setText(leftText);
+
+        // todo: this is crap
+        final ViewTreeObserver viewTreeObserver = getView().getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                    getView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                } else {
+                    getView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+
+                animateTank(newDatePercent, newSpentPercent);
+                animateLabels(newDatePercent, newSpentPercent);
+            }
+        });
+
+        getView().requestLayout();
+    }
+
+    @Override
+    public Loader<BudgetTankViewModel> onCreateLoader(int id, Bundle args) {
+        Log.d(TAG, "BudgetTankViewModel Loader Created");
+        return new BudgetTankViewModelLoader(getActivity());
+    }
+
+    @Override
+    public void onLoadFinished(Loader<BudgetTankViewModel> loader, BudgetTankViewModel data) {
+        Log.d(TAG, "BudgetTankViewModel Loader Finished");
+        updateTank(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<BudgetTankViewModel> loader) {
+        Log.d(TAG, "BudgetTankViewModel Loader Reset");
     }
 }
