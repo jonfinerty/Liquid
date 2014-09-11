@@ -53,6 +53,7 @@ public class LiquidityContentProvider extends ContentProvider {
             case EXPENSES:
                 SQLiteDatabase db = expensesDatabaseHelper.getWritableDatabase();
                 long expenseId = db.insert(ExpenseContract.TABLE_NAME, null, values);
+                getContext().getContentResolver().notifyChange(ExpenseContract.GROUP_URI, null);
                 return ExpenseContract.getSingleUri(expenseId);
             default:
                 throw new IllegalArgumentException("Unsupported URI for insert: " + uri);
@@ -110,13 +111,17 @@ public class LiquidityContentProvider extends ContentProvider {
             case EXPENSE:
                 SQLiteDatabase db = expensesDatabaseHelper.getWritableDatabase();
 
-                return db.delete(
-                        ExpenseContract.TABLE_NAME,
-                        ExpenseContract._ID + "=?",
-                        new String[]{
-                                uri.getLastPathSegment()
-                        }
+                int rowsDeleted = db.delete(
+                    ExpenseContract.TABLE_NAME,
+                    ExpenseContract._ID + "=?",
+                    new String[]{
+                            uri.getLastPathSegment()
+                    }
                 );
+
+                getContext().getContentResolver().notifyChange(ExpenseContract.GROUP_URI, null);
+
+                return rowsDeleted;
             default:
                 throw new IllegalArgumentException("Unsupported URI for delete: " + uri);
         }
