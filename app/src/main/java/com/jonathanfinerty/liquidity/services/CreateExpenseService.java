@@ -9,6 +9,7 @@ import com.jonathanfinerty.liquidity.persistence.ExpenseContract;
 
 public class CreateExpenseService extends BaseService {
 
+    private static final String TAG = "Create Expense Service";
     public static String VALUE_EXTRA = "value";
     public static String TIME_EXTRA = "time";
 
@@ -49,5 +50,6 @@ public class CreateExpenseService extends BaseService {
         expenseValues.put(ExpenseContract.COLUMN_NAME_TIME, time);
 
         this.getContentResolver().insert(expenseUri, expenseValues);
+        Log.d(TAG, "Expense (Value: " + value + " Time: " + time + ") inserted");
     }
 }

@@ -1,31 +1,30 @@
 package com.jonathanfinerty.liquidity.presentation.fragments;
 
+import android.app.Fragment;
+import android.app.LoaderManager;
 import android.content.Intent;
+import android.content.Loader;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.jonathanfinerty.liquidity.R;
-import com.jonathanfinerty.liquidity.domain.Expense; //todo: this should probably not be imported
-import com.jonathanfinerty.liquidity.services.DeleteExpenseService;
-import com.jonathanfinerty.liquidity.loaders.ExpenseRepository;
+import com.jonathanfinerty.liquidity.loaders.ExpensesLoader;
 import com.jonathanfinerty.liquidity.presentation.ExpenseAdapter;
 import com.jonathanfinerty.liquidity.presentation.SwipeDetector;
 import com.jonathanfinerty.liquidity.presentation.viewmodel.ExpenseViewModel;
+import com.jonathanfinerty.liquidity.services.DeleteExpenseService;
 
 import java.util.ArrayList;
 
-public class ListExpenseFragment extends Fragment {
+public class ListExpenseFragment extends Fragment
+                                 implements LoaderManager.LoaderCallbacks<ArrayList<ExpenseViewModel>> {
 
+    private static final String TAG = "List Expense Fragment";
     private ExpenseAdapter expenseAdapter;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,6 +60,8 @@ public class ListExpenseFragment extends Fragment {
         expenseList.setOnTouchListener(swipeDetector);
         expenseList.setOnScrollListener(swipeDetector.makeScrollListener());
 
+        getLoaderManager().initLoader(0, null, this);
+
         // todo: put functionality to load expenses by budget period back in
         /*View loadMoreButtonView = inflater.inflate(R.layout.fragment_load_more_button, expenseList, false);
         Button button = (Button) loadMoreButtonView.findViewById(R.id.button_load_more);
@@ -79,30 +80,23 @@ public class ListExpenseFragment extends Fragment {
         return listFragmentView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
 
-        LoadExpenses();
+    @Override
+    public Loader<ArrayList<ExpenseViewModel>> onCreateLoader(int id, Bundle args) {
+        Log.d(TAG, "ExpenseViewModel Loader Created");
+        return new ExpensesLoader(getActivity());
     }
 
-    private void LoadExpenses() {
-
-        // todo: this mapping from repository -> expense domain object -> viewmodel needs to be moved/improved somehow
-        ExpenseRepository expenseRepository = new ExpenseRepository(this.getActivity());
-
-        ArrayList<Expense> expenses = expenseRepository.getAll();
-
-        ArrayList<ExpenseViewModel> expenseViewModels = new ArrayList<ExpenseViewModel>();
-
-        for (Expense expense : expenses) {
-            expenseViewModels.add(new ExpenseViewModel(expense));
-        }
-
+    @Override
+    public void onLoadFinished(Loader<ArrayList<ExpenseViewModel>> loader, ArrayList<ExpenseViewModel> data) {
+        Log.d(TAG, "ExpenseViewModel Loader Finished");
         expenseAdapter.clear();
-
-        expenseAdapter.addAll(expenseViewModels);
-
+        expenseAdapter.addAll(data);
         expenseAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onLoaderReset(Loader<ArrayList<ExpenseViewModel>> loader) {
+        Log.d(TAG, "ExpenseViewModel Loader Reset");
     }
 }

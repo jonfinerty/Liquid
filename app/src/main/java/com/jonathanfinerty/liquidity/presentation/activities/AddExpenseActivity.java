@@ -1,9 +1,9 @@
 package com.jonathanfinerty.liquidity.presentation.activities;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
 import com.jonathanfinerty.liquidity.R;
 import com.jonathanfinerty.liquidity.services.CreateExpenseService;
@@ -11,12 +11,11 @@ import com.jonathanfinerty.liquidity.presentation.fragments.EnterMoneyFragment;
 
 import java.util.Date;
 
-public class AddExpenseActivity extends FragmentActivity
+public class AddExpenseActivity extends Activity
                                 implements EnterMoneyFragment.CurrencyEnteredListener {
 
     public static final String CLOSE_AFTER_ADD = "close once done";
     private boolean returnToHomeScreen = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

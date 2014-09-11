@@ -1,11 +1,11 @@
 package com.jonathanfinerty.liquidity.presentation.activities;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -16,7 +16,7 @@ import com.jonathanfinerty.liquidity.R;
 import com.jonathanfinerty.liquidity.presentation.fragments.BudgetFragment;
 import com.jonathanfinerty.liquidity.presentation.fragments.ListExpenseFragment;
 
-public class OverviewActivity extends FragmentActivity {
+public class OverviewActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class OverviewActivity extends FragmentActivity {
         setContentView(R.layout.activity_overview);
 
         ViewPager viewpager = (ViewPager) findViewById(R.id.viewpager_overview);
-        viewpager.setAdapter(new LiquidityPagerAdapter(getSupportFragmentManager()));
+        viewpager.setAdapter(new LiquidityPagerAdapter(getFragmentManager()));
 
         PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pagertabstrip_overview);
         pagerTabStrip.setTextColor(getResources().getColor(R.color.blue_dark));

@@ -6,6 +6,7 @@ import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Handler;
+import android.util.Log;
 
 import com.jonathanfinerty.liquidity.domain.Expense;
 import com.jonathanfinerty.liquidity.persistence.ExpenseContract;
@@ -18,6 +19,7 @@ import java.util.List;
 
 public class ExpensesLoader extends AsyncTaskLoader<ArrayList<ExpenseViewModel>> {
 
+    private static final String TAG = "Expenses Loader";
     private ExpensesContentObserver expensesContentObserver;
 
     private ArrayList<ExpenseViewModel> expenseViewModels;
@@ -26,15 +28,16 @@ public class ExpensesLoader extends AsyncTaskLoader<ArrayList<ExpenseViewModel>>
         super(context);
     }
 
-
-
     @Override
     protected void onStartLoading() {
 
+        Log.d(TAG, "Starting loading");
+
         //todo: find out proper lifecycle of the loader and work out when this should be create and registered
-        if (expensesContentObserver != null) {
+        if (expensesContentObserver == null) {
             expensesContentObserver = new ExpensesContentObserver(new Handler());
             getContext().getContentResolver().registerContentObserver(ExpenseContract.GROUP_URI, true, expensesContentObserver);
+            Log.d(TAG, "Registered as content observer for uri: " + ExpenseContract.GROUP_URI);
         }
 
         if (expenseViewModels != null) {
@@ -140,8 +143,13 @@ public class ExpensesLoader extends AsyncTaskLoader<ArrayList<ExpenseViewModel>>
         }
 
         @Override
+        public void onChange(boolean selfChange) {
+            this.onChange(selfChange, null);
+        }
+
+        @Override
         public void onChange(boolean selfChange, Uri uri) {
-            super.onChange(selfChange, uri);
+            Log.d(TAG, "Change received, forcing load");
             forceLoad();
         }
     }
