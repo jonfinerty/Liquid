@@ -32,6 +32,7 @@ public class ExpenseContract implements BaseColumns {
 
     public static final String COLUMN_NAME_TIME = "time";
 
+
     /* Internal Database definition */
 
     static final String TABLE_NAME = "expense";

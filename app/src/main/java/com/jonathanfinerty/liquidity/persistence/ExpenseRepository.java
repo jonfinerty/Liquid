@@ -6,7 +6,6 @@ import android.net.Uri;
 
 import com.jonathanfinerty.liquidity.domain.Budget;
 import com.jonathanfinerty.liquidity.domain.Expense;
-import com.jonathanfinerty.liquidity.persistence.ExpenseContract;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,7 +40,7 @@ public class ExpenseRepository {
     }
 
     public ArrayList<Expense> getForBudgetPeriod(Budget budget){
-
+        // todo: this method is a BEAST
         Calendar calendarToday = Calendar.getInstance();
         int currentDay = calendarToday.get(Calendar.DAY_OF_MONTH);
 

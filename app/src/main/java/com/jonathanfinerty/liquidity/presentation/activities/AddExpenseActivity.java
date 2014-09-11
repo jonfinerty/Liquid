@@ -14,9 +14,6 @@ import java.util.Date;
 public class AddExpenseActivity extends Activity
                                 implements EnterMoneyFragment.CurrencyEnteredListener {
 
-    public static final String CLOSE_AFTER_ADD = "close once done";
-    private boolean returnToHomeScreen = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +26,6 @@ public class AddExpenseActivity extends Activity
         fragment.setArguments(fragmentArguments);
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.linearlayout_add_expense, fragment).commit();
-
-        returnToHomeScreen = getIntent().getBooleanExtra(CLOSE_AFTER_ADD, false);
     }
 
     @Override
@@ -43,13 +38,6 @@ public class AddExpenseActivity extends Activity
 
         this.startService(createExpense);
 
-        if (returnToHomeScreen) {
-            Intent startHomeScreen = new Intent(Intent.ACTION_MAIN);
-            startHomeScreen.addCategory(Intent.CATEGORY_HOME);
-            startHomeScreen.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(startHomeScreen);
-        } else{
-            finish();
-        }
+        finish();
     }
 }

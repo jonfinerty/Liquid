@@ -5,7 +5,6 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.widget.LinearLayout;
 
-
 public class HeightAnimation extends Animation {
 
     private final float startHeight;

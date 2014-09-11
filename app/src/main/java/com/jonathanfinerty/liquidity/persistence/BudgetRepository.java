@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.jonathanfinerty.liquidity.domain.Budget;
-import com.jonathanfinerty.liquidity.persistence.BudgetContract;
 
 public class BudgetRepository {
     private Context context;
@@ -20,7 +19,6 @@ public class BudgetRepository {
         Cursor budgetCursor = context.getContentResolver().query(
                 BudgetContract.URI,
                 new String[]{
-                        BudgetContract._ID,
                         BudgetContract.COLUMN_NAME_AMOUNT,
                         BudgetContract.COLUMN_NAME_DATE
                 },
@@ -31,11 +29,9 @@ public class BudgetRepository {
 
         budgetCursor.moveToFirst();
 
-        int idColumnIndex = budgetCursor.getColumnIndex(BudgetContract._ID);
         int amountColumnIndex = budgetCursor.getColumnIndex(BudgetContract.COLUMN_NAME_AMOUNT);
         int dateColumnIndex = budgetCursor.getColumnIndex(BudgetContract.COLUMN_NAME_DATE);
 
-        long id = budgetCursor.getLong(idColumnIndex);
         int amount = budgetCursor.getInt(amountColumnIndex);
         int date = budgetCursor.getInt(dateColumnIndex);
 

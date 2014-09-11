@@ -1,19 +1,13 @@
 package com.jonathanfinerty.liquidity.persistence;
 
 import android.content.ContentProvider;
-import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.SharedPreferences;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
-
-import com.jonathanfinerty.liquidity.domain.Budget;
-import com.jonathanfinerty.liquidity.domain.Expense;
 
 public class LiquidityContentProvider extends ContentProvider {
 
@@ -53,19 +47,13 @@ public class LiquidityContentProvider extends ContentProvider {
         }
     }
 
-    private Uri getUriForId(Uri uri, long id) {
-        Uri uriWithId = ContentUris.withAppendedId(uri, id);
-        getContext().getContentResolver().notifyChange(uriWithId, null);
-        return uriWithId;
-    }
-
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         switch (uriMatcher.match(uri)){
             case EXPENSES:
                 SQLiteDatabase db = expensesDatabaseHelper.getWritableDatabase();
                 long expenseId = db.insert(ExpenseContract.TABLE_NAME, null, values);
-                return getUriForId(uri, expenseId);
+                return ExpenseContract.getSingleUri(expenseId);
             default:
                 throw new IllegalArgumentException("Unsupported URI for insert: " + uri);
         }

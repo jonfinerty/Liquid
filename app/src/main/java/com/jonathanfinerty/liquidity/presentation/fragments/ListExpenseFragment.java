@@ -13,7 +13,7 @@ import android.widget.ListView;
 
 import com.jonathanfinerty.liquidity.R;
 import com.jonathanfinerty.liquidity.loaders.ExpensesViewModelLoader;
-import com.jonathanfinerty.liquidity.presentation.ExpenseAdapter;
+import com.jonathanfinerty.liquidity.presentation.ExpenseViewModelAdapter;
 import com.jonathanfinerty.liquidity.presentation.SwipeDetector;
 import com.jonathanfinerty.liquidity.presentation.viewmodel.ExpenseViewModel;
 import com.jonathanfinerty.liquidity.services.DeleteExpenseService;
@@ -24,7 +24,7 @@ public class ListExpenseFragment extends Fragment
                                  implements LoaderManager.LoaderCallbacks<ArrayList<ExpenseViewModel>> {
 
     private static final String TAG = "List Expense Fragment";
-    private ExpenseAdapter expenseAdapter;
+    private ExpenseViewModelAdapter expenseViewModelAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,23 +32,23 @@ public class ListExpenseFragment extends Fragment
 
         final ListView expenseList = (ListView) listFragmentView.findViewById(R.id.listview_expenses);
 
-        expenseAdapter = new ExpenseAdapter(listFragmentView.getContext(), new ArrayList<ExpenseViewModel>());
+        expenseViewModelAdapter = new ExpenseViewModelAdapter(listFragmentView.getContext(), new ArrayList<ExpenseViewModel>());
 
-        expenseList.setAdapter(expenseAdapter);
+        expenseList.setAdapter(expenseViewModelAdapter);
 
         SwipeDetector swipeDetector = new SwipeDetector(
                         expenseList,
                         new SwipeDetector.DismissCallback() {
                             public void onDismiss(ListView listView, int position) {
 
-                                ExpenseViewModel expenseViewModel = expenseAdapter.getItem(position);
+                                ExpenseViewModel expenseViewModel = expenseViewModelAdapter.getItem(position);
 
                                 // todo: Should this do the delete operation first and let the callback
                                 // from the success of that update the adapter/view? or remove it instantly
                                 // providing instant feedback
 
-                                expenseAdapter.remove(expenseViewModel);
-                                expenseAdapter.notifyDataSetChanged();
+                                expenseViewModelAdapter.remove(expenseViewModel);
+                                expenseViewModelAdapter.notifyDataSetChanged();
 
                                 Intent deleteExpense = new Intent(getActivity(), DeleteExpenseService.class);
                                 deleteExpense.putExtra(DeleteExpenseService.EXPENSE_ID_EXTRA, expenseViewModel.getId());
@@ -90,9 +90,9 @@ public class ListExpenseFragment extends Fragment
     @Override
     public void onLoadFinished(Loader<ArrayList<ExpenseViewModel>> loader, ArrayList<ExpenseViewModel> data) {
         Log.d(TAG, "ExpenseViewModel Loader Finished");
-        expenseAdapter.clear();
-        expenseAdapter.addAll(data);
-        expenseAdapter.notifyDataSetChanged();
+        expenseViewModelAdapter.clear();
+        expenseViewModelAdapter.addAll(data);
+        expenseViewModelAdapter.notifyDataSetChanged();
     }
 
     @Override

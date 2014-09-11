@@ -12,9 +12,9 @@ import com.jonathanfinerty.liquidity.presentation.viewmodel.ExpenseViewModel;
 
 import java.util.ArrayList;
 
-public class ExpenseAdapter extends ArrayAdapter<ExpenseViewModel> {
+public class ExpenseViewModelAdapter extends ArrayAdapter<ExpenseViewModel> {
 
-    public ExpenseAdapter(Context context, ArrayList<ExpenseViewModel> expenseViewModels) {
+    public ExpenseViewModelAdapter(Context context, ArrayList<ExpenseViewModel> expenseViewModels) {
         super(context, R.layout.listitem_expense, expenseViewModels);
     }
 

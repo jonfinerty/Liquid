@@ -34,7 +34,6 @@ public class OverviewActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_overview, menu);
         return true;
     }
@@ -45,19 +44,16 @@ public class OverviewActivity extends Activity {
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.action_set_budget: {
+            case R.id.action_set_budget:
                 Intent setBudgetActivity = new Intent(this, SetBudgetActivity.class);
                 startActivity(setBudgetActivity);
                 return true;
-            }
-            case R.id.action_add_expense: {
+            case R.id.action_add_expense:
                 Intent addExpenseIntent = new Intent(this, AddExpenseActivity.class);
                 startActivity(addExpenseIntent);
                 return true;
-            }
-            default: {
+            default:
                 return super.onOptionsItemSelected(item);
-            }
         }
     }
 

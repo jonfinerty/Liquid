@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import com.jonathanfinerty.liquidity.R;
-import com.jonathanfinerty.liquidity.domain.Budget;
+import com.jonathanfinerty.liquidity.domain.Budget; //todo: use of the domain is a bit suspicious
 import com.jonathanfinerty.liquidity.services.SetBudgetService;
 import com.jonathanfinerty.liquidity.persistence.BudgetRepository;
 import com.jonathanfinerty.liquidity.presentation.fragments.EnterDateFragment;
@@ -14,9 +14,11 @@ import com.jonathanfinerty.liquidity.presentation.fragments.EnterMoneyFragment;
 
 public class SetBudgetActivity extends FragmentActivity
                                implements EnterDateFragment.DateEnteredListener,
-                                    EnterMoneyFragment.CurrencyEnteredListener
+                                          EnterMoneyFragment.CurrencyEnteredListener
 
 {
+
+    private Budget budget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,7 @@ public class SetBudgetActivity extends FragmentActivity
         setContentView(R.layout.activity_set_budget);
 
         BudgetRepository budgetRepository = new BudgetRepository(this);
-        Budget budget = budgetRepository.get();
+        budget = budgetRepository.get();
 
         EnterDateFragment enterDateFragment = new EnterDateFragment();
 
@@ -42,9 +44,6 @@ public class SetBudgetActivity extends FragmentActivity
         Intent setBudget = new Intent(this, SetBudgetService.class);
         setBudget.putExtra(SetBudgetService.DATE_EXTRA, date);
         this.startService(setBudget);
-
-        BudgetRepository budgetRepository = new BudgetRepository(this);
-        Budget budget = budgetRepository.get();
 
         Bundle fragmentArguments = new Bundle();
         fragmentArguments.putString(EnterMoneyFragment.FRAGMENT_TITLE, "Enter Budget Amount");
