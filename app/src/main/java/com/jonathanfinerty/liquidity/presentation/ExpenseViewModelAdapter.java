@@ -50,7 +50,7 @@ public class ExpenseViewModelAdapter extends ArrayAdapter<ExpenseViewModel> {
         expenseValueTextView.setText(expense.getHumanReadableValue());
 
         TextView expenseTimeTextView = (TextView) convertView.findViewById(R.id.textview_expense_time);
-        expenseTimeTextView.setText(expense.getHumanReadableTime());
+        expenseTimeTextView.setText(expense.getHumanReadableRelativeTime());
 
         return convertView;
     }

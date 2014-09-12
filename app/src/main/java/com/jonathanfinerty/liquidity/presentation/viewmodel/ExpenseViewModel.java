@@ -4,6 +4,7 @@ import android.text.format.DateUtils;
 
 import com.jonathanfinerty.liquidity.domain.Expense;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 
 public class ExpenseViewModel implements Comparable<ExpenseViewModel> {
@@ -25,13 +26,17 @@ public class ExpenseViewModel implements Comparable<ExpenseViewModel> {
         return "£" + String.format("%.2f", decimalisedTotal);
     }
 
-    public CharSequence getHumanReadableTime() {
+    public CharSequence getHumanReadableRelativeTime() {
         return DateUtils.getRelativeTimeSpanString(
                 time.getTimeInMillis(),
                 Calendar.getInstance().getTimeInMillis(),
                 DateUtils.SECOND_IN_MILLIS,
                 0
         );
+    }
+
+    public CharSequence getHumanReadableTime() {
+        return DateFormat.getDateInstance().format(time.getTime());
     }
 
     @Override
@@ -50,5 +55,9 @@ public class ExpenseViewModel implements Comparable<ExpenseViewModel> {
 
     public long getId() {
         return id;
+    }
+
+    public Calendar getCalendar() {
+        return time;
     }
 }

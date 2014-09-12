@@ -17,7 +17,7 @@ public class AddExpenseActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_expense);
+        setContentView(R.layout.activity_fragment_holder);
 
         Bundle fragmentArguments = new Bundle();
         fragmentArguments.putString(EnterMoneyFragment.FRAGMENT_TITLE, "Enter Expense Amount");
@@ -25,7 +25,7 @@ public class AddExpenseActivity extends Activity
         EnterMoneyFragment fragment = new EnterMoneyFragment();
         fragment.setArguments(fragmentArguments);
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.linearlayout_add_expense, fragment).commit();
+        fragmentTransaction.add(R.id.linearlayout_fragment_holder, fragment).commit();
     }
 
     @Override

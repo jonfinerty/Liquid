@@ -1,6 +1,7 @@
 package com.jonathanfinerty.liquidity.persistence;
 
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -94,14 +95,30 @@ public class LiquidityContentProvider extends ContentProvider {
 
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        SQLiteDatabase db = expensesDatabaseHelper.getWritableDatabase();
+        int rowsUpdated = 0;
 
         switch (uriMatcher.match(uri)) {
+            case EXPENSE:
+                rowsUpdated = db.update(
+                    ExpenseContract.TABLE_NAME,
+                    values,
+                    ExpenseContract._ID + " = " + uri.getLastPathSegment(), // todo: this should combine with any selection criteria passed in
+                    null
+                );
+                break;
             case BUDGET:
-                SQLiteDatabase db = expensesDatabaseHelper.getWritableDatabase();
-                return db.update(BudgetContract.TABLE_NAME, values, null, null);
+                rowsUpdated = db.update(BudgetContract.TABLE_NAME, values, null, null);
+                break;
             default:
                 throw new IllegalArgumentException("Unsupported URI for update: " + uri);
         }
+
+        if (rowsUpdated > 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return rowsUpdated;
     }
 
     @Override

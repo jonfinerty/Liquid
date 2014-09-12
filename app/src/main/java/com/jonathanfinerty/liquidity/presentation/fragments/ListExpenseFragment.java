@@ -9,12 +9,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.jonathanfinerty.liquidity.R;
 import com.jonathanfinerty.liquidity.loaders.ExpensesViewModelLoader;
 import com.jonathanfinerty.liquidity.presentation.ExpenseViewModelAdapter;
 import com.jonathanfinerty.liquidity.presentation.SwipeDetector;
+import com.jonathanfinerty.liquidity.presentation.activities.ExpenseActivity;
 import com.jonathanfinerty.liquidity.presentation.viewmodel.ExpenseViewModel;
 import com.jonathanfinerty.liquidity.services.DeleteExpenseService;
 
@@ -43,22 +45,28 @@ public class ListExpenseFragment extends Fragment
 
                                 ExpenseViewModel expenseViewModel = expenseViewModelAdapter.getItem(position);
 
-                                // todo: Should this do the delete operation first and let the callback
-                                // from the success of that update the adapter/view? or remove it instantly
-                                // providing instant feedback
-
                                 expenseViewModelAdapter.remove(expenseViewModel);
                                 expenseViewModelAdapter.notifyDataSetChanged();
 
                                 Intent deleteExpense = new Intent(getActivity(), DeleteExpenseService.class);
                                 deleteExpense.putExtra(DeleteExpenseService.EXPENSE_ID_EXTRA, expenseViewModel.getId());
-
                                 getActivity().startService(deleteExpense);
                             }
                         });
 
         expenseList.setOnTouchListener(swipeDetector);
         expenseList.setOnScrollListener(swipeDetector.makeScrollListener());
+        expenseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ExpenseViewModel expenseViewModel = expenseViewModelAdapter.getItem(position);
+                Intent expenseActivity = new Intent(getActivity(), ExpenseActivity.class);
+                expenseActivity.putExtra(ExpenseActivity.EXPENSE_ID_EXTRA, expenseViewModel.getId());
+                startActivity(expenseActivity);
+            }
+        });
+
+
 
         getLoaderManager().initLoader(0, null, this);
 

@@ -6,6 +6,7 @@ import android.net.Uri;
 
 import com.jonathanfinerty.liquidity.domain.Budget;
 import com.jonathanfinerty.liquidity.domain.Expense;
+import com.jonathanfinerty.liquidity.presentation.viewmodel.ExpenseViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,23 +21,7 @@ public class ExpenseRepository {
     }
 
     public ArrayList<Expense> getAll() {
-
-        Uri expensesUri = ExpenseContract.GROUP_URI;
-
-        Cursor expenseCursor = context.getContentResolver().query(
-            expensesUri,
-            new String[]{
-                    ExpenseContract._ID,
-                    ExpenseContract.COLUMN_NAME_VALUE,
-                    ExpenseContract.COLUMN_NAME_TIME
-            },
-            null,
-            null,
-            null
-        );
-
-        return getExpensesFromCursor(expenseCursor);
-
+        return getExpenses(ExpenseContract.GROUP_URI, null);
     }
 
     public ArrayList<Expense> getForBudgetPeriod(Budget budget){
@@ -57,7 +42,22 @@ public class ExpenseRepository {
         budgetStartTime.set(Calendar.SECOND, 0);
         budgetStartTime.set(Calendar.MILLISECOND, 0);
 
-        Uri expensesUri = ExpenseContract.GROUP_URI;
+        String expenseSelection = ExpenseContract.COLUMN_NAME_TIME + " > " + budgetStartTime.getTimeInMillis();
+        return getExpenses(ExpenseContract.GROUP_URI, expenseSelection);
+    }
+
+    public ExpenseViewModel get(long expenseId) {
+
+        ArrayList<Expense> expenses = getExpenses(ExpenseContract.getSingleUri(expenseId), null);
+
+        if (expenses.size() == 1) {
+            return new ExpenseViewModel(expenses.get(0));
+        } else {
+            return null;
+        }
+    }
+
+    private ArrayList<Expense> getExpenses(Uri expensesUri, String selection) {
 
         Cursor expenseCursor = context.getContentResolver().query(
                 expensesUri,
@@ -66,14 +66,10 @@ public class ExpenseRepository {
                         ExpenseContract.COLUMN_NAME_VALUE,
                         ExpenseContract.COLUMN_NAME_TIME
                 },
-                ExpenseContract.COLUMN_NAME_TIME + " > " + budgetStartTime.getTimeInMillis(),
+                selection,
                 null,
                 null);
 
-        return getExpensesFromCursor(expenseCursor);
-    }
-
-    private ArrayList<Expense> getExpensesFromCursor(Cursor expenseCursor) {
         ArrayList<Expense> expenses = new ArrayList<Expense>();
 
         expenseCursor.moveToFirst();
@@ -102,5 +98,4 @@ public class ExpenseRepository {
 
         return expenses;
     }
-
 }
