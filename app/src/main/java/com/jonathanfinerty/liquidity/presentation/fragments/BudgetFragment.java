@@ -49,7 +49,7 @@ public class BudgetFragment extends Fragment
 
         final TextView todayTextView = (TextView) rootView.findViewById(R.id.textview_today);
 
-        int parentHeight = rootView.getHeight();
+        int parentHeight = rootView.getHeight() - 120;
 
         int maxMarginTop = parentHeight - todayTextView.getHeight();
 
@@ -73,7 +73,7 @@ public class BudgetFragment extends Fragment
             }
         };
 
-        paddingTopAnimation.setDuration(ANIMATION_DURATION - 50);
+        paddingTopAnimation.setDuration(ANIMATION_DURATION);
 
         LinearLayout spentTextLayout = (LinearLayout) rootView.findViewById(R.id.linearlayout_spent_labels);
 
@@ -82,8 +82,10 @@ public class BudgetFragment extends Fragment
         TextView spentTextView = (TextView) rootView.findViewById(R.id.textview_spent);
         TextView leftTextView = (TextView) rootView.findViewById(R.id.textview_left);
 
-        int spentTargetHeight = (int) ((layoutHeight * newSpentPercent) / 100f);
-        int leftTargetHeight = layoutHeight - spentTargetHeight;
+        int spentTargetHeight = (int) (((layoutHeight - 60) * newSpentPercent) / 100f);
+        spentTargetHeight = Math.max(60, spentTargetHeight);
+
+        int leftTargetHeight = Math.max(60, layoutHeight - spentTargetHeight);
 
         HeightAnimation spentAnimation = new HeightAnimation(spentTextView, spentTargetHeight);
         spentAnimation.setDuration(ANIMATION_DURATION);
