@@ -50,7 +50,14 @@ public class ExpenseActivity extends Activity
             finish();
         }
 
-        goToOverviewFragment();
+        Bundle fragmentArguments = new Bundle();
+        fragmentArguments.putLong(ExpenseDetailsFragment.EXPENSE_ID_ARGUMENT, expenseViewModel.getId());
+
+        ExpenseDetailsFragment fragment = new ExpenseDetailsFragment();
+        fragment.setArguments(fragmentArguments);
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+
+        fragmentTransaction.replace(R.id.linearlayout_fragment_holder, fragment).commit();
     }
 
     @Override
@@ -61,6 +68,7 @@ public class ExpenseActivity extends Activity
         EnterMoneyFragment fragment = new EnterMoneyFragment();
         fragment.setArguments(fragmentArguments);
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.linearlayout_fragment_holder, fragment).commit();
     }
 
@@ -96,17 +104,7 @@ public class ExpenseActivity extends Activity
         updateExpense.putExtra(UpdateExpenseService.NEW_AMOUNT_EXTRA, amount);
         startService(updateExpense);
 
-        goToOverviewFragment();
-    }
-
-    private void goToOverviewFragment(){
-        Bundle fragmentArguments = new Bundle();
-        fragmentArguments.putLong(ExpenseDetailsFragment.EXPENSE_ID_ARGUMENT, expenseViewModel.getId());
-
-        ExpenseDetailsFragment fragment = new ExpenseDetailsFragment();
-        fragment.setArguments(fragmentArguments);
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.linearlayout_fragment_holder, fragment).commit();
+        getFragmentManager().popBackStack();
     }
 
     @Override
@@ -119,7 +117,5 @@ public class ExpenseActivity extends Activity
         updateExpense.putExtra(UpdateExpenseService.EXPENSE_ID_EXTRA, expenseViewModel.getId());
         updateExpense.putExtra(UpdateExpenseService.NEW_DATE_EXTRA, calendar.getTimeInMillis());
         startService(updateExpense);
-
-        goToOverviewFragment();
     }
 }

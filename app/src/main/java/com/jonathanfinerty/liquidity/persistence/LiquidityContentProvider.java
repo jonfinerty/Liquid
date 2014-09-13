@@ -9,9 +9,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 public class LiquidityContentProvider extends ContentProvider {
 
+    private static final String TAG = "Liquidity Content Provider";
     private LiquidityDatabaseHelper expensesDatabaseHelper;
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -100,6 +102,9 @@ public class LiquidityContentProvider extends ContentProvider {
 
         switch (uriMatcher.match(uri)) {
             case EXPENSE:
+                
+                Log.e(TAG, "Number of values: " + values.size());
+                
                 rowsUpdated = db.update(
                     ExpenseContract.TABLE_NAME,
                     values,
