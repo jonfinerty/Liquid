@@ -2,10 +2,13 @@ package com.jonathanfinerty.liquidity.presentation.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
@@ -15,14 +18,17 @@ import com.jonathanfinerty.liquidity.R;
 public class BudgetTankView extends View {
 
 
+    private final int backgroundColor = getResources().getColor(R.color.white);
     private final int lineColor = getResources().getColor(R.color.blue_dark);
-    private final int backgroundColor = getResources().getColor(R.color.grey_disabled);
+    private final int tankBackgroundColor = getResources().getColor(R.color.grey_disabled);
     private final int fillColor = getResources().getColor(R.color.green);
 
+    private Paint backgroundPaint;
     private Paint tankBackgroundPaint;
     private Paint tankFillPaint;
 
-    private Paint tankPaint;
+    private Paint transparentPaint;
+
     private Paint tankThinLinePaint;
     private Paint tankThickLinePaint;
     private Paint dateLinePaint;
@@ -93,7 +99,6 @@ public class BudgetTankView extends View {
 
         float cornerRadius = 50;
 
-
         float viewWidth = getWidth();
         float tankHeight = getHeight();
 
@@ -102,9 +107,21 @@ public class BudgetTankView extends View {
 
         float tankFillYStart = (spentPercent * tankHeight ) / 100f;
 
-        canvas.drawRoundRect(new RectF(tankLeft, 0, tankRight, tankHeight), cornerRadius, cornerRadius, tankBackgroundPaint);
-        canvas.drawRect(new RectF(tankLeft, tankFillYStart, tankRight, (tankHeight - cornerRadius) ), tankFillPaint);
-        canvas.drawRoundRect(new RectF(tankLeft, tankFillYStart, tankRight, tankHeight), cornerRadius, cornerRadius, tankFillPaint);
+        // draw tank background
+        canvas.drawRect(new RectF(tankLeft, 0, tankRight, tankHeight), tankBackgroundPaint);
+
+        // draw green fill
+        canvas.drawRect(new RectF(tankLeft, tankFillYStart, tankRight, tankHeight), tankFillPaint);
+
+        // draw white overlap
+        Bitmap tankMaskBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas tankMaskCanvas = new Canvas(tankMaskBitmap);
+        tankMaskCanvas.drawRect(new RectF(0, 0, getWidth(), getHeight()), backgroundPaint);
+        // erase rounded rectangle over tank
+        tankMaskCanvas.drawRoundRect(new RectF(tankLeft, 0, tankRight, tankHeight), cornerRadius, cornerRadius, transparentPaint);
+
+        // apply mask to original canvas
+        canvas.drawBitmap(tankMaskBitmap, new Rect(0, 0, tankMaskBitmap.getWidth(), tankMaskBitmap.getHeight()), new Rect(0, 0, getWidth(), getHeight()), null);
     }
 
     private void drawTank(Canvas canvas) {
@@ -151,18 +168,19 @@ public class BudgetTankView extends View {
 
     private void setupPaint() {
 
+        backgroundPaint = new Paint();
+        backgroundPaint.setColor(backgroundColor);
+
         tankBackgroundPaint = new Paint();
-        tankBackgroundPaint.setColor(backgroundColor);
+        tankBackgroundPaint.setColor(tankBackgroundColor);
 
         tankFillPaint = new Paint();
         tankFillPaint.setColor(fillColor);
         tankFillPaint.setAntiAlias(true);
 
-        tankPaint = new Paint();
-        tankPaint.setColor(Color.WHITE);
-        tankPaint.setAntiAlias(true);
-        tankPaint.setStrokeWidth(6);
-        tankPaint.setStyle(Paint.Style.STROKE);
+        transparentPaint = new Paint();
+        transparentPaint.setAlpha(255);
+        transparentPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 
         tankThinLinePaint = new Paint();
         tankThinLinePaint.setColor(lineColor);
