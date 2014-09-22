@@ -6,14 +6,18 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
 
 import com.jonathanfinerty.liquidity.R;
+
+import java.util.Calendar;
 
 public class BudgetTankView extends View {
 
@@ -22,6 +26,10 @@ public class BudgetTankView extends View {
     private final int lineColor = getResources().getColor(R.color.blue_dark);
     private final int tankBackgroundColor = getResources().getColor(R.color.grey_disabled);
     private final int fillColor = getResources().getColor(R.color.green);
+    private final Path mPath;
+    private final Handler h;
+    private final int FRAME_RATE = 10;
+    private final int delay = 1000 / FRAME_RATE;
 
     private Paint backgroundPaint;
     private Paint tankBackgroundPaint;
@@ -36,13 +44,39 @@ public class BudgetTankView extends View {
     private float datePercent;
     private float spentPercent;
 
+    private int offset;
 
     public BudgetTankView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setupPaint();
         this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         setupAttributes(attrs);
+
+        mPath = new Path();
+
+        mPath.moveTo(-350, 100);
+        mPath.quadTo(-250, 25, -200, 0);
+        mPath.quadTo(-150, -25, -100, 0);
+        mPath.quadTo(-50, 25, 0, 0);
+        mPath.quadTo(50, -25, 100, 0);
+        mPath.quadTo(150, 25, 200, 0);
+        mPath.quadTo(250, -25, 300, 0);
+        mPath.quadTo(350, 25, 400, 0);
+        mPath.quadTo(450, -25, 500, 0);
+        mPath.quadTo(550, 25, 600, 100);
+
+        mPath.close();
+
+        offset = 0;
+        h = new Handler();
     }
+
+    private Runnable r = new Runnable() {
+        @Override
+        public void run() {
+            invalidate();
+        }
+    };
 
     public float getDatePercent() {
         return datePercent;
@@ -93,6 +127,7 @@ public class BudgetTankView extends View {
         drawTankFill(canvas);
         drawTank(canvas);
         drawDateLine(canvas);
+        h.postDelayed(r, delay);
     }
 
     private void drawTankFill(Canvas canvas) {
@@ -110,8 +145,23 @@ public class BudgetTankView extends View {
         // draw tank background
         canvas.drawRect(new RectF(tankLeft, 0, tankRight, tankHeight), tankBackgroundPaint);
 
+        // draw fill top
+
+        Path path = new Path(mPath);
+
+        if (offset >= 200 ) {
+            path.offset(offset, tankFillYStart);
+            offset = 0;
+        } else {
+            path.offset(offset, tankFillYStart);
+        }
+
+        offset += 2;
+
+        canvas.drawPath(path, tankFillPaint);
+
         // draw green fill
-        canvas.drawRect(new RectF(tankLeft, tankFillYStart, tankRight, tankHeight), tankFillPaint);
+        canvas.drawRect(new RectF(tankLeft, tankFillYStart+50, tankRight, tankHeight), tankFillPaint);
 
         // draw white overlap
         Bitmap tankMaskBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
