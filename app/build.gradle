@@ -22,4 +22,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:support-v13:18.0.+'
+    // For @Nullable/@NonNull
+    compile 'com.android.support:support-annotations:+'
 }

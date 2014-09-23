@@ -25,11 +25,6 @@ public class EnterMoneyFragment extends Fragment {
     private int total;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View moneyFragmentView = inflater.inflate(R.layout.fragment_enter_money, container, false);
 
@@ -40,7 +35,7 @@ public class EnterMoneyFragment extends Fragment {
         updateTotalDisplay(moneyFragmentView);
 
         if (fragmentTitle != null) {
-            TextView title = (TextView) moneyFragmentView.findViewById(R.id.textview_enter_money_title);
+            TextView title = (TextView) moneyFragmentView.findViewById(R.id.textView_enter_money_title);
             title.setText(fragmentTitle);
         }
 
@@ -109,9 +104,9 @@ public class EnterMoneyFragment extends Fragment {
 
     private void updateTotalDisplay(View rootView) {
 
-        TextView totalView = (TextView) rootView.findViewById(R.id.textview_expense_total);
-        float decimalisedTotal = ((float) total) / 100f;
-        String formattedTotal = "£" + String.format("%.2f", decimalisedTotal);
+        TextView totalView = (TextView) rootView.findViewById(R.id.textView_expense_total);
+        float decimalTotal = ((float) total) / 100f;
+        String formattedTotal = "£" + String.format("%.2f", decimalTotal);
         totalView.setText(formattedTotal);
 
         Button enterButton = (Button) rootView.findViewById(R.id.button_enter_currency);
@@ -134,7 +129,7 @@ public class EnterMoneyFragment extends Fragment {
         total += digit;
     }
 
-    public class CalculatorButtonClickListener implements Button.OnClickListener {
+    private class CalculatorButtonClickListener implements Button.OnClickListener {
 
         @Override
         public void onClick(View view) {

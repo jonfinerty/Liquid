@@ -10,7 +10,7 @@
         android:layout_height="wrap_content">
 
         <android.support.v4.view.PagerTabStrip
-            android:id="@+id/pagertabstrip_overview"
+            android:id="@+id/pagerTabStrip_overview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
@@ -21,6 +21,7 @@
     </android.support.v4.view.ViewPager>
 
     <Button
+        android:id="@+id/overview_activity_button_add_expense"
         style="@style/Button.Primary"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
@@ -30,7 +31,6 @@
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
         android:gravity="center"
-        android:textSize="18dp"
-        android:text="Add Expense"
-        android:onClick="addExpense"/>
+        android:textSize="18sp"
+        android:text="Add Expense" />
 </RelativeLayout>

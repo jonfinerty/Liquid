@@ -1,7 +1,6 @@
 package com.jonathanfinerty.liquidity.persistence;
 
 import android.content.ContentProvider;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -98,7 +97,7 @@ public class LiquidityContentProvider extends ContentProvider {
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         SQLiteDatabase db = expensesDatabaseHelper.getWritableDatabase();
-        int rowsUpdated = 0;
+        int rowsUpdated;
 
         switch (uriMatcher.match(uri)) {
             case EXPENSE:

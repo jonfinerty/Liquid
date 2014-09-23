@@ -46,10 +46,10 @@ public class ExpenseViewModelAdapter extends ArrayAdapter<ExpenseViewModel> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.listitem_expense, parent, false);
         }
 
-        TextView expenseValueTextView = (TextView) convertView.findViewById(R.id.textview_expense_value);
+        TextView expenseValueTextView = (TextView) convertView.findViewById(R.id.textView_expense_value);
         expenseValueTextView.setText(expense.getHumanReadableValue());
 
-        TextView expenseTimeTextView = (TextView) convertView.findViewById(R.id.textview_expense_time);
+        TextView expenseTimeTextView = (TextView) convertView.findViewById(R.id.textView_expense_time);
         expenseTimeTextView.setText(expense.getHumanReadableRelativeTime());
 
         return convertView;

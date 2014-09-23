@@ -25,7 +25,7 @@ public class AddExpenseActivity extends Activity
         EnterMoneyFragment fragment = new EnterMoneyFragment();
         fragment.setArguments(fragmentArguments);
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.linearlayout_fragment_holder, fragment).commit();
+        fragmentTransaction.add(R.id.linearLayout_fragment_holder, fragment).commit();
     }
 
     @Override

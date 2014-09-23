@@ -35,7 +35,7 @@ public class SetBudgetActivity extends FragmentActivity
         enterDateFragment.setArguments(fragmentArguments);
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.linearlayout_fragment_holder, enterDateFragment).commit();
+        fragmentTransaction.replace(R.id.linearLayout_fragment_holder, enterDateFragment).commit();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class SetBudgetActivity extends FragmentActivity
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
         fragmentTransaction.setCustomAnimations(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
-        fragmentTransaction.replace(R.id.linearlayout_fragment_holder, enterMoneyFragment);
+        fragmentTransaction.replace(R.id.linearLayout_fragment_holder, enterMoneyFragment);
         fragmentTransaction.commit();
     }
 

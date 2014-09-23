@@ -10,8 +10,8 @@ import com.jonathanfinerty.liquidity.persistence.ExpenseContract;
 public class CreateExpenseService extends BaseService {
 
     private static final String TAG = "Create Expense Service";
-    public static String VALUE_EXTRA = "value";
-    public static String TIME_EXTRA = "time";
+    public static final String VALUE_EXTRA = "value";
+    public static final String TIME_EXTRA = "time";
 
     private int value;
     private long time;

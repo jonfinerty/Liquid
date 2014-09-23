@@ -26,7 +26,7 @@ public class ExpenseActivity extends Activity
     private static final String TAG = "Expense Details Activity";
     public static final String EXPENSE_ID_EXTRA = "expense id";
 
-    ExpenseViewModel expenseViewModel;
+    private ExpenseViewModel expenseViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class ExpenseActivity extends Activity
         fragment.setArguments(fragmentArguments);
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
 
-        fragmentTransaction.replace(R.id.linearlayout_fragment_holder, fragment).commit();
+        fragmentTransaction.replace(R.id.linearLayout_fragment_holder, fragment).commit();
     }
 
     @Override
@@ -69,7 +69,7 @@ public class ExpenseActivity extends Activity
         fragment.setArguments(fragmentArguments);
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.linearlayout_fragment_holder, fragment).commit();
+        fragmentTransaction.replace(R.id.linearLayout_fragment_holder, fragment).commit();
     }
 
     @Override

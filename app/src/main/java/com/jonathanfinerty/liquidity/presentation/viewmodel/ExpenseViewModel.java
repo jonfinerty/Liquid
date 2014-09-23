@@ -1,5 +1,6 @@
 package com.jonathanfinerty.liquidity.presentation.viewmodel;
 
+import android.support.annotation.NonNull;
 import android.text.format.DateUtils;
 
 import com.jonathanfinerty.liquidity.domain.Expense;
@@ -9,11 +10,11 @@ import java.util.Calendar;
 
 public class ExpenseViewModel implements Comparable<ExpenseViewModel> {
 
-    private long id;
+    private final long id;
 
-    private int value;
+    private final int value;
 
-    private Calendar time;
+    private final Calendar time;
 
     public ExpenseViewModel(Expense expense) {
         id = expense.getId();
@@ -22,8 +23,8 @@ public class ExpenseViewModel implements Comparable<ExpenseViewModel> {
     }
 
     public String getHumanReadableValue() {
-        float decimalisedTotal = ((float) value) / 100f;
-        return "£" + String.format("%.2f", decimalisedTotal);
+        float decimalTotal = ((float) value) / 100f;
+        return "£" + String.format("%.2f", decimalTotal);
     }
 
     public CharSequence getHumanReadableRelativeTime() {
@@ -40,7 +41,7 @@ public class ExpenseViewModel implements Comparable<ExpenseViewModel> {
     }
 
     @Override
-    public int compareTo(ExpenseViewModel expenseViewModel) {
+    public int compareTo(@NonNull ExpenseViewModel expenseViewModel) {
 
         long difference = time.getTimeInMillis() - expenseViewModel.time.getTimeInMillis();
 

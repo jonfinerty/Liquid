@@ -4,27 +4,27 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!-- todo: Text sizes should probably be standardised -->
+    <!-- todo: Strings should be @string resources -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_margin="32dp"
-        android:textSize="24dp"
-        android:text="Select monthly budget\nstart date"
+        android:textSize="24sp"
+        android:text="@string/fragment_enter_date_title"
         android:textColor="@color/blue_dark"
         />
 
     <NumberPicker
-        android:id="@+id/numberpicker_budget_date"
+        android:id="@+id/numberPicker_budget_date"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginLeft="75dp"
         android:layout_marginRight="75dp"
         android:gravity="center"
-        android:textColor="@color/blue_dark"
-        selectionDivider="@color/green"
-        android:divider="@color/green"/>
+        android:textColor="@color/blue_dark" />
 
     <Button
         android:id="@+id/button_set_budget_date"
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:textSize="32dp"
+        android:textSize="32sp"
         android:text="Enter"
         />
 

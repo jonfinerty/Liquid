@@ -4,27 +4,27 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textview_enter_money_title"
+        android:id="@+id/textView_enter_money_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="32dp"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:text="Enter Expense Amount"/>
 
     <TextView
-        android:id="@+id/textview_expense_total"
+        android:id="@+id/textView_expense_total"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="48dp"
+        android:textSize="48sp"
         android:text="£0.00"
         android:layout_marginTop="18dp"/>
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:gravity="center"
         android:layout_weight="1"
         android:layout_gravity="center"
@@ -34,6 +34,8 @@
         android:layout_marginRight="75dp"
         android:stretchColumns="0,1,2">
 
+        // todo: Apparently inline buttons should be borderless (i.e. only have text, no background)
+        // not 100% sure I like that.
         <TableRow>
             <Button
                 android:id="@+id/button_input_9"
@@ -133,7 +135,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:textSize="32dp"
+        android:textSize="32sp"
         android:text="Enter"
         android:enabled="false" />
 

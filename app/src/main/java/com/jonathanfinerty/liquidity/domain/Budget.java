@@ -2,9 +2,9 @@ package com.jonathanfinerty.liquidity.domain;
 
 public class Budget {
 
-    private int amount;
+    private final int amount;
 
-    private int start_day_of_month;
+    private final int start_day_of_month;
 
     public Budget(int amount, int start_day_of_month) {
         this.amount = amount;

@@ -7,8 +7,8 @@ import java.util.Calendar;
 public class BudgetTankViewModel {
 
     private final int date;
-    private int totalSpent;
-    private int amount;
+    private final int totalSpent;
+    private final int amount;
 
 
     public BudgetTankViewModel(Budget budget, int totalSpent) {

@@ -14,7 +14,7 @@ import java.util.GregorianCalendar;
 
 public class ExpenseRepository {
 
-    private Context context;
+    private final Context context;
 
     public ExpenseRepository(Context context) {
         this.context = context;

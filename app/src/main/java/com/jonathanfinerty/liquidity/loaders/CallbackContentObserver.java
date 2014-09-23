@@ -6,7 +6,7 @@ import android.os.Handler;
 
 class CallbackContentObserver extends ContentObserver {
 
-    private ChangeObserver changeObserver;
+    private final ChangeObserver changeObserver;
 
     public interface ChangeObserver {
         public void onChange();

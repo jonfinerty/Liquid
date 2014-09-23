@@ -9,8 +9,8 @@ public class HeightAnimation extends Animation {
 
     private final float startHeight;
     private final float heightDelta;
-    private View view;
-    private int viewWidth;
+    private final View view;
+    private final int viewWidth;
 
 
     public HeightAnimation(View view, int targetHeight) {

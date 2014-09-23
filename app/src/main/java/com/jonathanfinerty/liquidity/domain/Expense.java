@@ -6,9 +6,9 @@ public class Expense {
 
     private final long id;
 
-    private int value;
+    private final int value;
 
-    private Calendar time;
+    private final Calendar time;
 
     public Expense(long id, int value, Calendar time){
         this.id = id;

@@ -11,19 +11,17 @@ public class ExpenseContract implements BaseColumns {
 
     static final String GROUP_PATH = "expenses";
 
-    public static final Uri GROUP_URI = Uri.withAppendedPath(ContractBase.BASE_URI, GROUP_PATH);
-
     static final String SINGLE_PATH = GROUP_PATH + "/#";
 
-    public static final Uri SINGLE_URI = Uri.withAppendedPath(ContractBase.BASE_URI, SINGLE_PATH);
-
-    public static final String GROUP_TYPE  = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.com.jonathanfinerty.liquidity.expense";
-
-    public static final String SINGLE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.com.jonathanfinerty.liquidity.expense";
+    public static final Uri GROUP_URI = Uri.withAppendedPath(ContractBase.BASE_URI, GROUP_PATH);
 
     public static Uri getSingleUri(long expenseId) {
         return ContentUris.withAppendedId(GROUP_URI, expenseId);
     }
+
+    public static final String GROUP_TYPE  = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/vnd.com.jonathanfinerty.liquidity.expense";
+
+    public static final String SINGLE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/vnd.com.jonathanfinerty.liquidity.expense";
 
 
     /* Publicly known column names */

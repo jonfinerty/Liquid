@@ -26,7 +26,7 @@ public class EnterDateFragment extends Fragment {
 
         final View view = inflater.inflate(R.layout.fragment_enter_date, container, false);
 
-        NumberPicker dayPicker = (NumberPicker) view.findViewById(R.id.numberpicker_budget_date);
+        NumberPicker dayPicker = (NumberPicker) view.findViewById(R.id.numberPicker_budget_date);
 
         dayPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         dayPicker.setMinValue(1);
@@ -40,7 +40,7 @@ public class EnterDateFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                NumberPicker dayPicker = (NumberPicker) view.findViewById(R.id.numberpicker_budget_date);
+                NumberPicker dayPicker = (NumberPicker) view.findViewById(R.id.numberPicker_budget_date);
 
                 dateEnteredListener.onDateEntered(dayPicker.getValue());
 

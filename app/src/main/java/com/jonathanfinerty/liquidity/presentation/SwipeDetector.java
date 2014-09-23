@@ -21,14 +21,14 @@ public class SwipeDetector implements View.OnTouchListener {
     }
 
     // Cached ViewConfiguration and system-wide constant values
-    private int scaledTouchSlop;
-    private int minFlingVelocity;
-    private int maxFlingVelocity;
-    private long animationTime;
+    private final int scaledTouchSlop;
+    private final int minFlingVelocity;
+    private final int maxFlingVelocity;
+    private final long animationTime;
 
     // Fixed properties
-    private ListView listView;
-    private DismissCallback dismissCallback;
+    private final ListView listView;
+    private final DismissCallback dismissCallback;
 
     // Transient properties
     private Swipe_Direction swipeDirection;
@@ -41,7 +41,7 @@ public class SwipeDetector implements View.OnTouchListener {
     private boolean enabled = true;
 
     public interface DismissCallback {
-        void onDismiss(ListView listView, int position);
+        void onDismiss(int position);
     }
 
     public SwipeDetector(ListView listView, DismissCallback callback) {
@@ -243,7 +243,7 @@ public class SwipeDetector implements View.OnTouchListener {
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                dismissCallback.onDismiss(listView, dismissPosition);
+                dismissCallback.onDismiss(dismissPosition);
 
                 dismissView.setAlpha(1f);
                 dismissView.setTranslationX(0);

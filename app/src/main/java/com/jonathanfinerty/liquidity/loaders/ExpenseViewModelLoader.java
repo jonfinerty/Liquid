@@ -17,7 +17,7 @@ public class ExpenseViewModelLoader extends AsyncTaskLoader<ExpenseViewModel>
     private CallbackContentObserver callbackContentObserver;
 
     private ExpenseViewModel cachedExpenseViewModel;
-    private long expenseId;
+    private final long expenseId;
 
     public ExpenseViewModelLoader(Context context, long expenseId) {
         super(context);

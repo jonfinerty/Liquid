@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.jonathanfinerty.liquidity.R;
 import com.jonathanfinerty.liquidity.presentation.fragments.BudgetFragment;
@@ -26,10 +27,19 @@ public class OverviewActivity extends Activity {
         ViewPager viewpager = (ViewPager) findViewById(R.id.viewpager_overview);
         viewpager.setAdapter(new LiquidityPagerAdapter(getFragmentManager()));
 
-        PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pagertabstrip_overview);
+        PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pagerTabStrip_overview);
         pagerTabStrip.setTextColor(getResources().getColor(R.color.blue_dark));
         pagerTabStrip.setTabIndicatorColorResource(R.color.blue_dark);
         pagerTabStrip.setDrawFullUnderline(true);
+
+        Button button = (Button) findViewById(R.id.overview_activity_button_add_expense);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addExpenseIntent = new Intent(OverviewActivity.this, AddExpenseActivity.class);
+                startActivity(addExpenseIntent);
+            }
+        });
     }
 
     @Override
@@ -55,11 +65,8 @@ public class OverviewActivity extends Activity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
 
-    public void addExpense(View view) {
-        Intent addExpenseIntent = new Intent(this, AddExpenseActivity.class);
-        startActivity(addExpenseIntent);
+
     }
 
     public static class LiquidityPagerAdapter extends FragmentPagerAdapter {

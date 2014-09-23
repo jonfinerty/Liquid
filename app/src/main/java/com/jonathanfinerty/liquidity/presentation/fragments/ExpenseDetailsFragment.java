@@ -93,31 +93,25 @@ public class ExpenseDetailsFragment extends Fragment
     @Override
     public void onLoadFinished(Loader<ExpenseViewModel> loader, ExpenseViewModel expenseViewModel) {
 
+        View rootView = getView();
+        if (rootView == null) {
+            Log.e(TAG, "Couldn't get view");
+            return;
+        }
+
         if (expenseViewModel == null) {
             return;
         }
 
-        TextView expenseAmountTextView = (TextView) getView().findViewById(R.id.expense_details_textview_expense_amount);
+        TextView expenseAmountTextView = (TextView) rootView.findViewById(R.id.expense_details_textView_expense_amount);
         expenseAmountTextView.setText(expenseViewModel.getHumanReadableValue());
 
-        TextView expenseDateTextView = (TextView) getView().findViewById(R.id.expense_details_textview_expense_date);
+        TextView expenseDateTextView = (TextView) rootView.findViewById(R.id.expense_details_textView_expense_date);
         expenseDateTextView.setText(expenseViewModel.getHumanReadableTime());
     }
 
     @Override
     public void onLoaderReset(Loader<ExpenseViewModel> loader) {
 
-    }
-
-    public void editExpenseAmount(View view) {
-        expenseDetailsClickListener.onEditAmountClicked();
-    }
-
-    public void editExpenseDate(View view) {
-        expenseDetailsClickListener.onEditDateClicked();
-    }
-
-    public void deleteExpense(View view) {
-        expenseDetailsClickListener.onDeleteExpenseClicked();
     }
 }

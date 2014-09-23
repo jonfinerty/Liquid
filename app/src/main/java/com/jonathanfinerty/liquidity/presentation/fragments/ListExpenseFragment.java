@@ -32,7 +32,7 @@ public class ListExpenseFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View listFragmentView = inflater.inflate(R.layout.fragment_list_expenses, container, false);
 
-        final ListView expenseList = (ListView) listFragmentView.findViewById(R.id.listview_expenses);
+        final ListView expenseList = (ListView) listFragmentView.findViewById(R.id.listView_expenses);
 
         expenseViewModelAdapter = new ExpenseViewModelAdapter(listFragmentView.getContext(), new ArrayList<ExpenseViewModel>());
 
@@ -41,7 +41,7 @@ public class ListExpenseFragment extends Fragment
         SwipeDetector swipeDetector = new SwipeDetector(
                         expenseList,
                         new SwipeDetector.DismissCallback() {
-                            public void onDismiss(ListView listView, int position) {
+                            public void onDismiss(int position) {
 
                                 ExpenseViewModel expenseViewModel = expenseViewModelAdapter.getItem(position);
 

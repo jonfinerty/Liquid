@@ -70,9 +70,7 @@ public class BudgetTankViewModelLoader extends AsyncTaskLoader<BudgetTankViewMod
             totalSpent += expense.getValue();
         }
 
-        BudgetTankViewModel budgetTankViewModel = new BudgetTankViewModel(budget, totalSpent);
-
-        return budgetTankViewModel;
+        return new BudgetTankViewModel(budget, totalSpent);
     }
 
     @Override

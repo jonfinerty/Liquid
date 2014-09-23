@@ -11,13 +11,13 @@
         android:gravity="center"
         android:layout_marginTop="32dp"
         android:textColor="@color/blue_dark"
-        android:textSize="32dp"
+        android:textSize="32sp"
         android:text="Expense Details" />
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:gravity="center"
         android:layout_weight="1">
 
@@ -33,19 +33,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="right"
+                android:gravity="end"
                 android:textColor="@color/blue_dark"
                 android:text="Amount:"
                 android:layout_weight="2"/>
 
             <TextView
-                android:id="@+id/expense_details_textview_expense_amount"
+                android:id="@+id/expense_details_textView_expense_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textColor="@color/blue_dark"
-                android:textSize="32dp"
+                android:textSize="32sp"
                 android:text="£100"
                 android:layout_weight="1" />
 
@@ -69,19 +69,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="right"
+                android:gravity="end"
                 android:textColor="@color/blue_dark"
                 android:text="Date:"
                 android:layout_weight="2"/>
 
             <TextView
-                android:id="@+id/expense_details_textview_expense_date"
+                android:id="@+id/expense_details_textView_expense_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textColor="@color/blue_dark"
-                android:textSize="24dp"
+                android:textSize="24sp"
                 android:text="12 December 2014"
                 android:layout_weight="1" />
 
@@ -100,8 +100,9 @@
         android:id="@+id/expense_details_button_delete_expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:layout_marginBottom="20dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"

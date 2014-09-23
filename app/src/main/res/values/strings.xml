@@ -8,5 +8,7 @@
     <string name="add_expense">Add Expense</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="fragment_enter_date_title">Select monthly budget
+        start date</string>
 
 </resources>

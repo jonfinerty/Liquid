@@ -34,8 +34,7 @@ public class BudgetFragment extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_budget, container, false);
-        return layout;
+        return inflater.inflate(R.layout.fragment_budget, container, false);
     }
 
     @Override
@@ -47,7 +46,12 @@ public class BudgetFragment extends Fragment
     private void animateLabels(float newDatePercent, float newSpentPercent) {
         View rootView = getView();
 
-        final TextView todayTextView = (TextView) rootView.findViewById(R.id.textview_today);
+        if (rootView == null){
+            Log.e(TAG, "Error getting view");
+            return;
+        }
+
+        final TextView todayTextView = (TextView) rootView.findViewById(R.id.textView_today);
 
         int parentHeight = rootView.getHeight() - 120;
 
@@ -75,12 +79,12 @@ public class BudgetFragment extends Fragment
 
         paddingTopAnimation.setDuration(ANIMATION_DURATION);
 
-        LinearLayout spentTextLayout = (LinearLayout) rootView.findViewById(R.id.linearlayout_spent_labels);
+        LinearLayout spentTextLayout = (LinearLayout) rootView.findViewById(R.id.linearLayout_spent_labels);
 
         int layoutHeight = spentTextLayout.getHeight();
 
-        TextView spentTextView = (TextView) rootView.findViewById(R.id.textview_spent);
-        TextView leftTextView = (TextView) rootView.findViewById(R.id.textview_left);
+        TextView spentTextView = (TextView) rootView.findViewById(R.id.textView_spent);
+        TextView leftTextView = (TextView) rootView.findViewById(R.id.textView_left);
 
         int spentTargetHeight = (int) (((layoutHeight - 60) * newSpentPercent) / 100f);
         spentTargetHeight = Math.max(60, spentTargetHeight);
@@ -99,7 +103,14 @@ public class BudgetFragment extends Fragment
     }
 
     private void animateTank(float newDatePercent, float newSpentPercent) {
-        BudgetTankView budgetTank = (BudgetTankView) getView().findViewById(R.id.budget_tank);
+        View view = getView();
+
+        if (view == null) {
+            Log.e(TAG, "Error getting view");
+            return;
+        }
+
+        BudgetTankView budgetTank = (BudgetTankView) view.findViewById(R.id.budget_tank);
 
         ObjectAnimator dateLineAnimation = ObjectAnimator.ofFloat(budgetTank, "datePercent", datePercent, newDatePercent);
         dateLineAnimation.setDuration(ANIMATION_DURATION);
@@ -117,6 +128,13 @@ public class BudgetFragment extends Fragment
 
     private void updateTank(BudgetTankViewModel budgetTankViewModel) {
 
+        View view = getView();
+
+        if (view == null) {
+            Log.e(TAG, "Error getting view");
+            return;
+        }
+
         // todo: a bunch of this text formatting can be pushed up to the VM
         final float newDatePercent = budgetTankViewModel.getDatePercent();
 
@@ -125,8 +143,8 @@ public class BudgetFragment extends Fragment
         final float newSpentPercent = Math.min(spentPercentWithoutLimit, 100f);
 
 
-        TextView spentTextView = (TextView) getView().findViewById(R.id.textview_spent);
-        TextView leftTextView = (TextView) getView().findViewById(R.id.textview_left);
+        TextView spentTextView = (TextView) view.findViewById(R.id.textView_spent);
+        TextView leftTextView = (TextView) view.findViewById(R.id.textView_left);
 
         String spentText = String.format("£%d Spent", Math.round(budgetTankViewModel.getSpent() / 100f));
         String leftText = String.format("£%d Left", Math.round((budgetTankViewModel.getAmount() - budgetTankViewModel.getSpent()) / 100f));
@@ -140,6 +158,7 @@ public class BudgetFragment extends Fragment
             @Override
             public void onGlobalLayout() {
                 if(Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                    //noinspection deprecation
                     getView().getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 } else {
                     getView().getViewTreeObserver().removeOnGlobalLayoutListener(this);

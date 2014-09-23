@@ -6,7 +6,7 @@ import android.database.Cursor;
 import com.jonathanfinerty.liquidity.domain.Budget;
 
 public class BudgetRepository {
-    private Context context;
+    private final Context context;
 
     public BudgetRepository(Context context) {
         this.context = context;
