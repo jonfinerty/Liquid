@@ -3,6 +3,7 @@ package com.jonathanfinerty.liquidity.presentation.fragments;
 import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.Loader;
@@ -13,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.Transformation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +35,7 @@ public class BudgetFragment extends Fragment
 
     private float datePercent = 0f;
     private float spentPercent = 0f;
+    private int tankColour;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +46,12 @@ public class BudgetFragment extends Fragment
     public void onStart() {
         super.onStart();
         getLoaderManager().initLoader(0, null, this);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        tankColour = getResources().getColor(R.color.green);
     }
 
     private void animateLabels(float newDatePercent, float newSpentPercent) {
@@ -67,7 +77,7 @@ public class BudgetFragment extends Fragment
 
         final int marginDelta = targetMarginTop - startMarginTop;
 
-        Animation paddingTopAnimation = new Animation() {
+        Animation dateTextViewAnimation = new Animation() {
 
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
@@ -78,7 +88,7 @@ public class BudgetFragment extends Fragment
             }
         };
 
-        paddingTopAnimation.setDuration(ANIMATION_DURATION);
+        dateTextViewAnimation.setDuration(ANIMATION_DURATION);
 
         LinearLayout spentTextLayout = (LinearLayout) rootView.findViewById(R.id.linearLayout_spent_labels);
 
@@ -87,19 +97,40 @@ public class BudgetFragment extends Fragment
         TextView spentTextView = (TextView) rootView.findViewById(R.id.textView_spent);
         TextView leftTextView = (TextView) rootView.findViewById(R.id.textView_left);
 
-        int spentTargetHeight = (int) ((layoutHeight - 60) * newSpentPercent);
+        float spentTargetAlpha;
+
+        if (newSpentPercent > 1f){
+            newSpentPercent = 1f - Math.min(newSpentPercent - 1f, 1f);
+            spentTargetAlpha = 0f;
+        } else {
+            spentTargetAlpha = 1f;
+        }
+
+        int spentTargetHeight = (int) ((layoutHeight - 100) * newSpentPercent);
         spentTargetHeight = Math.max(60, spentTargetHeight);
 
-        int leftTargetHeight = Math.max(60, layoutHeight - spentTargetHeight);
 
         HeightAnimation spentAnimation = new HeightAnimation(spentTextView, spentTargetHeight);
         spentAnimation.setDuration(ANIMATION_DURATION);
 
+        AlphaAnimation spentAlphaAnimation = new AlphaAnimation(spentTextView.getAlpha(), spentTargetAlpha);
+        spentAlphaAnimation.setDuration(ANIMATION_DURATION);
+
+        int leftTargetHeight = Math.max(100, layoutHeight - spentTargetHeight);
+
         HeightAnimation leftAnimation = new HeightAnimation(leftTextView, leftTargetHeight);
         leftAnimation.setDuration(ANIMATION_DURATION);
 
-        todayTextView.startAnimation(paddingTopAnimation);
-        spentTextView.startAnimation(spentAnimation);
+        AnimationSet textViewsAnimationSet = new AnimationSet(false);
+        textViewsAnimationSet.setFillAfter(true);
+
+        textViewsAnimationSet.addAnimation(spentAlphaAnimation);
+        textViewsAnimationSet.addAnimation(spentAnimation);
+
+        spentTextView.startAnimation(textViewsAnimationSet);
+
+        todayTextView.startAnimation(dateTextViewAnimation);
+
         leftTextView.startAnimation(leftAnimation);
     }
 
@@ -113,13 +144,42 @@ public class BudgetFragment extends Fragment
 
         TankView budgetTank = (TankView) view.findViewById(R.id.budget_tank);
 
+        int newTankColour;
+
+        float[] spentValues;
+
+        if (spentPercent <= 1f && newSpentPercent <= 1f) { // under-to-under budget
+
+            newTankColour = getResources().getColor(R.color.green);
+            spentValues = new float[]{ (1f - spentPercent), (1f - newSpentPercent) };
+
+        } else if (spentPercent <= 1f && newSpentPercent > 1f) { // under-to-over budget
+
+            newTankColour = getResources().getColor(R.color.red);
+            float limitedNewSpentPercent = Math.min(newSpentPercent - 1f, 1f);
+            spentValues = new float[]{ (1f - spentPercent), 0f, limitedNewSpentPercent };
+
+        } else if (spentPercent > 1f && newSpentPercent <= 1f) { // over-to-under budget
+
+            newTankColour = getResources().getColor(R.color.green);
+            float limitedSpentPercent = Math.min(spentPercent - 1f, 1f);
+            spentValues = new float[]{ limitedSpentPercent, 0f, (1f - newSpentPercent) };
+
+        } else { // over-to-over budget
+
+            newTankColour = getResources().getColor(R.color.red);
+            float limitedSpentPercent = Math.min(spentPercent - 1f, 1f);
+            float limitedNewSpentPercent = Math.min(newSpentPercent - 1f, 1f);
+            spentValues = new float[]{ limitedSpentPercent, limitedNewSpentPercent };
+        }
+
         ObjectAnimator dateLineAnimation = ObjectAnimator.ofFloat(budgetTank, "lineHeight", (1f - datePercent), (1f - newDatePercent));
         dateLineAnimation.setDuration(ANIMATION_DURATION);
 
-        ObjectAnimator spentAnimation = ObjectAnimator.ofFloat(budgetTank, "filled",(1f - spentPercent), (1f - newSpentPercent));
-        spentAnimation.setDuration(ANIMATION_DURATION);
+        ObjectAnimator spentAnimation = ObjectAnimator.ofFloat(budgetTank, "filled", spentValues);
+        spentAnimation.setDuration((ANIMATION_DURATION / 2) * spentValues.length);
 
-        ObjectAnimator colorAnimation = ObjectAnimator.ofInt(budgetTank, "fillColor", getResources().getColor(R.color.green), getResources().getColor(R.color.red));
+        ObjectAnimator colorAnimation = ObjectAnimator.ofInt(budgetTank, "fillColor", tankColour, newTankColour);
         colorAnimation.setDuration(ANIMATION_DURATION);
         colorAnimation.setEvaluator(new ArgbEvaluator());
 
@@ -129,6 +189,7 @@ public class BudgetFragment extends Fragment
 
         datePercent = newDatePercent;
         spentPercent = newSpentPercent;
+        tankColour = newTankColour;
     }
 
     private void updateTank(BudgetTankViewModel budgetTankViewModel) {
@@ -145,12 +206,18 @@ public class BudgetFragment extends Fragment
         final float newSpentPercent = budgetTankViewModel.getSpentPercent();
 
         TextView spentTextView = (TextView) view.findViewById(R.id.textView_spent);
-        TextView leftTextView = (TextView) view.findViewById(R.id.textView_left);
-
         String spentText = String.format("£%d Spent", Math.round(budgetTankViewModel.getSpent() / 100f));
-        String leftText = String.format("£%d Left", Math.round((budgetTankViewModel.getAmount() - budgetTankViewModel.getSpent()) / 100f));
-
         spentTextView.setText(spentText);
+
+        TextView leftTextView = (TextView) view.findViewById(R.id.textView_left);
+        String leftText;
+
+        if (newSpentPercent <= 1f) {
+            leftText = String.format("£%d Left", Math.round((budgetTankViewModel.getAmount() - budgetTankViewModel.getSpent()) / 100f));
+        } else {
+            leftText = String.format("£%d Over Budget", Math.round((budgetTankViewModel.getSpent() - budgetTankViewModel.getAmount())/ 100f));
+        }
+
         leftTextView.setText(leftText);
 
         // todo: this is crap
@@ -165,8 +232,8 @@ public class BudgetFragment extends Fragment
                     getView().getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }
 
-                animateTank(newDatePercent, newSpentPercent);
                 animateLabels(newDatePercent, newSpentPercent);
+                animateTank(newDatePercent, newSpentPercent);
             }
         });
 

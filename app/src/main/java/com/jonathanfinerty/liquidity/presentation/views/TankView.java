@@ -92,7 +92,7 @@ public class TankView extends View {
 
         drawTankFill(canvas);
         drawTankLines(canvas);
-        drawDateLine(canvas);
+        drawDottedLine(canvas);
     }
 
     private void drawTankFill(Canvas canvas) {
@@ -155,19 +155,19 @@ public class TankView extends View {
         }
     }
 
-    private void drawDateLine(Canvas canvas) {
+    private void drawDottedLine(Canvas canvas) {
 
         float tankHeight = getHeight();
         float strokeWidth = dateLinePaint.getStrokeWidth();
 
-        int lineXStart = 0;
-        int lineXEnd = getWidth() - TANK_SIDE_MARGIN;
+        int lineXStart = getWidth() - TANK_SIDE_MARGIN - (int)(dateLinePaint.getStrokeWidth() / 2);
+        int lineXEnd = 0;
 
         float lineHeight = tankHeight - (this.lineHeightPercent * tankHeight);
 
         lineHeight = Math.min(lineHeight, tankHeight - (strokeWidth /2));
 
-        canvas.drawLine(lineXStart, lineHeight , lineXEnd, lineHeight, dateLinePaint);
+        canvas.drawLine(lineXStart, lineHeight, lineXEnd, lineHeight, dateLinePaint);
     }
 
     private void setupPaint() {
