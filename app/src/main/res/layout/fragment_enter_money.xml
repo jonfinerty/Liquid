@@ -10,7 +10,7 @@
         android:gravity="center"
         android:layout_marginTop="32dp"
         android:textSize="24sp"
-        android:text="Enter Expense Amount"/>
+        android:text="@string/fragment_enter_money_title"/>
 
     <TextView
         android:id="@+id/textView_expense_total"
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="48sp"
-        android:text="£0.00"
+        android:text="@string/fragment_enter_money_total"
         android:layout_marginTop="18dp"/>
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -34,28 +34,27 @@
         android:layout_marginRight="75dp"
         android:stretchColumns="0,1,2">
 
-        // todo: Apparently inline buttons should be borderless (i.e. only have text, no background)
-        // not 100% sure I like that.
+        <!-- todo: apparently these should be borderless buttons, dunno if I agree -->
         <TableRow>
             <Button
                 android:id="@+id/button_input_9"
                 android:tag="9"
                 android:layout_height="64dp"
-                android:text="9"
+                android:text="@string/fragment_enter_money_9"
                 android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/button_input_8"
                 android:tag="8"
                 android:layout_height="64dp"
-                android:text="8"
+                android:text="@string/fragment_enter_money_8"
                 android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/button_input_7"
                 android:tag="7"
                 android:layout_height="64dp"
-                android:text="7"
+                android:text="@string/fragment_enter_money_7"
                 android:layout_margin="2dp"/>
         </TableRow>
 
@@ -64,21 +63,21 @@
                 android:id="@+id/button_input_6"
                 android:tag="6"
                 android:layout_height="64dp"
-                android:text="6"
+                android:text="@string/fragment_enter_money_6"
                 android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/button_input_5"
                 android:tag="5"
                 android:layout_height="64dp"
-                android:text="5"
+                android:text="@string/fragment_enter_money_5"
                 android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/button_input_4"
                 android:tag="4"
                 android:layout_height="64dp"
-                android:text="4"
+                android:text="@string/fragment_enter_money_4"
                 android:layout_margin="2dp"/>
         </TableRow>
 
@@ -87,21 +86,21 @@
                 android:id="@+id/button_input_3"
                 android:tag="3"
                 android:layout_height="64dp"
-                android:text="3"
+                android:text="@string/fragment_enter_money_3"
                 android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/button_input_2"
                 android:tag="2"
                 android:layout_height="64dp"
-                android:text="2"
+                android:text="@string/fragment_enter_money_2"
                 android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/button_input_1"
                 android:tag="1"
                 android:layout_height="64dp"
-                android:text="1"
+                android:text="@string/fragment_enter_money_1"
                 android:layout_margin="2dp"/>
         </TableRow>
 
@@ -110,20 +109,20 @@
                 android:id="@+id/button_input_0"
                 android:tag="0"
                 android:layout_height="64dp"
-                android:text="0"
+                android:text="@string/fragment_enter_money_0"
                 android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/button_input_00"
                 android:tag="00"
                 android:layout_height="64dp"
-                android:text="00"
+                android:text="@string/fragment_enter_money_00"
                 android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/button_delete"
                 android:layout_height="64dp"
-                android:text="Del"
+                android:text="@string/fragment_enter_money_delete"
                 android:layout_margin="2dp"/>
         </TableRow>
 
@@ -136,7 +135,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:textSize="32sp"
-        android:text="Enter"
+        android:text="@string/fragment_enter_money_enter"
         android:enabled="false" />
 
 </LinearLayout>

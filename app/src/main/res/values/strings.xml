@@ -2,13 +2,39 @@
 <resources>
 
     <string name="app_name">Liquidity</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
     <string name="set_budget">Set Budget</string>
     <string name="add_expense">Add Expense</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
     <string name="fragment_enter_date_title">Select monthly budget
         start date</string>
+    <string name="activity_overview_add_expense">Add Expense</string>
+    <string name="fragment_budget_today">Today</string>
+    <string name="fragment_budget_spent">£670 Spent</string>
+    <string name="fragment_budget_left">£990 Left</string>
+    <string name="fragment_enter_date_enter">Enter</string>
+    <string name="fragment_enter_money_title">Enter Expense Amount</string>
+    <string name="fragment_enter_money_total">£0.00</string>
+    <string name="fragment_enter_money_9">9</string>
+    <string name="fragment_enter_money_8">8</string>
+    <string name="fragment_enter_money_7">7</string>
+    <string name="fragment_enter_money_6">6</string>
+    <string name="fragment_enter_money_5">5</string>
+    <string name="fragment_enter_money_4">4</string>
+    <string name="fragment_enter_money_3">3</string>
+    <string name="fragment_enter_money_2">2</string>
+    <string name="fragment_enter_money_1">1</string>
+    <string name="fragment_enter_money_0">0</string>
+    <string name="fragment_enter_money_00">00</string>
+    <string name="fragment_enter_money_delete">Del</string>
+    <string name="fragment_enter_money_enter">Enter</string>
+    <string name="fragment_expense_details_title">Expense Details</string>
+    <string name="fragment_expense_details_amount_label">Amount:</string>
+    <string name="fragment_expense_details_amount">£100</string>
+    <string name="fragment_expense_details_amount_edit">Edit</string>
+    <string name="fragment_expense_details_date_title">Date:</string>
+    <string name="fragment_expense_details_date">12 December 2014</string>
+    <string name="fragment_expense_details_date_edit">Edit</string>
+    <string name="fragment_expense_details_delete">Delete Expense</string>
+    <string name="listItem_expense_value">£10.00</string>
+    <string name="listItem_expense_date">Yesterday</string>
 
 </resources>

@@ -1,7 +1,7 @@
 <resources>
 
     <style name="AppTheme" parent="android:Theme.Holo.Light">
-
+        <item name="android:windowBackground">@color/white</item>
         <item name="android:actionBarStyle">@style/LiquidityActionBar</item>
         <item name="android:actionMenuTextColor">@color/white</item>
         <item name="android:actionOverflowButtonStyle">@style/OverflowButton</item>

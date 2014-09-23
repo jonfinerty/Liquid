@@ -12,7 +12,7 @@
         android:layout_marginTop="32dp"
         android:textColor="@color/blue_dark"
         android:textSize="32sp"
-        android:text="Expense Details" />
+        android:text="@string/fragment_expense_details_title" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -35,7 +35,7 @@
                 android:layout_gravity="center"
                 android:gravity="end"
                 android:textColor="@color/blue_dark"
-                android:text="Amount:"
+                android:text="@string/fragment_expense_details_amount_label"
                 android:layout_weight="2"/>
 
             <TextView
@@ -46,7 +46,7 @@
                 android:gravity="center"
                 android:textColor="@color/blue_dark"
                 android:textSize="32sp"
-                android:text="£100"
+                android:text="@string/fragment_expense_details_amount"
                 android:layout_weight="1" />
 
             <Button
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Edit" />
+                android:text="@string/fragment_expense_details_amount_edit" />
         </LinearLayout>
 
         <LinearLayout
@@ -71,7 +71,7 @@
                 android:layout_gravity="center"
                 android:gravity="end"
                 android:textColor="@color/blue_dark"
-                android:text="Date:"
+                android:text="@string/fragment_expense_details_date_title"
                 android:layout_weight="2"/>
 
             <TextView
@@ -82,7 +82,7 @@
                 android:gravity="center"
                 android:textColor="@color/blue_dark"
                 android:textSize="24sp"
-                android:text="12 December 2014"
+                android:text="@string/fragment_expense_details_date"
                 android:layout_weight="1" />
 
             <Button
@@ -90,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Edit" />
+                android:text="@string/fragment_expense_details_date_edit" />
 
         </LinearLayout>
 
@@ -106,7 +106,7 @@
         android:layout_marginRight="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="Delete Expense" />
+        android:text="@string/fragment_expense_details_delete" />
 
 
 </LinearLayout>

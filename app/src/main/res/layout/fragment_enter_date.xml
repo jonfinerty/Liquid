@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:textSize="32sp"
-        android:text="Enter"
+        android:text="@string/fragment_enter_date_enter"
         />
 
 </LinearLayout>
