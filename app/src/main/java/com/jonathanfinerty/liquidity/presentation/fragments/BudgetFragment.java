@@ -1,6 +1,7 @@
 package com.jonathanfinerty.liquidity.presentation.fragments;
 
 import android.animation.AnimatorSet;
+import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.app.Fragment;
 import android.app.LoaderManager;
@@ -118,9 +119,13 @@ public class BudgetFragment extends Fragment
         ObjectAnimator spentAnimation = ObjectAnimator.ofFloat(budgetTank, "filled",(1f - spentPercent), (1f - newSpentPercent));
         spentAnimation.setDuration(ANIMATION_DURATION);
 
-        AnimatorSet animationSetDateAndSpent = new AnimatorSet();
-        animationSetDateAndSpent.playTogether(dateLineAnimation, spentAnimation);
-        animationSetDateAndSpent.start();
+        ObjectAnimator colorAnimation = ObjectAnimator.ofInt(budgetTank, "fillColor", getResources().getColor(R.color.green), getResources().getColor(R.color.red));
+        colorAnimation.setDuration(ANIMATION_DURATION);
+        colorAnimation.setEvaluator(new ArgbEvaluator());
+
+        AnimatorSet animationSetDateFillAndColour = new AnimatorSet();
+        animationSetDateFillAndColour.playTogether(dateLineAnimation, spentAnimation, colorAnimation);
+        animationSetDateFillAndColour.start();
 
         datePercent = newDatePercent;
         spentPercent = newSpentPercent;

@@ -3,5 +3,6 @@
     <declare-styleable name="TankView">
         <attr name="lineHeight" format="fraction" />
         <attr name="filled" format="fraction" />
+        <attr name="fillColor" format="color" />
     </declare-styleable>
 </resources>

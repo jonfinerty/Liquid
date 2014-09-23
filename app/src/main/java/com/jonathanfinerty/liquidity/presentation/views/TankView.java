@@ -25,7 +25,7 @@ public class TankView extends View {
     private final int backgroundColor = getResources().getColor(R.color.white);
     private final int lineColor = getResources().getColor(R.color.blue_dark);
     private final int tankBackgroundColor = getResources().getColor(R.color.grey_disabled);
-    private final int fillColor = getResources().getColor(R.color.green);
+
 
     private Paint backgroundPaint;
     private Paint tankBackgroundPaint;
@@ -39,7 +39,7 @@ public class TankView extends View {
 
     private float lineHeightPercent;
     private float filledPercent;
-
+    private int fillColor;
 
     public TankView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -66,6 +66,13 @@ public class TankView extends View {
         requestLayout();
     }
 
+    @SuppressWarnings("UnusedDeclaration")
+    public void setFillColor(int color) {
+        this.fillColor = color;
+        invalidate();
+        requestLayout();
+    }
+
     private void setupAttributes(AttributeSet attrs) {
 
         TypedArray a = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.TankView, 0, 0);
@@ -73,6 +80,7 @@ public class TankView extends View {
         try {
             lineHeightPercent = a.getFraction(R.styleable.TankView_lineHeight, 1, 1, 0.5f);
             filledPercent = a.getFraction(R.styleable.TankView_filled, 1, 1, 0.5f);
+            fillColor = a.getColor(R.styleable.TankView_fillColor, getResources().getColor(R.color.green));
         } finally {
             a.recycle();
         }
@@ -107,6 +115,7 @@ public class TankView extends View {
         canvas.drawRect(tankRectangle, tankBackgroundPaint);
 
         // draw fill
+        tankFillPaint.setColor(fillColor);
         canvas.drawRect(tankFilledRectangle, tankFillPaint);
 
         // draw white overlap
@@ -170,8 +179,6 @@ public class TankView extends View {
         tankBackgroundPaint.setColor(tankBackgroundColor);
 
         tankFillPaint = new Paint();
-        tankFillPaint.setColor(fillColor);
-        tankFillPaint.setAntiAlias(true);
 
         transparentPaint = new Paint();
         transparentPaint.setAlpha(255);
