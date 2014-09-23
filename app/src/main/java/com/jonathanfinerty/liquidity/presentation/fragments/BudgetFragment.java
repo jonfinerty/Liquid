@@ -21,7 +21,7 @@ import com.jonathanfinerty.liquidity.R;
 import com.jonathanfinerty.liquidity.loaders.BudgetTankViewModelLoader;
 import com.jonathanfinerty.liquidity.presentation.HeightAnimation;
 import com.jonathanfinerty.liquidity.presentation.viewmodel.BudgetTankViewModel;
-import com.jonathanfinerty.liquidity.presentation.views.BudgetTankView;
+import com.jonathanfinerty.liquidity.presentation.views.TankView;
 
 public class BudgetFragment extends Fragment
                             implements LoaderManager.LoaderCallbacks<BudgetTankViewModel>{
@@ -57,7 +57,7 @@ public class BudgetFragment extends Fragment
 
         int maxMarginTop = parentHeight - todayTextView.getHeight();
 
-        int unBoundedTargetMarginTop = (int) ((maxMarginTop * newDatePercent) / 100f);
+        int unBoundedTargetMarginTop = (int) (maxMarginTop * newDatePercent);
 
         final int targetMarginTop = Math.max(unBoundedTargetMarginTop, 20);
 
@@ -86,7 +86,7 @@ public class BudgetFragment extends Fragment
         TextView spentTextView = (TextView) rootView.findViewById(R.id.textView_spent);
         TextView leftTextView = (TextView) rootView.findViewById(R.id.textView_left);
 
-        int spentTargetHeight = (int) (((layoutHeight - 60) * newSpentPercent) / 100f);
+        int spentTargetHeight = (int) ((layoutHeight - 60) * newSpentPercent);
         spentTargetHeight = Math.max(60, spentTargetHeight);
 
         int leftTargetHeight = Math.max(60, layoutHeight - spentTargetHeight);
@@ -110,12 +110,12 @@ public class BudgetFragment extends Fragment
             return;
         }
 
-        BudgetTankView budgetTank = (BudgetTankView) view.findViewById(R.id.budget_tank);
+        TankView budgetTank = (TankView) view.findViewById(R.id.budget_tank);
 
-        ObjectAnimator dateLineAnimation = ObjectAnimator.ofFloat(budgetTank, "datePercent", datePercent, newDatePercent);
+        ObjectAnimator dateLineAnimation = ObjectAnimator.ofFloat(budgetTank, "lineHeight", (1f - datePercent), (1f - newDatePercent));
         dateLineAnimation.setDuration(ANIMATION_DURATION);
 
-        ObjectAnimator spentAnimation = ObjectAnimator.ofFloat(budgetTank, "spentPercent", spentPercent, newSpentPercent);
+        ObjectAnimator spentAnimation = ObjectAnimator.ofFloat(budgetTank, "filled",(1f - spentPercent), (1f - newSpentPercent));
         spentAnimation.setDuration(ANIMATION_DURATION);
 
         AnimatorSet animationSetDateAndSpent = new AnimatorSet();
@@ -135,13 +135,9 @@ public class BudgetFragment extends Fragment
             return;
         }
 
-        // todo: a bunch of this text formatting can be pushed up to the VM
         final float newDatePercent = budgetTankViewModel.getDatePercent();
 
-        final float spentPercentWithoutLimit = (((float) budgetTankViewModel.getSpent()) / (float) budgetTankViewModel.getAmount()) * 100f;
-
-        final float newSpentPercent = Math.min(spentPercentWithoutLimit, 100f);
-
+        final float newSpentPercent = budgetTankViewModel.getSpentPercent();
 
         TextView spentTextView = (TextView) view.findViewById(R.id.textView_spent);
         TextView leftTextView = (TextView) view.findViewById(R.id.textView_left);

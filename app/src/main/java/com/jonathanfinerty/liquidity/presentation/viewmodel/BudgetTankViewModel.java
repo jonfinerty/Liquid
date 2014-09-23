@@ -57,6 +57,11 @@ public class BudgetTankViewModel {
         }
 
         totalDaysGoneInBudget += 1;
-        return ((float) totalDaysGoneInBudget / (float) totalDaysInBudget) * 100f;
+
+        return ((float) totalDaysGoneInBudget / (float) totalDaysInBudget);
+    }
+
+    public float getSpentPercent() {
+        return (((float) getSpent()) / (float) getAmount());
     }
 }

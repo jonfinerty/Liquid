@@ -20,15 +20,15 @@
         android:paddingEnd="8dp"
         android:paddingRight="8dp" />
 
-    <com.jonathanfinerty.liquidity.presentation.views.BudgetTankView
+    <com.jonathanfinerty.liquidity.presentation.views.TankView
         android:id="@+id/budget_tank"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="2"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="25dp"
-        app:datePercent="0"
-        app:spentPercent="0" />
+        app:filled="50%"
+        app:lineHeight="50%" />
 
     <LinearLayout
         android:id="@+id/linearLayout_spent_labels"

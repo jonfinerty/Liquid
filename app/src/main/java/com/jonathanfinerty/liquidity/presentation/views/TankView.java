@@ -15,8 +15,12 @@ import android.view.View;
 
 import com.jonathanfinerty.liquidity.R;
 
-public class BudgetTankView extends View {
+public class TankView extends View {
 
+    private static final int TANK_SIDE_MARGIN = 50;
+    private static final int NUMBER_OF_TANK_LINES = 20;
+    private static final int LARGE_LINE_PERIOD = 5;
+    private static final int TANK_LINE_RIGHT_MARGIN = 30;
 
     private final int backgroundColor = getResources().getColor(R.color.white);
     private final int lineColor = getResources().getColor(R.color.blue_dark);
@@ -33,54 +37,42 @@ public class BudgetTankView extends View {
     private Paint tankThickLinePaint;
     private Paint dateLinePaint;
 
-    private float datePercent;
-    private float spentPercent;
+    private float lineHeightPercent;
+    private float filledPercent;
 
 
-    public BudgetTankView(Context context, AttributeSet attrs) {
+    public TankView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setupPaint();
         this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         setupAttributes(attrs);
     }
 
-    public float getDatePercent() {
-        return datePercent;
-    }
-
-    public void setDatePercent(float percent) {
-        percent = Math.min(percent, 100f);
+    @SuppressWarnings("UnusedDeclaration")
+    public void setLineHeight(float percent) {
+        percent = Math.min(percent, 1f);
         percent = Math.max(percent, 0f);
-        this.datePercent = percent;
+        this.lineHeightPercent = percent;
         invalidate();
         requestLayout();
     }
 
-    public float getSpentPercent() {
-        return datePercent;
-    }
-
-    public void setSpentPercent(float percent) {
-        percent = Math.min(percent, 100f);
+    @SuppressWarnings("UnusedDeclaration")
+    public void setFilled(float percent) {
+        percent = Math.min(percent, 1f);
         percent = Math.max(percent, 0f);
-        this.spentPercent = percent;
+        this.filledPercent = percent;
         invalidate();
         requestLayout();
     }
 
     private void setupAttributes(AttributeSet attrs) {
 
-        TypedArray a = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.BudgetTankView, 0, 0);
+        TypedArray a = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.TankView, 0, 0);
 
         try {
-            datePercent = a.getFloat(R.styleable.BudgetTankView_datePercent, 0f);
-            datePercent = Math.min(datePercent, 100f);
-            datePercent = Math.max(datePercent, 0f);
-
-            spentPercent = a.getFloat(R.styleable.BudgetTankView_spentPercent, 0f);
-            spentPercent = Math.min(spentPercent, 100f);
-            spentPercent = Math.max(spentPercent, 0f);
-
+            lineHeightPercent = a.getFraction(R.styleable.TankView_lineHeight, 1, 1, 0.5f);
+            filledPercent = a.getFraction(R.styleable.TankView_filled, 1, 1, 0.5f);
         } finally {
             a.recycle();
         }
@@ -91,7 +83,7 @@ public class BudgetTankView extends View {
         super.onDraw(canvas);
 
         drawTankFill(canvas);
-        drawTank(canvas);
+        drawTankLines(canvas);
         drawDateLine(canvas);
     }
 
@@ -99,52 +91,57 @@ public class BudgetTankView extends View {
 
         float cornerRadius = 50;
 
-        float viewWidth = getWidth();
-        float tankHeight = getHeight();
-
-        float tankLeft = 50;
-        float tankRight = viewWidth - 50;
-
-        float tankFillYStart = (spentPercent * tankHeight ) / 100f;
-
-        // draw tank background
-        canvas.drawRect(new RectF(tankLeft, 0, tankRight, tankHeight), tankBackgroundPaint);
-
-        // draw green fill
-        canvas.drawRect(new RectF(tankLeft, tankFillYStart, tankRight, tankHeight), tankFillPaint);
-
-        // draw white overlap
-        Bitmap tankMaskBitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas tankMaskCanvas = new Canvas(tankMaskBitmap);
-        tankMaskCanvas.drawRect(new RectF(0, 0, getWidth(), getHeight()), backgroundPaint);
-        // erase rounded rectangle over tank
-        tankMaskCanvas.drawRoundRect(new RectF(tankLeft, 0, tankRight, tankHeight), cornerRadius, cornerRadius, transparentPaint);
-
-        // apply mask to original canvas
-        canvas.drawBitmap(tankMaskBitmap, new Rect(0, 0, tankMaskBitmap.getWidth(), tankMaskBitmap.getHeight()), new Rect(0, 0, getWidth(), getHeight()), null);
-    }
-
-    private void drawTank(Canvas canvas) {
         int viewWidth = getWidth();
         int tankHeight = getHeight();
 
-        int tankLeft = 50;
-        int tankRight = viewWidth - 50;
-        int tankWidth = tankRight - tankLeft;
+        int tankLeft = TANK_SIDE_MARGIN;
+        int tankRight = viewWidth - TANK_SIDE_MARGIN;
 
-        int tankMidX = tankLeft + (tankWidth / 2);
+        int tankFillYStart = (int)(tankHeight - (filledPercent * tankHeight));
+
+        Rect entireViewRectangle = new Rect(0, 0, viewWidth, tankHeight);
+        RectF tankRectangle = new RectF(tankLeft, 0, tankRight, tankHeight);
+        Rect tankFilledRectangle = new Rect(tankLeft, tankFillYStart, tankRight, tankHeight);
+
+        // draw tank background
+        canvas.drawRect(tankRectangle, tankBackgroundPaint);
+
+        // draw fill
+        canvas.drawRect(tankFilledRectangle, tankFillPaint);
+
+        // draw white overlap
+        Bitmap tankMaskBitmap = Bitmap.createBitmap(viewWidth, tankHeight, Bitmap.Config.ARGB_8888);
+        Canvas tankMaskCanvas = new Canvas(tankMaskBitmap);
+        tankMaskCanvas.drawRect(entireViewRectangle, backgroundPaint);
+
+        // erase rounded rectangle over tank
+        tankMaskCanvas.drawRoundRect(tankRectangle, cornerRadius, cornerRadius, transparentPaint);
+
+        // apply mask to original canvas
+        canvas.drawBitmap(tankMaskBitmap, entireViewRectangle, entireViewRectangle, null);
+    }
+
+    private void drawTankLines(Canvas canvas) {
+        int viewWidth = getWidth();
+        int tankHeight = getHeight();
+
+        int tankLeft = TANK_SIDE_MARGIN;
+
+        int tankWidth = viewWidth - (2 * TANK_SIDE_MARGIN);
+        
+        int tankMidX = viewWidth / 2;
         int tank34X = tankLeft + ((tankWidth / 4) * 3);
 
-        int tankLineYGap = tankHeight / 20;
+        int tankEndX = viewWidth - TANK_SIDE_MARGIN - TANK_LINE_RIGHT_MARGIN;
 
-        for (int i=1; i < 20; i++ ){
+        for (int i=1; i < NUMBER_OF_TANK_LINES; i++ ){
 
-            int lineHeight = tankLineYGap * i;
+            int lineHeight = (tankHeight * i) / NUMBER_OF_TANK_LINES;
 
-            if (i % 5 == 0) {
-                canvas.drawLine(tankMidX, lineHeight, tankRight - (tankWidth / 10), lineHeight, tankThickLinePaint);
+            if (i % LARGE_LINE_PERIOD == 0) {
+                canvas.drawLine(tankMidX, lineHeight, tankEndX, lineHeight, tankThickLinePaint);
             } else {
-                canvas.drawLine(tank34X, lineHeight, tankRight - (tankWidth / 10), lineHeight, tankThinLinePaint);
+                canvas.drawLine(tank34X, lineHeight, tankEndX, lineHeight, tankThinLinePaint);
             }
         }
     }
@@ -154,12 +151,10 @@ public class BudgetTankView extends View {
         float tankHeight = getHeight();
         float strokeWidth = dateLinePaint.getStrokeWidth();
 
-        int lineXStart = getWidth() - 54;
-        int lineXEnd = 0;
+        int lineXStart = 0;
+        int lineXEnd = getWidth() - TANK_SIDE_MARGIN;
 
-        float lineHeight = (tankHeight / 100f) * datePercent;
-
-        lineHeight += (strokeWidth / 2);
+        float lineHeight = tankHeight - (this.lineHeightPercent * tankHeight);
 
         lineHeight = Math.min(lineHeight, tankHeight - (strokeWidth /2));
 

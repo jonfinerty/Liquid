@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-        <declare-styleable name="BudgetTankView">
-        <attr name="datePercent" format="float" />
-        <attr name="spentPercent" format="float" />
+    <declare-styleable name="TankView">
+        <attr name="lineHeight" format="fraction" />
+        <attr name="filled" format="fraction" />
     </declare-styleable>
 </resources>
