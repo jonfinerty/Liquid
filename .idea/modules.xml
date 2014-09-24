@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Liquidity.iml" filepath="$PROJECT_DIR$/Liquidity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Liquid.iml" filepath="$PROJECT_DIR$/Liquid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

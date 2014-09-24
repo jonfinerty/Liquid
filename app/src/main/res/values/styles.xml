@@ -2,7 +2,7 @@
 
     <style name="AppTheme" parent="android:Theme.Holo.Light">
         <item name="android:windowBackground">@color/white</item>
-        <item name="android:actionBarStyle">@style/LiquidityActionBar</item>
+        <item name="android:actionBarStyle">@style/LiquidActionBar</item>
         <item name="android:actionMenuTextColor">@color/white</item>
         <item name="android:actionOverflowButtonStyle">@style/OverflowButton</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.</item>
@@ -10,7 +10,7 @@
         <item name="android:buttonStyle">@style/Button.</item>
     </style>
 
-    <style name="LiquidityActionBar"
+    <style name="LiquidActionBar"
         parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/green</item>
         <item name="android:icon">@android:color/transparent</item>

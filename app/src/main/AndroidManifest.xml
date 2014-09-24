@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jonathanfinerty.liquidity" >
+    package="com.jonathanfinerty.liquid" >
 
     <!-- todo: test and enable RTL support -->
 
@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme" >
 
         <activity
-            android:name=".presentation.activities.OverviewActivity"
+            android:name="com.jonathanfinerty.liquid.presentation.activities.OverviewActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
@@ -24,47 +24,47 @@
         </activity>
 
         <activity
-            android:name=".presentation.activities.SetBudgetActivity"
+            android:name="com.jonathanfinerty.liquid.presentation.activities.SetBudgetActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
 
         <activity
-            android:name=".presentation.activities.AddExpenseActivity"
+            android:name="com.jonathanfinerty.liquid.presentation.activities.AddExpenseActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
 
         <activity
-            android:name=".presentation.activities.ExpenseActivity"
+            android:name="com.jonathanfinerty.liquid.presentation.activities.ExpenseActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
         </activity>
 
         <provider
-            android:name=".persistence.LiquidityContentProvider"
-            android:authorities="com.jonathanfinerty.liquidity.persistence.LiquidityContentProvider"
+            android:name="com.jonathanfinerty.liquid.persistence.LiquidContentProvider"
+            android:authorities="com.jonathanfinerty.liquid.persistence.LiquidContentProvider"
             android:exported="false"
-            android:label="Liquidity Content Provider"
-            android:permission="com.jonathanfinerty.liquidity.persistence.LiquidityContentProvider.permission.READ_WRITE" />
+            android:label="Liquid Content Provider"
+            android:permission="com.jonathanfinerty.liquid.persistence.LiquidContentProvider.permission.READ_WRITE" />
 
         <service
-            android:name=".services.CreateExpenseService"
+            android:name="com.jonathanfinerty.liquid.services.CreateExpenseService"
             android:exported="false" />
 
         <service
-            android:name=".services.DeleteExpenseService"
+            android:name="com.jonathanfinerty.liquid.services.DeleteExpenseService"
             android:exported="false" />
 
         <service
-            android:name=".services.SetBudgetService"
+            android:name="com.jonathanfinerty.liquid.services.SetBudgetService"
             android:exported="false" />
 
         <service
-            android:name=".services.UpdateExpenseService"
+            android:name="com.jonathanfinerty.liquid.services.UpdateExpenseService"
             android:exported="false" />
 
     </application>
