@@ -24,7 +24,7 @@ public class TankView extends View {
 
     private final int backgroundColor = getResources().getColor(R.color.white);
     private final int lineColor = getResources().getColor(R.color.blue_dark);
-    private final int tankBackgroundColor = getResources().getColor(R.color.grey_disabled);
+    private final int tankBackgroundColor = getResources().getColor(R.color.grey);
 
 
     private Paint backgroundPaint;
@@ -185,13 +185,13 @@ public class TankView extends View {
         transparentPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 
         tankThinLinePaint = new Paint();
-        tankThinLinePaint.setColor(lineColor);
+        tankThinLinePaint.setColor(backgroundColor);
         tankThinLinePaint.setAntiAlias(true);
         tankThinLinePaint.setStrokeWidth(2);
         tankThinLinePaint.setStyle(Paint.Style.STROKE);
 
         tankThickLinePaint = new Paint();
-        tankThickLinePaint.setColor(lineColor);
+        tankThickLinePaint.setColor(backgroundColor);
         tankThickLinePaint.setAntiAlias(true);
         tankThickLinePaint.setStrokeWidth(4);
         tankThickLinePaint.setStyle(Paint.Style.STROKE);
