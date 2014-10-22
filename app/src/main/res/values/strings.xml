@@ -28,7 +28,7 @@
     <string name="fragment_enter_money_enter">Enter</string>
     <string name="fragment_expense_details_title">Expense Details</string>
     <string name="fragment_expense_details_amount_label">Amount:</string>
-    <string name="fragment_expense_details_amount">£100</string>
+    <string name="fragment_expense_details_amount">£100.00</string>
     <string name="fragment_expense_details_amount_edit">Edit</string>
     <string name="fragment_expense_details_date_title">Date:</string>
     <string name="fragment_expense_details_date">12 December 2014</string>

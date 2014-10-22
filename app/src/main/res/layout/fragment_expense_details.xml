@@ -11,7 +11,7 @@
         android:gravity="center"
         android:layout_marginTop="32dp"
         android:textColor="@color/blue_dark"
-        android:textSize="32sp"
+        android:textSize="@dimen/large"
         android:text="@string/fragment_expense_details_title" />
 
     <LinearLayout
@@ -35,8 +35,10 @@
                 android:layout_gravity="center"
                 android:gravity="end"
                 android:textColor="@color/blue_dark"
+                android:textSize="@dimen/small"
                 android:text="@string/fragment_expense_details_amount_label"
-                android:layout_weight="2"/>
+                android:layout_weight="2"
+                android:textIsSelectable="false" />
 
             <TextView
                 android:id="@+id/expense_details_textView_expense_amount"
@@ -45,7 +47,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textColor="@color/blue_dark"
-                android:textSize="32sp"
+                android:textSize="@dimen/medium"
                 android:text="@string/fragment_expense_details_amount"
                 android:layout_weight="1" />
 
@@ -54,6 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textSize="@dimen/medium"
                 android:text="@string/fragment_expense_details_amount_edit" />
         </LinearLayout>
 
@@ -71,6 +74,7 @@
                 android:layout_gravity="center"
                 android:gravity="end"
                 android:textColor="@color/blue_dark"
+                android:textSize="@dimen/small"
                 android:text="@string/fragment_expense_details_date_title"
                 android:layout_weight="2"/>
 
@@ -81,7 +85,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:textColor="@color/blue_dark"
-                android:textSize="24sp"
+                android:textSize="@dimen/medium"
                 android:text="@string/fragment_expense_details_date"
                 android:layout_weight="1" />
 
@@ -90,6 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textSize="@dimen/medium"
                 android:text="@string/fragment_expense_details_date_edit" />
 
         </LinearLayout>
@@ -106,7 +111,8 @@
         android:layout_marginRight="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="@string/fragment_expense_details_delete" />
+        android:text="@string/fragment_expense_details_delete"
+        android:textSize="@dimen/small"/>
 
 
 </LinearLayout>

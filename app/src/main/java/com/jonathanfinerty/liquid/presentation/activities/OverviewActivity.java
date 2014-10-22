@@ -15,6 +15,7 @@ import android.widget.Button;
 
 import com.jonathanfinerty.liquid.R;
 import com.jonathanfinerty.liquid.presentation.fragments.BudgetFragment;
+import com.jonathanfinerty.liquid.presentation.fragments.DailySpendingFragment;
 import com.jonathanfinerty.liquid.presentation.fragments.ListExpenseFragment;
 
 public class OverviewActivity extends Activity {
@@ -26,6 +27,7 @@ public class OverviewActivity extends Activity {
 
         ViewPager viewpager = (ViewPager) findViewById(R.id.viewpager_overview);
         viewpager.setAdapter(new LiquidPagerAdapter(getFragmentManager()));
+        viewpager.setCurrentItem(1);
 
         PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pagerTabStrip_overview);
         pagerTabStrip.setTextColor(getResources().getColor(R.color.blue_dark));
@@ -79,9 +81,12 @@ public class OverviewActivity extends Activity {
         public Fragment getItem(int position) {
             switch (position){
                 case 0: {
-                    return new BudgetFragment();
+                    return new DailySpendingFragment();
                 }
                 case 1: {
+                    return new BudgetFragment();
+                }
+                case 2: {
                     return new ListExpenseFragment();
                 }
             }
@@ -91,17 +96,21 @@ public class OverviewActivity extends Activity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
+            // todo: this should be localised
             switch (position){
                 case 0: {
-                    return "Budget";
+                    return "Daily Spending";
                 }
                 case 1: {
-                    return "Expenses";
+                    return "Budget";
+                }
+                case 2: {
+                    return "Expense History";
                 }
             }
 

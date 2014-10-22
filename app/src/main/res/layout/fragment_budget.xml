@@ -11,14 +11,15 @@
         android:id="@+id/textView_today"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:text="@string/fragment_budget_today"
-        android:textColor="@color/blue_dark"
         android:layout_weight="1"
-        android:gravity="center_vertical|end"
         android:paddingStart="0dp"
         android:paddingLeft="0dp"
         android:paddingEnd="8dp"
-        android:paddingRight="8dp" />
+        android:paddingRight="8dp"
+        android:gravity="center_vertical|end"
+        android:text="@string/fragment_budget_today"
+        android:textColor="@color/blue_dark"
+        android:textSize="@dimen/small"/>
 
     <com.jonathanfinerty.liquid.presentation.views.TankView
         android:id="@+id/budget_tank"
@@ -42,20 +43,22 @@
         <TextView
             android:id="@+id/textView_spent"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:height="20dp"
+            android:gravity="center_vertical"
             android:text="@string/fragment_budget_spent"
             android:textColor="@color/blue_dark"
-            android:height="20dp"
-            android:gravity="center_vertical" />
+            android:textSize="@dimen/small"/>
 
         <TextView
             android:id="@+id/textView_left"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:height="20dp"
-            android:textColor="@color/blue_dark"
+            android:gravity="center_vertical"
             android:text="@string/fragment_budget_left"
-            android:gravity="center_vertical" />
+            android:textColor="@color/blue_dark"
+            android:textSize="@dimen/small"/>
 
     </LinearLayout>
 

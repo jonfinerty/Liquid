@@ -9,17 +9,20 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="32dp"
-        android:textSize="24sp"
-        android:text="@string/fragment_enter_money_title"/>
+        android:text="@string/fragment_enter_money_title"
+        android:textSize="@dimen/medium"
+        android:textColor="@color/blue_dark"/>
 
     <TextView
         android:id="@+id/textView_expense_total"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="18dp"
         android:gravity="center"
-        android:textSize="48sp"
         android:text="@string/fragment_enter_money_total"
-        android:layout_marginTop="18dp"/>
+        android:textColor="@color/blue_dark"
+        android:textSize="@dimen/huge" />
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
@@ -41,6 +44,7 @@
                 android:tag="9"
                 android:layout_height="64dp"
                 android:text="@string/fragment_enter_money_9"
+                android:textSize="@dimen/small"
                 android:layout_margin="2dp"/>
 
             <Button
@@ -48,6 +52,7 @@
                 android:tag="8"
                 android:layout_height="64dp"
                 android:text="@string/fragment_enter_money_8"
+                android:textSize="@dimen/small"
                 android:layout_margin="2dp"/>
 
             <Button
@@ -55,6 +60,7 @@
                 android:tag="7"
                 android:layout_height="64dp"
                 android:text="@string/fragment_enter_money_7"
+                android:textSize="@dimen/small"
                 android:layout_margin="2dp"/>
         </TableRow>
 
@@ -64,6 +70,7 @@
                 android:tag="6"
                 android:layout_height="64dp"
                 android:text="@string/fragment_enter_money_6"
+                android:textSize="@dimen/small"
                 android:layout_margin="2dp"/>
 
             <Button
@@ -71,6 +78,7 @@
                 android:tag="5"
                 android:layout_height="64dp"
                 android:text="@string/fragment_enter_money_5"
+                android:textSize="@dimen/small"
                 android:layout_margin="2dp"/>
 
             <Button
@@ -78,6 +86,7 @@
                 android:tag="4"
                 android:layout_height="64dp"
                 android:text="@string/fragment_enter_money_4"
+                android:textSize="@dimen/small"
                 android:layout_margin="2dp"/>
         </TableRow>
 
@@ -87,6 +96,7 @@
                 android:tag="3"
                 android:layout_height="64dp"
                 android:text="@string/fragment_enter_money_3"
+                android:textSize="@dimen/small"
                 android:layout_margin="2dp"/>
 
             <Button
@@ -94,6 +104,7 @@
                 android:tag="2"
                 android:layout_height="64dp"
                 android:text="@string/fragment_enter_money_2"
+                android:textSize="@dimen/small"
                 android:layout_margin="2dp"/>
 
             <Button
@@ -101,6 +112,7 @@
                 android:tag="1"
                 android:layout_height="64dp"
                 android:text="@string/fragment_enter_money_1"
+                android:textSize="@dimen/small"
                 android:layout_margin="2dp"/>
         </TableRow>
 
@@ -110,6 +122,7 @@
                 android:tag="0"
                 android:layout_height="64dp"
                 android:text="@string/fragment_enter_money_0"
+                android:textSize="@dimen/small"
                 android:layout_margin="2dp"/>
 
             <Button
@@ -117,12 +130,14 @@
                 android:tag="00"
                 android:layout_height="64dp"
                 android:text="@string/fragment_enter_money_00"
+                android:textSize="@dimen/small"
                 android:layout_margin="2dp"/>
 
             <Button
                 android:id="@+id/button_delete"
                 android:layout_height="64dp"
                 android:text="@string/fragment_enter_money_delete"
+                android:textSize="@dimen/small"
                 android:layout_margin="2dp"/>
         </TableRow>
 
@@ -134,8 +149,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:textSize="32sp"
         android:text="@string/fragment_enter_money_enter"
+        android:textSize="@dimen/medium"
         android:enabled="false" />
 
 </LinearLayout>
