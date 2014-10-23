@@ -32,29 +32,31 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:layout_gravity="center"
                 android:gravity="end"
-                android:textColor="@color/blue_dark"
                 android:text="@string/fragment_expense_details_amount_label"
-                android:layout_weight="2"/>
+                android:textColor="@color/blue_dark"
+                android:textSize="@dimen/small" />
 
             <TextView
                 android:id="@+id/expense_details_textView_expense_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textColor="@color/blue_dark"
-                android:textSize="32sp"
                 android:text="@string/fragment_expense_details_amount"
-                android:layout_weight="1" />
+                android:textColor="@color/blue_dark"
+                android:textSize="@dimen/medium" />
 
             <Button
                 android:id="@+id/expense_details_button_edit_expense_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/fragment_expense_details_amount_edit" />
+                android:text="@string/fragment_expense_details_amount_edit"
+                android:textSize="@dimen/medium" />
         </LinearLayout>
 
         <LinearLayout
@@ -68,29 +70,31 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:layout_gravity="center"
                 android:gravity="end"
-                android:textColor="@color/blue_dark"
                 android:text="@string/fragment_expense_details_date_title"
-                android:layout_weight="2"/>
+                android:textColor="@color/blue_dark"
+                android:textSize="@dimen/small" />
 
             <TextView
                 android:id="@+id/expense_details_textView_expense_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textColor="@color/blue_dark"
-                android:textSize="24sp"
                 android:text="@string/fragment_expense_details_date"
-                android:layout_weight="1" />
+                android:textColor="@color/blue_dark"
+                android:textSize="@dimen/medium" />
 
             <Button
                 android:id="@+id/expense_details_button_edit_expense_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/fragment_expense_details_date_edit" />
+                android:text="@string/fragment_expense_details_date_edit"
+                android:textSize="@dimen/medium" />
 
         </LinearLayout>
 
@@ -106,7 +110,8 @@
         android:layout_marginRight="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="@string/fragment_expense_details_delete" />
+        android:text="@string/fragment_expense_details_delete"
+        android:textSize="@dimen/small" />
 
 
 </LinearLayout>
