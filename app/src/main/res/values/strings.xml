@@ -37,5 +37,7 @@
     <string name="listItem_expense_value">£10.00</string>
     <string name="listItem_expense_date">Yesterday</string>
     <string name="listItem_date_separator_default">11/12/1990</string>
+    <string name="tab_title_budget">BUDGET</string>
+    <string name="tab_title_expense">EXPENSE</string>
 
 </resources>

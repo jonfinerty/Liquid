@@ -1,33 +1,31 @@
 <resources>
 
-    <style name="AppTheme" parent="android:Theme.Holo.Light">
+    <style name="AppTheme" parent="android:Theme.Material">
+
+        <item name="android:colorPrimary">@color/green</item>
+        <item name="android:colorPrimaryDark">@color/green_dark</item>
+
+        <item name="android:textColorPrimary">@color/white</item>
+
         <item name="android:windowBackground">@color/white</item>
-        <item name="android:actionBarStyle">@style/LiquidActionBar</item>
+
         <item name="android:actionMenuTextColor">@color/white</item>
-        <item name="android:actionOverflowButtonStyle">@style/OverflowButton</item>
-        <item name="android:popupMenuStyle">@style/PopupMenu.</item>
 
-        <item name="android:buttonStyle">@style/Button.</item>
+        <item name="android:popupTheme">@style/PopupMenu</item>
+
     </style>
 
-    <style name="LiquidActionBar"
-        parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
-        <item name="android:background">@color/green</item>
-        <item name="android:icon">@android:color/transparent</item>
-    </style>
-
-    <style
-        name="OverflowButton"
-        parent="@android:style/Widget.ActionButton.Overflow">
-        <item name="android:src">@drawable/overflow</item>
-    </style>
-
-    <style
-        name="PopupMenu."
-        parent="@android:style/Widget.Holo.Light.ListPopupWindow">
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_</item>
+    <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">
+        <item name="android:background">@color/white</item>
         <item name="android:textColor">@color/blue_dark</item>
     </style>
+
+    <style name="PagerTabStripText">
+        <item name="android:textSize">@dimen/small</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
 
     <style name="Button."
         parent="android:Widget.Holo.Light.Button">

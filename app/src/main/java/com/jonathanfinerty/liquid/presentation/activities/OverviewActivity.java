@@ -3,10 +3,10 @@ package com.jonathanfinerty.liquid.presentation.activities;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,12 +25,7 @@ public class OverviewActivity extends Activity {
         setContentView(R.layout.activity_overview);
 
         ViewPager viewpager = (ViewPager) findViewById(R.id.viewpager_overview);
-        viewpager.setAdapter(new LiquidPagerAdapter(getFragmentManager()));
-
-        PagerTabStrip pagerTabStrip = (PagerTabStrip) findViewById(R.id.pagerTabStrip_overview);
-        pagerTabStrip.setTextColor(getResources().getColor(R.color.blue_dark));
-        pagerTabStrip.setTabIndicatorColorResource(R.color.blue_dark);
-        pagerTabStrip.setDrawFullUnderline(true);
+        viewpager.setAdapter(new LiquidPagerAdapter(getFragmentManager(), this));
 
         Button button = (Button) findViewById(R.id.overview_activity_button_add_expense);
         button.setOnClickListener(new View.OnClickListener() {
@@ -40,6 +35,8 @@ public class OverviewActivity extends Activity {
                 startActivity(addExpenseIntent);
             }
         });
+
+        this.getActionBar().setElevation(0);
     }
 
     @Override
@@ -66,13 +63,15 @@ public class OverviewActivity extends Activity {
                 return super.onOptionsItemSelected(item);
         }
 
-
     }
 
-    public static class LiquidPagerAdapter extends FragmentPagerAdapter {
+    public static class LiquidPagerAdapter extends FragmentPagerAdapter  {
 
-        public LiquidPagerAdapter(FragmentManager fragmentManager) {
+        private Context context;
+
+        public LiquidPagerAdapter(FragmentManager fragmentManager, Context context) {
             super(fragmentManager);
+            this.context = context;
         }
 
         @Override
@@ -98,10 +97,10 @@ public class OverviewActivity extends Activity {
         public CharSequence getPageTitle(int position) {
             switch (position){
                 case 0: {
-                    return "Budget";
+                    return context.getString(R.string.tab_title_budget);
                 }
                 case 1: {
-                    return "Expenses";
+                    return context.getString(R.string.tab_title_expense);
                 }
             }
 

@@ -4,7 +4,10 @@
     <color name="grey_disabled">#ECF0F1</color>
     <color name="grey">#BDC3C7</color>
     <color name="grey_active">#7F8C8D</color>
-    <color name="green">#04A445</color>
+
+    <color name="green">#4CAF50</color>
+    <color name="green_dark">#388E3C</color>
+
     <color name="blue_active">#055273</color>
     <color name="blue_dark">#033F59</color>
     <color name="red">#E43006</color>
