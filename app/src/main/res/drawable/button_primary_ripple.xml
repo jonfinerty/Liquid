@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:state_enabled="true">
+        <ripple
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:color="@color/green_highlight">
+            <item android:drawable="@color/green"/>
+            <corners android:radius="2dp"/>
+        </ripple>
+    </item>
+
+    <item
+        android:state_enabled="false">
+        <ripple
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:color="@color/green_highlight">
+            <item android:drawable="@color/grey_dark"/>
+            <corners android:radius="2dp"/>
+        </ripple>
+    </item>
+
+</selector>

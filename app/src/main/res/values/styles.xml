@@ -26,7 +26,6 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
-
     <style name="Button."
         parent="android:Widget.Holo.Light.Button">
         <item name="android:background">@drawable/button</item>
@@ -38,4 +37,5 @@
         <item name="android:background">@drawable/button_primary</item>
         <item name="android:textColor">@color/button_text_color</item>
     </style>
+
 </resources>

@@ -34,10 +34,10 @@ public class EnterMoneyFragment extends Fragment {
 
         updateTotalDisplay(moneyFragmentView);
 
-        if (fragmentTitle != null) {
+        /*if (fragmentTitle != null) {
             TextView title = (TextView) moneyFragmentView.findViewById(R.id.textView_enter_money_title);
             title.setText(fragmentTitle);
-        }
+        }*/
 
         attachButtonClickListeners(moneyFragmentView);
 

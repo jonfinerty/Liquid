@@ -1,153 +1,215 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/grey_dark"
+    >
 
-    <TextView
-        android:id="@+id/textView_enter_money_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="32dp"
-        android:text="@string/fragment_enter_money_title"
-        android:textSize="@dimen/medium" />
+    <!--<TextView-->
+        <!--android:id="@+id/textView_enter_money_title"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:layout_marginTop="32dp"-->
+        <!--android:text="@string/fragment_enter_money_title"-->
+        <!--android:textColor="@color/blue_dark"-->
+        <!--android:textSize="@dimen/medium"-->
+        <!--android:elevation="4dp" />-->
 
     <TextView
         android:id="@+id/textView_expense_total"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="140dp"
         android:gravity="center"
         android:text="@string/fragment_enter_money_total"
+        android:textColor="@color/grey_dark"
         android:textSize="@dimen/huge"
-        android:layout_marginTop="18dp"/>
+        android:fontFamily="sans-serif-thin"
+        android:background="@color/white"
+        android:elevation="4dp"/>
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:layout_weight="1"
         android:layout_gravity="center"
         android:columnCount="3"
         android:orientation="horizontal"
-        android:layout_marginLeft="75dp"
-        android:layout_marginRight="75dp"
         android:stretchColumns="0,1,2">
 
         <!-- todo: apparently these should be borderless buttons, dunno if I agree -->
-        <TableRow>
+        <TableRow
+            android:layout_weight="1" >
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button_input_9"
                 android:tag="9"
-                android:layout_height="64dp"
-                android:layout_margin="2dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="@string/fragment_enter_money_9"
-                android:textSize="@dimen/medium" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/large"
+                android:fontFamily="sans-serif-light" />
 
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button_input_8"
                 android:tag="8"
-                android:layout_height="64dp"
-                android:layout_margin="2dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="@string/fragment_enter_money_8"
-                android:textSize="@dimen/medium" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/large"
+                android:fontFamily="sans-serif-light"  />
 
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button_input_7"
                 android:tag="7"
-                android:layout_height="64dp"
-                android:layout_margin="2dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="@string/fragment_enter_money_7"
-                android:textSize="@dimen/medium" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/large"
+                android:fontFamily="sans-serif-light"  />
         </TableRow>
 
-        <TableRow>
+        <TableRow
+            android:layout_weight="1" >
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button_input_6"
                 android:tag="6"
-                android:layout_height="64dp"
-                android:layout_margin="2dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="@string/fragment_enter_money_6"
-                android:textSize="@dimen/medium" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/large"
+                android:fontFamily="sans-serif-light"  />
 
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button_input_5"
                 android:tag="5"
-                android:layout_height="64dp"
-                android:layout_margin="2dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="@string/fragment_enter_money_5"
-                android:textSize="@dimen/medium" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/large"
+                android:fontFamily="sans-serif-light"  />
 
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button_input_4"
                 android:tag="4"
-                android:layout_height="64dp"
-                android:layout_margin="2dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="@string/fragment_enter_money_4"
-                android:textSize="@dimen/medium" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/large"
+                android:fontFamily="sans-serif-light"  />
         </TableRow>
 
-        <TableRow>
+        <TableRow
+            android:layout_weight="1" >
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button_input_3"
                 android:tag="3"
-                android:layout_height="64dp"
-                android:layout_margin="2dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="@string/fragment_enter_money_3"
-                android:textSize="@dimen/medium" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/large"
+                android:fontFamily="sans-serif-light"  />
 
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button_input_2"
                 android:tag="2"
-                android:layout_height="64dp"
-                android:layout_margin="2dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="@string/fragment_enter_money_2"
-                android:textSize="@dimen/medium" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/large"
+                android:fontFamily="sans-serif-light"  />
 
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button_input_1"
                 android:tag="1"
-                android:layout_height="64dp"
-                android:layout_margin="2dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="@string/fragment_enter_money_1"
-                android:textSize="@dimen/medium" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/large"
+                android:fontFamily="sans-serif-light"  />
         </TableRow>
 
-        <TableRow>
+        <TableRow
+            android:layout_weight="1" >
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button_input_0"
                 android:tag="0"
-                android:layout_height="64dp"
-                android:layout_margin="2dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="@string/fragment_enter_money_0"
-                android:textSize="@dimen/medium" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/large"
+                android:fontFamily="sans-serif-light"  />
 
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button_input_00"
                 android:tag="00"
-                android:layout_height="64dp"
-                android:layout_margin="2dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="@string/fragment_enter_money_00"
-                android:textSize="@dimen/medium" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/large"
+                android:fontFamily="sans-serif-light"  />
 
             <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/button_delete"
-                android:layout_height="64dp"
-                android:layout_margin="2dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="@string/fragment_enter_money_delete"
-                android:textSize="@dimen/medium" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/medium"
+                android:fontFamily="sans-serif-light" />
         </TableRow>
 
     </TableLayout>
 
     <Button
         android:id="@+id/button_enter_currency"
-        style="@style/Button.Primary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="@string/fragment_enter_money_enter"
-        android:textSize="@dimen/large"
-        android:enabled="false" />
+
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:text="Save Expense"
+        android:textColor="@color/button_text_color"
+        android:background="@drawable/button_primary_ripple"
+        android:elevation="8dp" />
 
 </LinearLayout>
