@@ -1,5 +1,6 @@
 package com.jonathanfinerty.liquid.presentation.activities;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -36,7 +37,8 @@ public class OverviewActivity extends Activity {
             }
         });
 
-        this.getActionBar().setElevation(0);
+        ActionBar actionBar = this.getActionBar();
+        actionBar.setElevation(0);
     }
 
     @Override
@@ -67,7 +69,7 @@ public class OverviewActivity extends Activity {
 
     public static class LiquidPagerAdapter extends FragmentPagerAdapter  {
 
-        private Context context;
+        private final Context context;
 
         public LiquidPagerAdapter(FragmentManager fragmentManager, Context context) {
             super(fragmentManager);
