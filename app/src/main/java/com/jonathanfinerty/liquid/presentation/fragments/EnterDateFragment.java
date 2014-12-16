@@ -2,14 +2,19 @@ package com.jonathanfinerty.liquid.presentation.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.NumberPicker;
 
 import com.jonathanfinerty.liquid.R;
+
+import java.lang.reflect.Field;
 
 public class EnterDateFragment extends Fragment {
 
