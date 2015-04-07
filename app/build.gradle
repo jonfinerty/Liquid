@@ -3,7 +3,7 @@ apply plugin: 'robolectric'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.0.0"
+    buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "com.jonathanfinerty.liquid"
@@ -23,11 +23,11 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'com.android.support:support-v13:21.0.+'
-    compile 'com.android.support:support-v4:21.0.+'
+    compile 'com.android.support:support-v13:21.0.3'
+    compile 'com.android.support:support-v4:21.0.3'
 
     // For @Nullable/@NonNull
-    compile 'com.android.support:support-annotations:+'
+    compile 'com.android.support:support-annotations:21.0.3'
 
     // For Material/Play Store style tab strip
     compile 'com.jpardogo.materialtabstrip:library:1.0.6'
