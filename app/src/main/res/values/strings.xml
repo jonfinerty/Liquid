@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Liquid</string>
-    <string name="set_budget">Set Budget</string>
+    <string name="set_budget">Edit Budget</string>
     <string name="add_expense">Add Expense</string>
     <string name="fragment_enter_date_title">Select monthly budget
         start date</string>

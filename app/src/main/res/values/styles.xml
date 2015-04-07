@@ -13,6 +13,15 @@
 
         <item name="android:popupTheme">@style/PopupMenu</item>
 
+        <item name="android:alertDialogTheme">@style/dialog_light</item>
+
+        <item name="android:colorAccent">@color/green</item>
+
+    </style>
+
+    <style name="dialog_light" parent="@android:style/Theme.Material.Dialog">
+        <item name="@android:background">@color/white</item>
+        <item name="@android:textColor">@color/grey_dark</item>
     </style>
 
     <style name="PopupMenu" parent="@android:style/Widget.PopupMenu">

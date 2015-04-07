@@ -2,6 +2,7 @@ package com.jonathanfinerty.liquid.presentation.activities;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jonathanfinerty.liquid.R;
+import com.jonathanfinerty.liquid.presentation.dialogs.EditBudgetDialog;
 import com.jonathanfinerty.liquid.presentation.fragments.BudgetFragment;
 import com.jonathanfinerty.liquid.presentation.fragments.ListExpenseFragment;
 
@@ -54,8 +56,11 @@ public class OverviewActivity extends Activity {
 
         switch (id) {
             case R.id.action_set_budget:
-                Intent setBudgetActivity = new Intent(this, SetBudgetActivity.class);
-                startActivity(setBudgetActivity);
+                /*Intent setBudgetActivity = new Intent(this, SetBudgetActivity.class);
+                startActivity(setBudgetActivity);*/
+
+                DialogFragment newFragment = new EditBudgetDialog();
+                newFragment.show(getFragmentManager(), "missiles");
                 return true;
             case R.id.action_add_expense:
                 Intent addExpenseIntent = new Intent(this, AddExpenseActivity.class);

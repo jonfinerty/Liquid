@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class BudgetTankViewModelLoader extends AsyncTaskLoader<BudgetTankViewModel>
                                        implements CallbackContentObserver.ChangeObserver {
 
-    private static final String TAG = "BudgetTankViewModel Loader";
+    private static final String TAG = "BudgetTankViewModelLoader";
     private CallbackContentObserver callbackContentObserver;
 
     private BudgetTankViewModel cachedBudgetTankViewModel;

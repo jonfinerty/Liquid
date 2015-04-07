@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:minWidth="280dp"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Budget"
+        android:textColor="@color/grey_dark"
+         />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp" >
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:textColor="@color/grey_dark"
+            android:text="£"
+            android:textSize="@dimen/medium"
+            android:hapticFeedbackEnabled="false"
+            android:enabled="false"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="0dp"
+            android:layout_marginLeft="0dp"
+            android:hint="500"
+            android:textColor="@color/grey_dark"
+            android:textColorHint="@color/grey"
+            android:textSize="@dimen/medium"
+            android:inputType="number" />
+    </LinearLayout>
+
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Starting Date"
+        android:textColor="@color/grey_dark"
+        />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="0dp"
+        android:hint="12th"
+        android:textColor="@color/grey_dark"
+        android:textColorHint="@color/grey"
+        android:inputType="date"/>
+
+
+</LinearLayout>
