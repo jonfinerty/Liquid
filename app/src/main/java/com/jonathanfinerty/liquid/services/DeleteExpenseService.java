@@ -2,9 +2,10 @@ package com.jonathanfinerty.liquid.services;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 
 import com.jonathanfinerty.liquid.persistence.ExpenseContract;
+
+import timber.log.Timber;
 
 public class DeleteExpenseService extends BaseService {
 
@@ -23,12 +24,12 @@ public class DeleteExpenseService extends BaseService {
         expenseId = intent.getLongExtra(EXPENSE_ID_EXTRA, defaultExpenseId);
 
         if (expenseId == defaultExpenseId) {
-            Log.e("DeleteExpenseOperation", "Expense Id long extra not set" + expenseId + " not set or valid");
+            Timber.e("Expense Id long extra not set" + expenseId + " not set or valid");
             return false;
         }
 
         if (expenseId <= 0) {
-            Log.e("DeleteExpenseOperation", "Expense Id long extra: " + expenseId + " not valid");
+            Timber.e("Expense Id long extra: " + expenseId + " not valid");
             return false;
         }
 

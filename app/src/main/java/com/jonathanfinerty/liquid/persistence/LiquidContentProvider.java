@@ -8,11 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Log;
+
+import timber.log.Timber;
 
 public class LiquidContentProvider extends ContentProvider {
 
-    private static final String TAG = "Liquid Content Provider";
     private LiquidDatabaseHelper expensesDatabaseHelper;
 
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -102,7 +102,7 @@ public class LiquidContentProvider extends ContentProvider {
         switch (uriMatcher.match(uri)) {
             case EXPENSE:
                 
-                Log.e(TAG, "Number of values: " + values.size());
+                Timber.d("Number of values: " + values.size());
                 
                 rowsUpdated = db.update(
                     ExpenseContract.TABLE_NAME,

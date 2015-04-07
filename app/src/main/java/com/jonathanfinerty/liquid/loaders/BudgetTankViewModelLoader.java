@@ -3,7 +3,6 @@ package com.jonathanfinerty.liquid.loaders;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 
 import com.jonathanfinerty.liquid.domain.Budget;
 import com.jonathanfinerty.liquid.domain.Expense;
@@ -15,10 +14,11 @@ import com.jonathanfinerty.liquid.presentation.viewmodel.BudgetTankViewModel;
 
 import java.util.ArrayList;
 
+import timber.log.Timber;
+
 public class BudgetTankViewModelLoader extends AsyncTaskLoader<BudgetTankViewModel>
                                        implements CallbackContentObserver.ChangeObserver {
 
-    private static final String TAG = "BudgetTankViewModelLoader";
     private CallbackContentObserver callbackContentObserver;
 
     private BudgetTankViewModel cachedBudgetTankViewModel;
@@ -29,14 +29,14 @@ public class BudgetTankViewModelLoader extends AsyncTaskLoader<BudgetTankViewMod
 
     @Override
     protected void onStartLoading() {
-        Log.d(TAG, "Starting loading");
+        Timber.d("Starting loading");
 
         if (callbackContentObserver == null) {
             callbackContentObserver = new CallbackContentObserver(new Handler(), this);
             getContext().getContentResolver().registerContentObserver(BudgetContract.URI, true, callbackContentObserver);
-            Log.d(TAG, "Registered as content observer for uri: " + BudgetContract.URI);
+            Timber.d("Registered as content observer for uri: " + BudgetContract.URI);
             getContext().getContentResolver().registerContentObserver(ExpenseContract.GROUP_URI, true, callbackContentObserver);
-            Log.d(TAG, "Registered as content observer for uri: " + ExpenseContract.GROUP_URI);
+            Timber.d("Registered as content observer for uri: " + ExpenseContract.GROUP_URI);
         }
 
         if (cachedBudgetTankViewModel != null) {

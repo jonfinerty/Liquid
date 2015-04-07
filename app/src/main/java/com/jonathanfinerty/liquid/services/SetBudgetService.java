@@ -3,9 +3,10 @@ package com.jonathanfinerty.liquid.services;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 
 import com.jonathanfinerty.liquid.persistence.BudgetContract;
+
+import timber.log.Timber;
 
 public class SetBudgetService extends BaseService {
     public static final String BUDGET_AMOUNT_EXTRA = "budget amount";
@@ -28,7 +29,7 @@ public class SetBudgetService extends BaseService {
         budgetDate = intent.getIntExtra(DATE_EXTRA, defaultDateExtra);
 
         if (budgetDate <= 0 && budgetAmount <= 0) {
-            Log.e("SetBudgetOperation", "Both budget date and amount were not set");
+            Timber.e("Both budget date and amount were not set");
             return false;
         }
 

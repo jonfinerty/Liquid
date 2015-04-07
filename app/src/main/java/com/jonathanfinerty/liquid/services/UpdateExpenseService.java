@@ -3,13 +3,12 @@ package com.jonathanfinerty.liquid.services;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 
 import com.jonathanfinerty.liquid.persistence.ExpenseContract;
 
-public class UpdateExpenseService extends BaseService {
+import timber.log.Timber;
 
-    private static final String TAG = "Update Expense Service";
+public class UpdateExpenseService extends BaseService {
 
     public static final String EXPENSE_ID_EXTRA = "expense id";
     public static final String NEW_AMOUNT_EXTRA = "new amount";
@@ -20,7 +19,7 @@ public class UpdateExpenseService extends BaseService {
     private long newDate;
 
     public UpdateExpenseService() {
-        super(TAG);
+        super("UpdateExpenseService");
     }
 
     @Override
@@ -36,12 +35,12 @@ public class UpdateExpenseService extends BaseService {
         newDate = intent.getLongExtra(NEW_DATE_EXTRA, defaultNewDate);
 
         if (expenseId <= 0) {
-            Log.e(TAG, "Expense id was not set");
+            Timber.e("Expense id was not set");
             return false;
         }
 
         if (newAmount <= 0 && newDate <= 0) {
-            Log.e(TAG, "new date and new amount were not set");
+            Timber.e("new date and new amount were not set");
             return false;
         }
 

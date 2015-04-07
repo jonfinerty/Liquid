@@ -4,16 +4,16 @@ import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
-import android.util.Log;
 
 import com.jonathanfinerty.liquid.persistence.ExpenseContract;
 import com.jonathanfinerty.liquid.persistence.ExpenseRepository;
 import com.jonathanfinerty.liquid.presentation.viewmodel.ExpenseViewModel;
 
+import timber.log.Timber;
+
 public class ExpenseViewModelLoader extends AsyncTaskLoader<ExpenseViewModel>
                                     implements CallbackContentObserver.ChangeObserver {
 
-    private static final String TAG = "ExpenseViewModel Loader";
     private CallbackContentObserver callbackContentObserver;
 
     private ExpenseViewModel cachedExpenseViewModel;
@@ -27,7 +27,7 @@ public class ExpenseViewModelLoader extends AsyncTaskLoader<ExpenseViewModel>
     @Override
     protected void onStartLoading() {
 
-        Log.d(TAG, "Starting loading");
+        Timber.d("Starting loading");
 
         //todo: find out proper lifecycle of the loader and work out when this should be create and registered
         if (callbackContentObserver == null) {
@@ -42,7 +42,7 @@ public class ExpenseViewModelLoader extends AsyncTaskLoader<ExpenseViewModel>
                     callbackContentObserver
             );
 
-            Log.d(TAG, "Registered as content observer for uri: " + expenseUri);
+            Timber.d("Registered as content observer for uri: " + expenseUri);
         }
 
         if (cachedExpenseViewModel != null) {

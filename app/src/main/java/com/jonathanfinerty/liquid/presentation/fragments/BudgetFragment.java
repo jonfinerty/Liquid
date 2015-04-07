@@ -9,7 +9,6 @@ import android.app.LoaderManager;
 import android.content.Loader;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +26,11 @@ import com.jonathanfinerty.liquid.presentation.HeightAnimation;
 import com.jonathanfinerty.liquid.presentation.viewmodel.BudgetTankViewModel;
 import com.jonathanfinerty.liquid.presentation.views.TankView;
 
+import timber.log.Timber;
+
 public class BudgetFragment extends Fragment
                             implements LoaderManager.LoaderCallbacks<BudgetTankViewModel>{
 
-    private static final String TAG = "Budget Fragment";
     private final int ANIMATION_DURATION = 2000;
 
     private float datePercent = 0f;
@@ -58,7 +58,7 @@ public class BudgetFragment extends Fragment
         View rootView = getView();
 
         if (rootView == null){
-            Log.e(TAG, "Error getting view");
+            Timber.e("Error getting view");
             return;
         }
 
@@ -138,7 +138,7 @@ public class BudgetFragment extends Fragment
         View view = getView();
 
         if (view == null) {
-            Log.e(TAG, "Error getting view");
+            Timber.e("Error getting view");
             return;
         }
 
@@ -197,7 +197,7 @@ public class BudgetFragment extends Fragment
         View view = getView();
 
         if (view == null) {
-            Log.e(TAG, "Error getting view");
+            Timber.e("Error getting view");
             return;
         }
 
@@ -242,18 +242,18 @@ public class BudgetFragment extends Fragment
 
     @Override
     public Loader<BudgetTankViewModel> onCreateLoader(int id, Bundle args) {
-        Log.d(TAG, "BudgetTankViewModel Loader Created");
+        Timber.d("BudgetTankViewModel Loader Created");
         return new BudgetTankViewModelLoader(getActivity());
     }
 
     @Override
     public void onLoadFinished(Loader<BudgetTankViewModel> loader, BudgetTankViewModel data) {
-        Log.d(TAG, "BudgetTankViewModel Loader Finished");
+        Timber.d("BudgetTankViewModel Loader Finished");
         updateTank(data);
     }
 
     @Override
     public void onLoaderReset(Loader<BudgetTankViewModel> loader) {
-        Log.d(TAG, "BudgetTankViewModel Loader Reset");
+        Timber.d("BudgetTankViewModel Loader Reset");
     }
 }

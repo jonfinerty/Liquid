@@ -3,7 +3,6 @@ package com.jonathanfinerty.liquid.loaders;
 import android.content.AsyncTaskLoader;
 import android.content.Context;
 import android.os.Handler;
-import android.util.Log;
 
 import com.jonathanfinerty.liquid.domain.Expense;
 import com.jonathanfinerty.liquid.persistence.ExpenseContract;
@@ -13,10 +12,11 @@ import com.jonathanfinerty.liquid.presentation.viewmodel.ExpenseViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class ExpensesViewModelLoader extends AsyncTaskLoader<ArrayList<ExpenseViewModel>>
                                      implements CallbackContentObserver.ChangeObserver {
 
-    private static final String TAG = "ExpensesViewModel Loader";
     private CallbackContentObserver callbackContentObserver;
 
     private ArrayList<ExpenseViewModel> cachedExpenseViewModels;
@@ -28,13 +28,13 @@ public class ExpensesViewModelLoader extends AsyncTaskLoader<ArrayList<ExpenseVi
     @Override
     protected void onStartLoading() {
 
-        Log.d(TAG, "Starting loading");
+        Timber.d("Starting loading");
 
         //todo: find out proper lifecycle of the loader and work out when this should be create and registered
         if (callbackContentObserver == null) {
             callbackContentObserver = new CallbackContentObserver(new Handler(), this);
             getContext().getContentResolver().registerContentObserver(ExpenseContract.GROUP_URI, true, callbackContentObserver);
-            Log.d(TAG, "Registered as content observer for uri: " + ExpenseContract.GROUP_URI);
+            Timber.d("Registered as content observer for uri: " + ExpenseContract.GROUP_URI);
         }
 
         if (cachedExpenseViewModels != null) {

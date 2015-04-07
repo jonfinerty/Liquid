@@ -5,7 +5,6 @@ import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +21,11 @@ import com.jonathanfinerty.liquid.services.DeleteExpenseService;
 
 import java.util.ArrayList;
 
+import timber.log.Timber;
+
 public class ListExpenseFragment extends Fragment
                                  implements LoaderManager.LoaderCallbacks<ArrayList<ExpenseViewModel>> {
 
-    private static final String TAG = "List Expense Fragment";
     private ExpenseViewModelAdapter expenseViewModelAdapter;
 
     @Override
@@ -91,13 +91,13 @@ public class ListExpenseFragment extends Fragment
 
     @Override
     public Loader<ArrayList<ExpenseViewModel>> onCreateLoader(int id, Bundle args) {
-        Log.d(TAG, "ExpenseViewModel Loader Created");
+        Timber.d("ExpenseViewModel Loader Created");
         return new ExpensesViewModelLoader(getActivity());
     }
 
     @Override
     public void onLoadFinished(Loader<ArrayList<ExpenseViewModel>> loader, ArrayList<ExpenseViewModel> data) {
-        Log.d(TAG, "ExpenseViewModel Loader Finished");
+        Timber.d("ExpenseViewModel Loader Finished");
         expenseViewModelAdapter.clear();
         expenseViewModelAdapter.addAll(data);
         expenseViewModelAdapter.notifyDataSetChanged();
@@ -105,6 +105,6 @@ public class ListExpenseFragment extends Fragment
 
     @Override
     public void onLoaderReset(Loader<ArrayList<ExpenseViewModel>> loader) {
-        Log.d(TAG, "ExpenseViewModel Loader Reset");
+        Timber.d("ExpenseViewModel Loader Reset");
     }
 }

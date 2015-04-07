@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.Loader;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +15,10 @@ import com.jonathanfinerty.liquid.R;
 import com.jonathanfinerty.liquid.loaders.ExpenseViewModelLoader;
 import com.jonathanfinerty.liquid.presentation.viewmodel.ExpenseViewModel;
 
+import timber.log.Timber;
+
 public class ExpenseDetailsFragment extends Fragment
                                     implements LoaderManager.LoaderCallbacks<ExpenseViewModel> {
-
-    private static final String TAG = "Expense Details Fragment";
 
     public static final String EXPENSE_ID_ARGUMENT = "expense id";
 
@@ -40,14 +39,14 @@ public class ExpenseDetailsFragment extends Fragment
         expenseId = getArguments().getLong(EXPENSE_ID_ARGUMENT);
 
         if (expenseId == 0L) {
-            Log.e(TAG, "No expense id passed in argument.");
+            Timber.e("No expense id passed in argument.");
         }
 
         Button editAmountButton = (Button) expenseDetailsFragmentView.findViewById(R.id.expense_details_button_edit_expense_amount);
         editAmountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "edit amount clicked");
+                Timber.d("edit amount clicked");
                 expenseDetailsClickListener.onEditAmountClicked();
             }
         });
@@ -56,7 +55,7 @@ public class ExpenseDetailsFragment extends Fragment
         editDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "edit date clicked");
+                Timber.d("edit date clicked");
                 expenseDetailsClickListener.onEditDateClicked();
             }
         });
@@ -65,7 +64,7 @@ public class ExpenseDetailsFragment extends Fragment
         deleteExpenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "delete expense clicked");
+                Timber.d("delete expense clicked");
                 expenseDetailsClickListener.onDeleteExpenseClicked();
             }
         });
@@ -95,7 +94,7 @@ public class ExpenseDetailsFragment extends Fragment
 
         View rootView = getView();
         if (rootView == null) {
-            Log.e(TAG, "Couldn't get view");
+            Timber.e("Couldn't get view");
             return;
         }
 

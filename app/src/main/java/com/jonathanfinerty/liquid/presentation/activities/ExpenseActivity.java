@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.DatePicker;
 
 import com.jonathanfinerty.liquid.R;
@@ -18,12 +17,13 @@ import com.jonathanfinerty.liquid.services.UpdateExpenseService;
 
 import java.util.Calendar;
 
+import timber.log.Timber;
+
 public class ExpenseActivity extends Activity
                              implements ExpenseDetailsFragment.ExpenseDetailsClickListener,
                                         EnterMoneyFragment.CurrencyEnteredListener,
                                         DatePickerDialog.OnDateSetListener {
 
-    private static final String TAG = "Expense Details Activity";
     public static final String EXPENSE_ID_EXTRA = "expense id";
 
     private ExpenseViewModel expenseViewModel;
@@ -38,7 +38,7 @@ public class ExpenseActivity extends Activity
         long expenseId = intent.getLongExtra(EXPENSE_ID_EXTRA, defaultExtraValue);
 
         if (expenseId == defaultExtraValue) {
-            Log.d(TAG, "No expense id passed in intent, finishing.");
+            Timber.d("No expense id passed in intent, finishing.");
             finish();
         }
 
@@ -46,7 +46,7 @@ public class ExpenseActivity extends Activity
         expenseViewModel = expenseRepository.get(expenseId);
 
         if (expenseViewModel == null) {
-            Log.d(TAG, "No expense found with id " + expenseId + ", finishing.");
+            Timber.d("No expense found with id " + expenseId + ", finishing.");
             finish();
         }
 
