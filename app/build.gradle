@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'robolectric'
+apply plugin: 'org.robolectric'
 
 android {
     compileSdkVersion 21
@@ -30,6 +30,9 @@ dependencies {
     compile 'com.android.support:support-v13:21.0.3'
     compile 'com.android.support:support-v4:21.0.3'
 
+    // for view injection
+    compile 'com.jakewharton:butterknife:6.1.0'
+
     // for Timber Log replacement
     compile 'com.jakewharton.timber:timber:2.7.1'
 
@@ -39,9 +42,6 @@ dependencies {
     // For Material/Play Store style tab strip
     compile 'com.jpardogo.materialtabstrip:library:1.0.6'
 
-    androidTestCompile 'junit:junit:4.12'
-    androidTestCompile('org.robolectric:robolectric:2.4') {
-        exclude group: 'commons-logging', module: 'commons-logging'
-        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-    }
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.robolectric:robolectric:2.4'
 }
